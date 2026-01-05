@@ -4,16 +4,33 @@
 }
 
 :root {
-  /* 色（例） */
-  --c-fg: #111;
+  /* ===== Cielos カラーパレット =====
+   * コンセプト: 太陽・大空・羽・風 → 明るく開放的な技術ブログ
+   */
+
+  /* テキスト */
+  --c-fg: #334155;           /* slate-700: 読みやすいダークグレー */
   --c-fg-inv: #fff;
-  --c-muted: #666;
-  --c-primary: var(--color-sky-500);   /* wind4 の color 変数を使うならこちら */
-  --c-border: #d0d0d0;
-  --c-panel: #fefefe;
-  --c-accent: #b92a2c;
-  --c-accent-bisque: bisque;
-  --c-accent-lightcyan: lightcyan;
+  --c-muted: #64748b;        /* slate-500: 補助テキスト */
+
+  /* Primary: 大空・風（スカイブルー） */
+  --c-primary: #0ea5e9;      /* sky-500 */
+  --c-primary-light: #38bdf8; /* sky-400 */
+  --c-primary-dark: #0284c7;  /* sky-600 */
+
+  /* Accent: 太陽・暖かみ（アンバー） */
+  --c-accent: #f59e0b;       /* amber-500 */
+  --c-accent-light: #fbbf24; /* amber-400 */
+  --c-accent-dark: #d97706;  /* amber-600 */
+
+  /* 背景・ボーダー */
+  --c-border: #e2e8f0;       /* slate-200 */
+  --c-panel: #ffffff;
+  --c-bg: #f8fafc;           /* slate-50: ページ背景 */
+
+  /* 互換用（旧トークン） */
+  --c-accent-bisque: #fef3c7;      /* amber-100 相当 */
+  --c-accent-lightcyan: #e0f2fe;   /* sky-100 相当 */
 
   /* サーフェス（ダークで上書き） */
   --surface-50:  #f7f7f7;
@@ -68,8 +85,8 @@
   --hd-fg: rgb(47 79 79 / 0.9);
   --hd-fg-invert: #fff;
 
-  /* バリエーション色（必要なら複数系統） */
-  --hd-accent: #b92a2c;
+  /* バリエーション色（Cielos アクセント系統） */
+  --hd-accent: var(--c-accent);  /* amber-500 */
   --hd-accent-from: color-mix(in srgb, var(--c-accent) 5%, white);
   --hd-accent-to: var(--c-accent);
 
@@ -151,10 +168,11 @@
   --hd04-3-notch-outer: var(--hd04-3-border);
   --hd04-3-notch-inner: var(--hd04-3-bg);
 
+  /* Cielos: 見出し05 はスカイブルー */
   --hd05-fs: 2rem;
-  --hd05-fg: rgba(47,79,79,0.9);
+  --hd05-fg: #334155;           /* slate-700 */
   --hd05-border: rgba(0,0,0,0.05);
-  --hd05-bg-color: #48b1f2;
+  --hd05-bg-color: var(--c-primary);  /* sky-500 */
   --hd05-gradient: linear-gradient(
       -45deg,
       transparent 40%,
@@ -163,7 +181,7 @@
       transparent 60%
     ),
     linear-gradient(to top, rgba(255,255,255,0.28), rgba(255,255,255,0.10)),
-    linear-gradient(to top, color-mix(in srgb, #48b1f2 12%, white), #48b1f2);
+    linear-gradient(to top, color-mix(in srgb, var(--c-primary) 12%, white), var(--c-primary));
 
   --hd06-fs: 1rem;
   --hd06-fg: #009;
@@ -264,25 +282,45 @@
 
   --hd11-fs: 1rem;          --hd11-blc:#777;     --hd11-bc:#555;
   --hd12-fs: 1.25rem;       --hd12-fg:#111;      --hd12-b1:#999;  --hd12-b2:#777;
+  /* Cielos: hd13シリーズはアクセント色（amber）を使用 */
   --hd13-bc:#e6e6fa;        --hd13-bw: 2px;      --hd13-fg:inherit; --hd13-bs:solid;
-  --hd13-2-fs:1rem;         --hd13-2-btc:#b92a2c; --hd13-2-bbc:#b92a2c;
-  --hd13-3-fs:1rem;         --hd13-3-fg:#111;    --hd13-3-bc:#b92a2c;
-  --hd13-4-fs:1rem;         --hd13-4-bc:#b92a2c; --hd13-4-bg:#b92a2c;
-  --hd13-5-fs:4rem;         --hd13-5-bc:#b92a2c; --hd13-5-bg:#b92a2c;
-  --hd13-6-fs:4rem;         --hd13-6-fg:#fff;    --hd13-6-bg:#b92a2c; --hd13-6-bc:#b92a2c;
-  --hd13-7-fs:4rem;         --hd13-7-fg:#111;    --hd13-7-bc:#b92a2c;
-  --hd13-8-fs:4rem;         --hd13-8-fg:#fff;    --hd13-8-bg:#b92a2c;
-  --hd13-9-fs:4rem;         --hd13-9-fg:#111;    --hd13-9-bc:#b92a2c; --hd13-9-tsc:#999; --hd13-9-sc:#aaa;
+  --hd13-2-fs:1rem;         --hd13-2-btc:var(--c-accent); --hd13-2-bbc:var(--c-accent);
+  --hd13-3-fs:1rem;         --hd13-3-fg:#111;    --hd13-3-bc:var(--c-accent);
+  --hd13-4-fs:1rem;         --hd13-4-bc:var(--c-accent); --hd13-4-bg:var(--c-accent);
+  --hd13-5-fs:4rem;         --hd13-5-bc:var(--c-accent); --hd13-5-bg:var(--c-accent);
+  --hd13-6-fs:4rem;         --hd13-6-fg:#fff;    --hd13-6-bg:var(--c-accent); --hd13-6-bc:var(--c-accent);
+  --hd13-7-fs:4rem;         --hd13-7-fg:#111;    --hd13-7-bc:var(--c-accent);
+  --hd13-8-fs:4rem;         --hd13-8-fg:#fff;    --hd13-8-bg:var(--c-accent);
+  --hd13-9-fs:4rem;         --hd13-9-fg:#111;    --hd13-9-bc:var(--c-accent); --hd13-9-tsc:#999; --hd13-9-sc:#aaa;
 
 }
 
 .dark {
-  --c-fg: #eee;
-  --c-panel: var(--surface-800);
-  --c-border: #444;
-  --c-accent-bisque: #e6c0a0;   /* bisque より暗め */
-  --c-accent-lightcyan: #88b8b8; /* lightcyan より落ち着いた色 */
-  --hd-accentA: #3b82f6;
+  /* ===== Cielos ダークモード =====
+   * コンセプト: 夜空・星・月明かり → 落ち着いた深いブルー
+   */
+  --c-fg: #f1f5f9;              /* slate-100: 読みやすい明るいテキスト */
+  --c-muted: #94a3b8;           /* slate-400: 補助テキスト */
+  --c-panel: #0f172a;           /* slate-900: 深いダーク背景 */
+  --c-bg: #020617;              /* slate-950: ページ背景 */
+  --c-border: #334155;          /* slate-700: ボーダー */
+
+  /* Primary: 夜空の青（ライトより少し明るく） */
+  --c-primary: #38bdf8;         /* sky-400 */
+  --c-primary-light: #7dd3fc;   /* sky-300 */
+  --c-primary-dark: #0ea5e9;    /* sky-500 */
+
+  /* Accent: 暖かみのあるアンバー（ダークでも映える） */
+  --c-accent: #fbbf24;          /* amber-400 */
+  --c-accent-light: #fcd34d;    /* amber-300 */
+  --c-accent-dark: #f59e0b;     /* amber-500 */
+
+  /* 互換用（旧トークン） */
+  --c-accent-bisque: #92400e;   /* amber-800 相当 */
+  --c-accent-lightcyan: #0c4a6e; /* sky-900 相当 */
+
+  /* 見出しアクセント */
+  --hd-accentA: #38bdf8;        /* sky-400 */
   --hd-accentA-from: color-mix(in srgb, var(--hd-accentA) 5%, black);
   --hd-accentA-to: var(--hd-accentA);
 
@@ -890,12 +928,14 @@
   --nav-link-current-fg: var(--c-fg-inv,#fff);
 
 }
-/* === footer tokens (always-dark) === */
+/* ===== Cielos フッター（常時ダーク配色） =====
+ * コンセプト: 夜空・深い青
+ */
 :root{
-  --footer-bg: #0f172a;           /* 濃紺（slate-900 相当） */
-  --footer-fg: #e5e7eb;           /* 明るい灰 */
+  --footer-bg: #0c4a6e;           /* sky-900: 深い夜空 */
+  --footer-fg: #e0f2fe;           /* sky-100: 明るいテキスト */
   --footer-link-hover: #fff;
-  --footer-border: #1e293b;       /* 上ボーダー任意 */
+  --footer-border: #075985;       /* sky-800 */
   --footer-py: clamp(.9rem, .6rem + 1vw, 1.5rem);
   --footer-fs: 0.9375rem;
   --footer-lh: 1.6;
@@ -905,10 +945,10 @@
 }
 /* ダーク/ライトどちらでも同値（=常時ダーク配色） */
 html.dark :root{
-  --footer-bg: #0f172a;
-  --footer-fg: #e5e7eb;
+  --footer-bg: #082f49;           /* sky-950: さらに深い夜空 */
+  --footer-fg: #e0f2fe;
   --footer-link-hover: #fff;
-  --footer-border: #1e293b;
+  --footer-border: #0c4a6e;
 }
 
 @media (min-width:1024px){
@@ -1216,9 +1256,9 @@ html.dark :root{
   --latest-title-fg: var(--c-fg, #111);
   --machaki-title-fg: var(--c-fg, #111);
 
-  /* アクセント（不足分を補完） */
-  --hd-accentB: #06b6d4;         /* ← 未定義だったので追加（シアン系） */
-  --hd-fg:      #111;
+  /* Cielos: セカンダリアクセント（sky） */
+  --hd-accentB: var(--c-primary);  /* sky-500 */
+  --hd-fg:      #334155;           /* slate-700 */
 }
 
 html.dark :root{
@@ -1289,14 +1329,16 @@ html.dark :root{
   :root{ --logo-h: 48px; }                /* モバイルで少し大きく */
 }
 
-/* tokens.css（ライト/ダーク同一に固定） */
+/* ===== Cielos ヘッダー配色 =====
+ * コンセプト: 大空のスカイブルー（ライト/ダーク共通）
+ */
 :root{
-  --header-bg: #1f2937; /* gray-800 相当 */
+  --header-bg: #0284c7;         /* sky-600: メイン背景 */
   --header-fg: #fff;
 }
 html.dark :root{
-  --header-bg: #1f2937;
-  --header-fg: #fff;
+  --header-bg: #075985;         /* sky-800: ダークでは少し深めに */
+  --header-fg: #f0f9ff;         /* sky-50 */
 }
 
 :root{ --hero-h: 40vh; }
@@ -1304,26 +1346,21 @@ html.dark :root{
   :root{ --hero-h: 56vh; } /* 好みで 50〜60vh などに */
 }
 
-/* ヘッダー配色（ライト/ダーク共通） */
+/* ===== Cielos ヘッダー hover/active =====
+ * スカイブルーに合わせた半透明オーバーレイ
+ */
 :root{
-  --header-bg: #1f2937;   /* 背景 */
-  --header-fg: #fff;      /* 文字 */
-
-  /* 追加：hover/active */
-  --header-hover-bg: rgba(255,255,255,0.14);
+  --header-hover-bg: rgba(255,255,255,0.18);
   --header-hover-fg: #fff;
-  --header-active-bg: rgba(255,255,255,0.22);
+  --header-active-bg: rgba(255,255,255,0.28);
   --header-active-fg: #fff;
 }
 
 html.dark :root{
-  /* ダークも同値に固定（必要なら別値に） */
-  --header-bg: #1f2937;
-  --header-fg: #fff;
-  --header-hover-bg: rgba(255,255,255,0.14);
-  --header-hover-fg: #fff;
-  --header-active-bg: rgba(255,255,255,0.22);
-  --header-active-fg: #fff;
+  --header-hover-bg: rgba(255,255,255,0.12);
+  --header-hover-fg: #f0f9ff;
+  --header-active-bg: rgba(255,255,255,0.20);
+  --header-active-fg: #f0f9ff;
 }
 
 /* === hero (featured image) === */
