@@ -1,0 +1,32 @@
+a {
+  @apply text-#007bff hover:text-#0056b3 dark:(text-#66b3ff hover:text-#99ccff);
+}
+
+/* Header links */
+#header a {
+  @apply text-white hover:text-lightgray;
+}
+
+/* Dark mode header links */
+.dark #header a {
+  color: white !important;
+}
+.dark #header a:hover {
+  color: lightgray !important;
+}
+
+/* Submenu links */
+.sub-menu a {
+  color: black;
+}
+.sub-menu a:hover {
+  color: gray;
+}
+
+/* Dark mode submenu links */
+.dark .sub-menu a {
+  color: white;
+}
+.dark .sub-menu a:hover {
+  color: lightgray;
+}

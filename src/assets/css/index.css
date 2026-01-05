@@ -1,0 +1,17 @@
+@import './global.css';
+@import './submenu.css';
+@import './breadcrumb.css';
+@import './typography.css';
+@import './custom-links.css';
+@import './mobile-nav';
+
+/* legacy: heading02 の短い横バー（疑似要素）を強制的に無効化 */
+.heading02::before,
+.heading02::after{
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+

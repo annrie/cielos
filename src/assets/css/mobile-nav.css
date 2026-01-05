@@ -1,0 +1,81 @@
+/* === Mobile only ===================================== */
+@media (max-width:1023.98px){
+  #header-mobile{display:flex!important}
+  #header-desktop{display:none!important}
+
+  #mobile-menu{display:none!important;width:100%!important;position:static!important}
+  #mobile-menu[data-open]{display:block!important}
+
+  #mobile-menu > ul, #mobile-menu > div > ul{
+    display:block!important;flex-direction:column!important;list-style:none!important;margin:0!important;padding:0!important
+  }
+  #mobile-menu li{display:block!important;position:static!important;float:none!important;clear:none!important}
+  #mobile-menu li>a{display:block!important;padding:.75rem 1rem!important;line-height:1.5!important;white-space:normal!important}
+
+  #mobile-menu li>ul, #mobile-menu ul.sub-menu{display:none!important;margin:0!important;padding:0!important;position:static!important}
+  #mobile-menu li[aria-expanded="true"]>ul, #mobile-menu li[aria-expanded="true"]>.sub-menu{display:block!important}
+
+  #mobile-menu li.menu-item-has-children{position:relative!important}
+  #mobile-menu li.menu-item-has-children>a{padding-right:2.5rem!important}
+  #mobile-menu .submenu-toggle{
+    position:absolute!important;top:50%!important;right:.5rem!important;transform:translateY(-50%)!important;
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;width:32px!important;height:32px!important;
+    border-radius:.375rem!important;background:transparent!important;color:#60a5fa!important;cursor:pointer!important
+  }
+  #mobile-menu .submenu-toggle .chev{transition:transform .2s ease}
+  #mobile-menu li[aria-expanded="true"]>.submenu-toggle .chev{transform:rotate(180deg)!important}
+}
+
+/*@media (max-width:1023.98px){*/
+  /* show mobile header / hide desktop */
+/*  #header-mobile{display:flex !important}
+  #header-desktop{display:none !important}*/
+
+  /* panel: closed by default; use data-open to show */
+/*  #mobile-menu{display:none !important; width:100% !important; position:static !important}
+  #mobile-menu[data-open]{display:block !important}*/
+
+  /* top UL must be vertical */
+/*  #mobile-menu > ul,
+  #mobile-menu > div > ul{
+    display:block !important;
+    flex-direction:column !important;
+    list-style:none !important;
+    margin:0 !important; padding:0 !important;
+  }*/
+
+  /* keep li/anchor sane */
+/*  #mobile-menu li{display:block !important; position:static !important; float:none !important; clear:none !important}
+  #mobile-menu li > a{display:block !important; padding:.75rem 1rem !important; line-height:1.5 !important; white-space:normal !important}*/
+
+  /* sub: closed initially; open when aria-expanded=true */
+/*  #mobile-menu li > ul,
+  #mobile-menu ul.sub-menu{display:none !important; margin:0 !important; padding:0 !important; position:static !important}
+  #mobile-menu li[aria-expanded="true"] > ul{display:block !important}*/
+
+  /* toggle button on the right of parent row */
+/*  #mobile-menu li.menu-item-has-children{position:relative !important}
+  #mobile-menu li.menu-item-has-children > a{padding-right:2.5rem !important}
+  #mobile-menu .submenu-toggle{
+    position:absolute !important; top:50% !important; right:.5rem !important; transform:translateY(-50%) !important;
+    display:inline-flex !important; align-items:center !important; justify-content:center !important;
+    width:32px !important; height:32px !important; border-radius:.375rem !important; background:transparent !important;
+    color:var(--mobile-menu-indicator,#60a5fa) !important; cursor:pointer !important;
+  }
+  #mobile-menu .submenu-toggle .chev{transition:transform .2s ease}
+  #mobile-menu li[aria-expanded="true"] > .submenu-toggle .chev{transform:rotate(180deg) !important}
+}*/
+
+/* Desktop: keep normal hover submenus (必要なら) */
+/*@media (min-width:1024px){
+  #menu li{position:relative}
+  #menu ul ul{display:none; position:absolute; top:100%; left:0}
+  #menu li:hover>ul,#menu li:focus-within>ul{display:block}
+}*/
+
+/* Theme icons (desktop button内のSVGのみ表示) */
+/*@media (min-width:1024px){
+  #theme-toggle-desktop [data-icon]{display:none}
+  html:not(.dark) #theme-toggle-desktop [data-icon="sun"]{display:block}
+  html.dark       #theme-toggle-desktop [data-icon="moon"]{display:block}
+}*/

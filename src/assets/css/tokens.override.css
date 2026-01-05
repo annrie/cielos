@@ -1,0 +1,32 @@
+/* tokens.override.css — ensure responsive title sizes & logo sizing win last */
+
+:root{ --title-lh: 1.25; --latest-title-fs: 1.6rem; --machaki-title-fs: 1.6rem;
+       --latest-title-fg: var(--c-fg, #111); --machaki-title-fg: var(--c-fg, #111);
+       /* logo default for desktop; mobile overrides below */
+       --logo-h: 40px;
+}
+
+html.dark :root{
+  --latest-title-fg: var(--c-fg-inv, #fff);
+  --machaki-title-fg: var(--c-fg-inv, #fff);
+}
+
+/* mobile-first: bump logo height on mobile */
+@media (max-width:1023.98px){
+  :root{ --logo-h: 48px; }
+}
+
+/* ≥ sm */
+@media (min-width:640px){
+  :root{ --latest-title-fs: 1.9rem; --machaki-title-fs: 1.9rem; }
+}
+
+/* ≥ lg (desktop) */
+@media (min-width:1024px){
+  :root{ --title-lh: 1.20; --latest-title-fs: 2.25rem; --machaki-title-fs: 2.25rem; }
+}
+
+/* ≥ xl (optional) */
+@media (min-width:1280px){
+  :root{ --latest-title-fs: 2.5rem; --machaki-title-fs: 2.5rem; }
+}

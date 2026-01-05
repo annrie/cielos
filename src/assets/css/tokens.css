@@ -1,0 +1,1515 @@
+:root{
+  --layout-gap: 1.25rem;  /* 本文とサイドの間隔 */
+  --sidebar-w: 320px;     /* サイドバーの最大幅 */
+}
+
+:root {
+  /* 色（例） */
+  --c-fg: #111;
+  --c-fg-inv: #fff;
+  --c-muted: #666;
+  --c-primary: var(--color-sky-500);   /* wind4 の color 変数を使うならこちら */
+  --c-border: #d0d0d0;
+  --c-panel: #fefefe;
+  --c-accent: #b92a2c;
+  --c-accent-bisque: bisque;
+  --c-accent-lightcyan: lightcyan;
+
+  /* サーフェス（ダークで上書き） */
+  --surface-50:  #f7f7f7;
+  --surface-100: #eee;
+  --surface-700: #2a2a2a;
+  --surface-800: #1f1f1f;
+
+  /* タイポ（line-height・tracking の標準） */
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.7;
+  --track-tight: -0.01em;
+  --track-normal: 0;
+  --track-wide: 0.02em;
+
+ /* Metal plate look */
+  --plate-top: rgba(255,255,255,.45);
+  --plate-mid: rgba(255,255,255,.18);
+  --plate-bot: rgba(0,0,0,.08);
+  --metal-grad-y: linear-gradient(to bottom,
+    var(--plate-top) 0%,
+    var(--plate-mid) 45%,
+    transparent 55%,
+    var(--plate-bot) 100%
+  );
+  --metal-grad-x: linear-gradient(to right,
+    rgba(255,255,255,.06),
+    rgba(0,0,0,.06),
+    rgba(255,255,255,.06)
+  );
+  --metal-inset: inset 0 1px 0 rgba(255,255,255,.35), inset 0 -1px 0 rgba(0,0,0,.12);
+  --metal-outer: 0 1px 2px rgba(0,0,0,.08);
+
+  /* Focus ring */
+  --ring-color: color-mix(in srgb, var(--c-primary) 70%, transparent);
+  --ring-offset: 2px;
+  --ring-width: 2px;
+
+  /* Radius & shadows */
+  --radius-sm: .25rem;
+  --radius-md: .5rem;
+  --radius-lg: .75rem;
+  --radius-2xl: 1rem;
+  --shadow-1: 0 1px 2px rgba(0,0,0,.08);
+  --shadow-2: 0 2px 6px rgba(0,0,0,.12);
+
+  /* Title gradients */
+  --title-grad-from: color-mix(in srgb, var(--c-panel) 0%, transparent);
+  --title-grad-to:   color-mix(in srgb, var(--c-panel) 0%, transparent);
+
+  /* 汎用見出しの基準（ライト） */
+  --hd-fg: rgb(47 79 79 / 0.9);
+  --hd-fg-invert: #fff;
+
+  /* バリエーション色（必要なら複数系統） */
+  --hd-accent: #b92a2c;
+  --hd-accent-from: color-mix(in srgb, var(--c-accent) 5%, white);
+  --hd-accent-to: var(--c-accent);
+
+  /* バリエーション色（必要なら複数系統） */
+  --hd-bisque: bisque;
+  --hd-bisque-from: color-mix(in srgb, bisque 5%, white);
+  --hd-bisque-to: var(--hd-bisque);
+
+  --hd-cyan: lightcyan;
+  --hd-cyan-from: color-mix(in srgb, lightcyan 5%, white);
+  --hd-cyan-to: var(--hd-cyan);
+
+  --hd-surface-from: color-mix(in srgb, #ffffff 5%, #000); /* 実質ほぼ白, お好みで */
+  --hd-surface-to:   #ffffff;
+
+  /* 枠色など */
+  --hd-border: rgba(0,0,0,.05);
+
+  /* 見出しトークン（heading01〜13系が参照） */
+  --hd01-fg: #655;          --hd01-bg: #eee;     --hd01-b1: #aaa;  --hd01-b2: #aaa;
+
+  --hd02-fs: 1.5rem;
+  --hd02-fg: #333;
+  --hd02-bg: lightsalmon;
+  --hd02-border: transparent;
+  --hd02-text-shadow: 1px 1px 0 rgba(255,255,255,1);
+  --hd02-shadow: 0 1px 2px 0 rgba(0,0,0,0.5),
+                 30px 0 0 0 var(--hd02-bg),
+                 -30px 0 0 0 var(--hd02-bg);
+
+  --hd03-fs: 1.75rem; /* 28px */
+  --hd03-fg: #ffe8e8;
+  --hd03-bg: #f99;
+  --hd03-gradient: linear-gradient(
+    to bottom,
+    transparent 8%,
+    rgba(255,255,255,0.5) 8%,
+    rgba(255,255,255,0.5) 12%,
+    transparent 12%,
+    transparent 88%,
+    rgba(255,255,255,0.5) 88%,
+    rgba(255,255,255,0.5) 92%,
+    transparent 92%
+  );
+  --hd03-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+
+  --hd03-before-border-b: #c66;
+  --hd03-after-border-t: #c66;
+
+  --hd03-2-fs: 1.25rem; /* 20px */
+  --hd03-2-fg: #fff;
+  --hd03-2-bg: #555;
+  --hd03-2-shadow: 0 1px 3px #777;
+  --hd03-2-triangle: #333; /* before/after の三角色 */
+
+  --hd04-fs: 1.25rem;
+  --hd04-fg: #333;
+  --hd04-bg: #fff;
+  --hd04-border: #333;
+  --hd04-shadow: inset -7px -5px 0 0 #e8e8e8, 2px 3px 0 0 #000;
+
+  --hd04-triangle-top: var(--hd04-border);
+  --hd04-triangle-bottom: #e8e8e8;
+
+  --hd04-2-fs: 1.25rem;       /* 20px */
+  --hd04-2-fg: #fff;
+  --hd04-2-text-shadow: 1px 1px 1px #000;
+  --hd04-2-bg: #777;
+  --hd04-2-border: #777;
+
+  --hd04-2-triangle: var(--hd04-2-border);
+
+  --hd04-3-fs: 1rem;          /* フォントサイズ（必要に応じて変更） */
+  --hd04-3-fg: #111;          /* 文字色 */
+  --hd04-3-bg: #fff;          /* 背景色 */
+  --hd04-3-border: #555;      /* ボーダー色 */
+
+  /* ノッチ（下側の二重三角形） */
+  --hd04-3-notch-outer: var(--hd04-3-border);
+  --hd04-3-notch-inner: var(--hd04-3-bg);
+
+  --hd05-fs: 2rem;
+  --hd05-fg: rgba(47,79,79,0.9);
+  --hd05-border: rgba(0,0,0,0.05);
+  --hd05-bg-color: #48b1f2;
+  --hd05-gradient: linear-gradient(
+      -45deg,
+      transparent 40%,
+      rgba(0,0,0,0.07) 40%,
+      rgba(0,0,0,0.07) 60%,
+      transparent 60%
+    ),
+    linear-gradient(to top, rgba(255,255,255,0.28), rgba(255,255,255,0.10)),
+    linear-gradient(to top, color-mix(in srgb, #48b1f2 12%, white), #48b1f2);
+
+  --hd06-fs: 1rem;
+  --hd06-fg: #009;
+  --hd06-bg: #ffc;
+  --hd06-shadow: 12px 0 0 0 var(--hd06-bg),
+                 0 12px 0 0 var(--hd06-bg),
+                 1px 15px 4px -3px rgba(0,0,0,.2);
+  --hd06-corner: #cc9;
+
+  /* ラベル下の帯 */
+  --hd06-accent-h: 20px;
+  --hd06-accent-bg: rgba(255,182,182,.4);
+  --hd06-accent-rotate: -1deg;
+
+  --hd07-fs: 3rem;
+  --hd07-ff: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  --hd07-fg: #666;
+  --hd07-bg: #ccc;        /* ベース（境界線や左/上の色にも使用） */
+  --hd07-bc: #999;        /* 右・下の境界線 */
+  --hd07-grad-1: rgba(220,220,220,1);
+  --hd07-grad-2: rgba(240,240,240,1);
+  --hd07-grad-3: rgba(235,235,235,1);
+  --hd07-grad-4: rgba(215,215,215,1);
+  --hd07-grad-5: rgba(210,210,210,1);
+  --hd07-after-border: #eee; /* ::after の細いハイライト線 */
+  --hd07-text-shadow: 1px 1px 0 rgba(255,255,255,1);
+  --hd07-inset: inset 0 0 0 1px rgba(255,255,255,.5);
+
+  --hd08-fs: 22px;
+  --hd08-lh: 40px;
+  --hd08-ff: Arial, Helvetica, sans-serif;
+  --hd08-fg: #666;
+  --hd08-bg: #f3f3f3;
+  --hd08-badge-bg: #f60;       /* 左バッジのベース色 */
+
+  /* 左バッジ内のハイライト段差（縦方向） */
+  --hd08-grad-bottom: linear-gradient(
+    to bottom,
+    transparent 20%,
+    rgba(255,255,255,.1) 20%,
+    rgba(255,255,255,.1) 40%,
+    rgba(255,255,255,.3) 40%,
+    rgba(255,255,255,.3) 60%,
+    rgba(255,255,255,.5) 60%,
+    rgba(255,255,255,.5) 80%,
+    rgba(255,255,255,.6) 80%,
+    rgba(255,255,255,.6) 100%
+  );
+  /* バッジ全面の横ストライプ（上に薄く重ねる） */
+  --hd08-grad-right: linear-gradient(
+    to right,
+    transparent 20%,
+    rgba(255,255,255,.1) 20%,
+    rgba(255,255,255,.1) 40%,
+    rgba(255,255,255,.3) 40%,
+    rgba(255,255,255,.3) 60%,
+    rgba(255,255,255,.5) 60%,
+    rgba(255,255,255,.5) 80%,
+    rgba(255,255,255,.6) 80%,
+    rgba(255,255,255,.6) 100%
+  );
+
+  /* ★ 左バッジの中央に載せる SVG （ペンアイコン例） */
+  --hd08-icon: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1.003 1.003 0 000-1.42l-2.34-2.34a1.003 1.003 0 00-1.42 0l-1.83 1.83 3.75 3.75 1.84-1.82z' fill='%23fff'/%3E%3C/svg%3E");
+
+  /* アイコンのサイズ（バッジ 40px に対しての割合） */
+  --hd08-icon-size: 60%;
+  --hd08-after-border: #fff; /* ::before の右境界（白） */
+
+  /* 見出し09 */
+  --hd09-fs: 1.375rem; /* 22px */
+  --hd09-fg: #fff;
+  --hd09-bg: #c33;
+  --hd09-br: #600;
+  --hd09-before: #c96;
+
+  /* 見出し09-2 */
+  --hd09-2-edge: #600;
+  --hd09-2-br: 2px;
+  --hd09-2-angle-fg: #c96; /* 「<」擬似の色 */
+
+  --hd10-fs: 1rem;
+  --hd10-fg: #111;
+  --hd10-bg: #ccc;
+  --hd10-before-bg: #eee;
+
+  --hd10-2-fg: #111;
+  --hd10-2-bg: #ccc;
+  --hd10-2-fs: 1.125rem; /* 18px 相当 */
+  --hd10-2-pin-base: #eee;
+  --hd10-2-pin-spot: rgba(255,255,255,.8); /* ピンの白ハイライト */
+
+  --hd10-3-fs: 1.25rem;
+  --hd10-3-fg: #111;
+  --hd10-3-bg: #ccc;
+  --hd10-3-pin-bg: #999;
+  --hd10-3-pin-inner: #777;
+
+  --hd11-fs: 1rem;          --hd11-blc:#777;     --hd11-bc:#555;
+  --hd12-fs: 1.25rem;       --hd12-fg:#111;      --hd12-b1:#999;  --hd12-b2:#777;
+  --hd13-bc:#e6e6fa;        --hd13-bw: 2px;      --hd13-fg:inherit; --hd13-bs:solid;
+  --hd13-2-fs:1rem;         --hd13-2-btc:#b92a2c; --hd13-2-bbc:#b92a2c;
+  --hd13-3-fs:1rem;         --hd13-3-fg:#111;    --hd13-3-bc:#b92a2c;
+  --hd13-4-fs:1rem;         --hd13-4-bc:#b92a2c; --hd13-4-bg:#b92a2c;
+  --hd13-5-fs:4rem;         --hd13-5-bc:#b92a2c; --hd13-5-bg:#b92a2c;
+  --hd13-6-fs:4rem;         --hd13-6-fg:#fff;    --hd13-6-bg:#b92a2c; --hd13-6-bc:#b92a2c;
+  --hd13-7-fs:4rem;         --hd13-7-fg:#111;    --hd13-7-bc:#b92a2c;
+  --hd13-8-fs:4rem;         --hd13-8-fg:#fff;    --hd13-8-bg:#b92a2c;
+  --hd13-9-fs:4rem;         --hd13-9-fg:#111;    --hd13-9-bc:#b92a2c; --hd13-9-tsc:#999; --hd13-9-sc:#aaa;
+
+}
+
+.dark {
+  --c-fg: #eee;
+  --c-panel: var(--surface-800);
+  --c-border: #444;
+  --c-accent-bisque: #e6c0a0;   /* bisque より暗め */
+  --c-accent-lightcyan: #88b8b8; /* lightcyan より落ち着いた色 */
+  --hd-accentA: #3b82f6;
+  --hd-accentA-from: color-mix(in srgb, var(--hd-accentA) 5%, black);
+  --hd-accentA-to: var(--hd-accentA);
+
+  /* ダーク側の共通基準 */
+  --hd-fg: #fff;
+  --hd-fg-invert: rgb(47 79 79 / 0.9); /* 逆に使いたい時用 */
+
+  /* ダークのグラデ色（好きな系統に差し替えOK） */
+  --hd-surface: var(--colors-surface-800, #1f1f1f);
+  --hd-surface-from: color-mix(in srgb, var(--hd-surface) 5%, black);
+  --hd-surface-to: var(--hd-surface);
+
+  /* 枠色など */
+  --hd-border: rgba(255,255,255,.05);
+
+  /* metal */
+  --plate-top: rgba(255,255,255,.18);
+  --plate-mid: rgba(255,255,255,.06);
+  --plate-bot: rgba(0,0,0,.28);
+
+  /* 見出し系のダーク上書き例（必要箇所のみ） */
+  --hd01-fg:#eee; --hd01-bg:var(--surface-800); --hd01-b1:#555; --hd01-b2:#555;
+
+  --hd02-fg: #eee; /* 文字色は反転 */
+  /* 背景色: surface-800 をベースに少し調整 */
+  --hd02-bg: var(--surface-800);
+  --hd02-bg-dark: #2b3240;
+  --hd02-border: rgba(255,255,255,0.2); /* テープ境界を可視化 */
+
+  /* デコ（左右の羽）: 本体背景と同色にして一体化させる */
+  --hd02-shadow: 0 1px 2px 0 rgba(0,0,0,0.5),
+                 30px 0 0 0 var(--hd02-bg),
+                 -30px 0 0 0 var(--hd02-bg);
+
+  --hd02-text-shadow: 1px 1px 0 rgba(0,0,0,0.7);
+
+  --hd03-fg: #f2f2f2;
+ /* 背景に “温かい差し色” を18%ブレンド（残りは surface-800） */
+  /* 例: #e38b7b = サーモン寄りの淡い暖色。数値は後述の目安で調整可 */
+  --hd03-bg: color-mix(in srgb, var(--hd-surface-800, #1f1f1f) 82%, #e38b7b 18%);
+
+  /* ストライプの白帯は薄め（白0.08）でギラつきを抑える */
+  --hd03-gradient: linear-gradient(
+    to bottom,
+    transparent 8%,
+    rgba(255,255,255,0.08) 8%,
+    rgba(255,255,255,0.08) 12%,
+    transparent 12%,
+    transparent 88%,
+    rgba(255,255,255,0.08) 88%,
+    rgba(255,255,255,0.08) 92%,
+    transparent 92%
+  );
+
+  /* 影は軽めにして面をつぶさない */
+  --hd03-shadow: 0 1px 2px 0 rgba(0,0,0,0.35);
+
+  /* 両端の小さな三角の色（背景より少し暗い暖色に） */
+  --hd03-before-border-b: color-mix(in srgb, #e38b7b 65%, #000 35%);
+  --hd03-after-border-t:  color-mix(in srgb, #e38b7b 65%, #000 35%);
+
+  --hd03-2-fg: #eee;
+  --hd03-2-bg: var(--hd-surface, #222);
+  --hd03-2-shadow: 0 1px 3px #111;
+  --hd03-2-triangle: var(--hd-surface-border, #444);
+
+ /* 文字はやや明るめにして読みやすく */
+  --hd04-fg: #f0f0f0;
+  /* 面：surface を基準に少しだけ明るく＆暖かみを（のっぺり回避） */
+  --hd04-bg: color-mix(in srgb, var(--hd-surface, #222) 85%, #3a3a3a 15%);
+  /* 縁：面よりわずかに明るい中間色。強すぎず、面から浮かせる */
+  --hd04-border: color-mix(in srgb, var(--hd04-bg) 70%, #cfcfcf 30%);
+  --hd04-inset-color: #111;
+  --hd04-shadow: inset -7px -5px 0 0 var(--hd04-inset-color), 2px 3px 0 0 #000;
+  --hd04-triangle-top: var(--hd04-border);
+  --hd04-triangle-bottom: var(--hd04-inset-color);
+
+  --hd04-2-fg: #eee;
+  --hd04-2-text-shadow: 1px 1px 1px #000; /* そのままでもOK */
+  --hd04-2-bg: var(--hd-surface, #222);
+  --hd04-2-border: var(--hd-surface-border, #555);
+
+  --hd04-2-triangle: var(--hd04-2-border);
+
+  --hd04-3-fg: #eee;
+  --hd04-3-bg: var(--hd-surface, #222);
+  --hd04-3-border: var(--hd-surface-border, #555);
+
+  --hd04-3-notch-outer: var(--hd04-3-border);
+  --hd04-3-notch-inner: var(--hd04-3-bg);
+
+  --hd05-fg: #f0f0f0;
+  --hd05-border: rgba(255,255,255,0.08);
+  --hd05-bg-color: var(--surface-800, #1f1f1f);
+
+  /* ダーク専用：ストライプ  上艶  下影 */
+  --hd05-gradient:
+    linear-gradient(
+      -45deg,
+      transparent 42%,
+      rgba(255,255,255,0.07) 42%,
+      rgba(255,255,255,0.07) 58%,
+      transparent 58%
+    ),
+    linear-gradient(to top, rgba(255,255,255,0.06), rgba(255,255,255,0)),
+    linear-gradient(to bottom, rgba(0,0,0,0.25), transparent 55%);
+
+  --hd06-fg: #e6f0ff;
+  --hd06-bg: var(--hd-surface, #222);
+  --hd06-shadow: 12px 0 0 0 var(--hd06-bg),
+                 0 12px 0 0 var(--hd06-bg),
+                 1px 15px 4px -3px rgba(0,0,0,.5);
+  --hd06-corner: var(--hd-surface-border, #444);
+
+  --hd06-accent-bg: rgba(120,160,255,.25);
+
+  --hd07-fg: #eee;
+  --hd07-bg: var(--hd-surface, #2a2a2a);
+  --hd07-bc: var(--hd-surface-border, #4a4a4a);
+  /* ダーク用グラデーション（お好みでトーンを寄せる） */
+  --hd07-grad-1: rgba(58,58,58,1);
+  --hd07-grad-2: rgba(68,68,68,1);
+  --hd07-grad-3: rgba(62,62,62,1);
+  --hd07-grad-4: rgba(52,52,52,1);
+  --hd07-grad-5: rgba(48,48,48,1);
+  --hd07-after-border: rgba(255,255,255,.18);
+  --hd07-text-shadow: 1px 1px 0 rgba(0,0,0,.8);
+
+  --hd08-fg: #e6e6e6;
+  --hd08-bg: var(--hd-surface, #2a2a2a);
+  --hd08-badge-bg: #ff7a1a; /* ほんの少し明るめでもOK */
+  --hd08-after-border: rgba(255,255,255,.85);
+
+
+  --hd09-fg: #eee;
+  --hd09-bg: var(--hd-surface, #222);
+  --hd09-br: var(--hd-surface-border, #555);
+  --hd09-before: var(--hd-surface-border, #777);
+
+  --hd09-2-bg: #a42a2a;
+  --hd09-2-fg: #f3f3f3;
+  --hd09-2-edge: #3a1515;
+  --hd09-2-angle-fg: #d79a7a;
+
+  --hd10-fg: #eee;
+  --hd10-bg: var(--hd-surface, #222);
+  --hd10-before-bg: var(--hd-surface-border, #444);
+
+  --hd10-2-fg: #eaeaea;
+  --hd10-2-bg: var(--hd-surface, #222);
+  --hd10-2-pin-base: #999;
+  --hd10-2-pin-spot: rgba(255,255,255,.35);
+
+  --hd10-3-fg: #eee;
+  --hd10-3-bg: var(--hd-surface, #333);
+  --hd10-3-pin-bg: #555;
+  --hd10-3-pin-inner: #444;
+
+
+  --hd11-blc:#999; --hd11-bc:#666;
+  --hd12-fg:#eee;
+  --hd13-bc:#777;
+  --hd13-3-fg:#eee; --hd13-3-bc:#666;
+  --hd13-4-bc:#777; --hd13-4-bg:#777;
+  --hd13-6-fg:#eee; --hd13-6-bg:#444; --hd13-6-bc:#666;
+  --hd13-7-fg:#eee; --hd13-7-bc:#666;
+  --hd13-8-fg:#eee; --hd13-8-bg:#444;
+  --hd13-9-fg:#eee; --hd13-9-bc:#666; --hd13-9-tsc:#444; --hd13-9-sc:#222;
+
+
+  --plate-top:rgba(255,255,255,.18);
+  --plate-mid:rgba(255,255,255,.06);
+  --plate-bot:rgba(0,0,0,.28);
+
+  --ring-color: color-mix(in srgb, var(--c-primary) 60%, white 5%);
+
+  --title-grad-from: color-mix(in srgb, var(--surface-800) 0%, transparent);
+  --title-grad-to:   color-mix(in srgb, var(--surface-800) 0%, transparent);
+}
+:root{
+  /* ── 最新コラム 見出し ───────────────────────── */
+  --latest-bg-from: #ffe7c4;        /* 上：オレンジ寄り */
+  --latest-bg-to:   #ffffff;        /* 下：ほぼ白 */
+  --latest-fg:      #2c4a48;        /* 文字：深いティール */
+  --latest-icon:    #2c4a48;
+  --latest-radius:  10px;
+  --latest-border:  #00000022;      /* 外枠の極薄線 */
+  --latest-inset:   inset 0 1px 0 #ffffff4D, 0 1px 0 #0000004D;
+  --latest-bg-stack:
+    linear-gradient(to bottom, var(--latest-bg-from) 0%, var(--latest-bg-to) 100%),
+    radial-gradient(140% 70% at 50% -10%, rgba(255,255,255,.35) 0%, transparent 60%); /* 上部の薄い明るみ */
+
+  /* 右側：コラム一覧ボタン（青グラデ＋上ハイライト） */
+  --linkbtn-fg:     #19324d;
+  --linkbtn-from:   #6bb8ff;
+  --linkbtn-to:     #3b94ef;
+  --linkbtn-gloss:  linear-gradient(to bottom, rgba(255,255,255,.65) 0 50%, rgba(255,255,255,0) 52% 100%);
+  --linkbtn-radius: 8px;
+  --linkbtn-border: #00000026;
+  --linkbtn-shadow: 0 1px 1px rgba(0,0,0,.12);
+
+  /* ── まちゃき 見出し ─────────────────────────── */
+  --machaki-bg:       #dbf7f4;      /* ミント系 */
+  --machaki-fg:       #3b4f4d;      /* 深めのグリーン灰 */
+  --machaki-radius:   10px;
+  --machaki-border:   #00000022;    /* 表の枠 */
+  --machaki-inset:    inset 0 1px 0 #ffff99, 0 1px 0 #00000014;
+  --machaki-outline:  #0000;    /* 背面の薄枠 */
+  --machaki-outline-offset-y: 0px;  /* 下にずらす量 */
+  --machaki-bg-stack:
+    linear-gradient(to bottom, #e2fbf7 0%, #d6f4f0 100%),
+    radial-gradient(140% 70% at 50% -10%, rgba(255,255,255,.4) 0%, transparent 60%);
+
+  /* ★ 追加：hover 用（ライト） */
+  --machaki-bg-stack-hover:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--c-panel, #fff) 94%, #fff),
+      color-mix(in srgb, var(--c-panel, #fff) 88%, #fff)
+    );
+
+  /* Archive ボタン（ライト） */
+  --archbtn-fg: #27464a;
+  --archbtn-bg-from: #e8f6ff;      /* 上 */
+  --archbtn-bg-to:   #ffffff;      /* 下 */
+  --archbtn-border:  #cfe3ef;
+  --archbtn-gloss:   #ffffff66;    /* 上端のうっすらハイライト(40%) */
+  --archbtn-shadow:  0 1px 2px rgba(0,0,0,.06);
+  --archbtn-radius:  8px;
+  --archbtn-px: 18px;
+  --archbtn-py: 8px;
+
+  /* Hover / Active */
+  --archbtn-hover-from:#dff2ff;
+  --archbtn-hover-to:  #f7fcff;
+  --archbtn-active-from:#d7ecfb;
+  --archbtn-active-to:  #eef7ff;
+}
+
+.dark{
+  /* そのままでも見えるが、少しだけトーン調整 */
+  --latest-bg-from:#2b3138; --latest-bg-to:#1a1d22;
+  --latest-fg:#dfe8e7; --latest-icon:#dfe8e7;
+  --latest-border:#ffffff22; --latest-inset: inset 0 1px 0 #ffffff1a, 0 1px 0 #00000066;
+  --latest-bg-stack:
+    linear-gradient(to bottom,#303741 0%, #252b33 55%, #191e24 100%),
+    radial-gradient(160% 80% at 50% -12%, rgba(255,255,255,.08) 0%, transparent 60%),
+    linear-gradient(to bottom, rgba(255,255,255,.06) 0 1px, transparent 2px 100%);
+  /* 立体を強めるためのインセットも少し強める */
+  --latest-inset: inset 0 1px 0 #ffffff33, 0 1px 0 #00000080;
+
+  --linkbtn-fg:#eaf2ff; --linkbtn-from:#4aa3ff; --linkbtn-to:#1679e0;
+  --linkbtn-border:#00000066; --linkbtn-shadow:0 1px 1px rgba(0,0,0,.45);
+  --laetest-bg-stack-hover:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--c-panel, #2b3138) 94%, #0000),
+      color-mix(in srgb, var(--c-panel, #1a1d22) 88%, #0000)
+    );
+
+  --machaki-bg:#152024; --machaki-fg:#d9ebe8;
+  --machaki-border:#ffffff22; --machaki-inset: inset 0 1px 0 #ffffff12, 0 1px 0 #000066;
+  --machaki-outline:#00000040;
+  --machaki-outline-offset-y: 2px;
+  --machaki-bg-stack:
+    linear-gradient(to bottom, #1c272b 0%, #162023 55%, #121a1d 100%),
+    radial-gradient(155% 80% at 50% -12%, rgba(255,255,255,.08) 0%, transparent 60%),
+    linear-gradient(to bottom, rgba(255,255,255,.05) 0 1px, transparent 2px 100%);
+  /* ★ 追加：hover 用（ダーク） */
+  --machaki-bg-stack-hover:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--c-panel, #1f2630) 94%, #0000),
+      color-mix(in srgb, var(--c-panel, #1f2630) 88%, #0000)
+    );
+
+    --machaki-inset: inset 0 1px 0 #ffffff18, 0 1px 0 #00000088;
+
+  /* Archive ボタン（ダーク） */
+  --archbtn-fg: #dfeaed;
+  --archbtn-bg-from: #2a3340;      /* 上 */
+  --archbtn-bg-to:   #1f2630;      /* 下 */
+  --archbtn-border:  #3a4856;
+  --archbtn-gloss:   #ffffff22;    /* ダークは弱く(13%) */
+  --archbtn-shadow:  0 1px 2px rgba(0,0,0,.35);
+
+  --archbtn-hover-from:#313c4b;
+  --archbtn-hover-to:  #242d38;
+  --archbtn-active-from:#2b3543;
+  --archbtn-active-to:  #202834;
+}
+
+/* Typography clamps (320–1600px) */
+:root{
+  --fs-base-min: 16px;  --fs-base-max: 18px;
+  --fs-sm-min:   14px;  --fs-sm-max:   16px;
+  --fs-xs-min:   12px;  --fs-xs-max:   14px;
+  --fs-lg-min:   18px;  --fs-lg-max:   20px;
+  --fs-xl-min:   20px;  --fs-xl-max:   24px;
+
+  --fs-base: clamp(var(--fs-base-min), calc( (var(--fs-base-min)  (var(--fs-base-max) - var(--fs-base-min)) * ((100vw - 320px) / (1600 - 320)) )), var(--fs-base-max));
+  --fs-sm:   clamp(var(--fs-sm-min),   calc( (var(--fs-sm-min)    (var(--fs-sm-max)   - var(--fs-sm-min))   * ((100vw - 320px) / (1600 - 320)) )), var(--fs-sm-max));
+  --fs-xs:   clamp(var(--fs-xs-min),   calc( (var(--fs-xs-min)    (var(--fs-xs-max)   - var(--fs-xs-min))   * ((100vw - 320px) / (1600 - 320)) )), var(--fs-xs-max));
+  --fs-lg:   clamp(var(--fs-lg-min),   calc( (var(--fs-lg-min)    (var(--fs-lg-max)   - var(--fs-lg-min))   * ((100vw - 320px) / (1600 - 320)) )), var(--fs-lg-max));
+  --fs-xl:   clamp(var(--fs-xl-min),   calc( (var(--fs-xl-min)    (var(--fs-xl-max)   - var(--fs-xl-min))   * ((100vw - 320px) / (1600 - 320)) )), var(--fs-xl-max));
+
+}
+
+:root{
+  /* Single: タグ用の薄背景（ライト）*/
+  --single-tag-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+}
+.dark{
+  /* ダークは少し濃いめに */
+  --single-tag-bg: color-mix(in srgb, var(--c-panel) 90%, transparent);
+}
+:root{
+  --single-surface: var(--c-panel);
+  --single-border: var(--c-border);
+  --single-hero-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --single-meta-fg: var(--c-muted);
+  --single-share-fg: var(--c-fg);
+  --single-pn-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+}
+.dark{
+  --single-hero-bg: color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --single-pn-bg: color-mix(in srgb, var(--c-panel) 90%, transparent);
+}
+
+:root{
+  /* Biblio: タグ色（ライト） */
+  --biblio-tag-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --biblio-tag-fg: var(--c-fg);
+
+  /* list surface */
+  --biblio-item-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --biblio-item-bg-hover: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --biblio-item-bc: var(--c-border);
+  --biblio-item-shadow: var(--shadow-1);
+  --biblio-item-shadow-hover: var(--shadow-2);
+
+  /* text */
+  --biblio-title-fg: var(--c-fg);
+  --biblio-meta-fg: var(--c-muted);
+  --biblio-key-fg:  var(--c-accent);
+
+  /* badge */
+  --biblio-badge-bg: var(--c-accent);
+  --biblio-badge-fg: var(--c-fg-inv,#fff);
+
+  /* spacing */
+  --biblio-gap: .75rem;
+  --biblio-key-w: 6rem; /* cite key 欄の幅 */
+}
+.dark{
+  /* ダークはやや濃いめの面にして可読性確保 */
+  --biblio-tag-bg: color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --biblio-tag-fg: var(--c-fg);
+  --biblio-item-bg:        color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --biblio-item-bg-hover:  color-mix(in srgb, var(--c-panel) 88%, transparent);
+}
+
+:root{
+  /* Docs: パネル/TOC/サイドナビの面と枠 */
+  --docs-surface: var(--c-panel);
+  --docs-border: var(--c-border);
+
+  --docs-toc-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --docs-toc-title-fg: var(--c-fg);
+  --docs-toc-link-fg: var(--c-fg);
+  --docs-toc-muted: var(--c-muted);
+
+  --docs-sidenav-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --docs-sidenav-link-fg: var(--c-fg);
+  --docs-sidenav-muted: var(--c-muted);
+
+  /* 見出しアンカー/リンクのアクセント */
+  --docs-accent: var(--c-accent);
+
+  /* sticky のオフセット（ヘッダがある場合に調整用） */
+  --docs-sticky-top: 84px;
+
+  /* コード/引用など */
+  --docs-quote-bg: color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --docs-code-bg: var(--c-panel);
+}
+
+.dark{
+  --docs-surface: var(--c-panel);
+  --docs-border: var(--c-border);
+
+  --docs-toc-bg: color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --docs-toc-title-fg: var(--c-fg);
+  --docs-toc-link-fg: var(--c-fg);
+  --docs-toc-muted: var(--c-muted);
+
+  --docs-sidenav-bg: color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --docs-sidenav-link-fg: var(--c-fg);
+  --docs-sidenav-muted: var(--c-muted);
+
+  --docs-quote-bg: color-mix(in srgb, var(--c-panel) 86%, transparent);
+  --docs-code-bg: var(--c-panel);
+}
+
+:root{
+  /* Docs: sidenav item 背景（通常/hover） */
+  --docs-sidenav-item-bg:       color-mix(in srgb, var(--docs-sidenav-bg, var(--c-panel)) 96%, transparent);
+  --docs-sidenav-item-bg-hover: color-mix(in srgb, var(--docs-sidenav-bg, var(--c-panel)) 92%, transparent);
+
+  /* Docs: TOC link 背景（通常/hover） */
+  --docs-toc-link-bg:           color-mix(in srgb, var(--docs-toc-bg, var(--c-panel)) 96%, transparent);
+  --docs-toc-link-bg-hover:     color-mix(in srgb, var(--docs-toc-bg, var(--c-panel)) 92%, transparent);
+
+  --docs-sidenav-bg:        color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --docs-sidenav-bg-hover:  color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --docs-toc-bg:            color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --docs-toc-bg-hover:      color-mix(in srgb, var(--c-panel) 88%, transparent);
+
+  /* レイアウト */
+  --docs-max-w: 72ch;             /* 本文の最大幅 */
+  --docs-gap:  1.25rem;           /* サイドと本文の間隔 */
+  --docs-side-w: 260px;           /* サイドバー幅 */
+  --docs-toc-w: 240px;            /* TOC幅（使うなら） */
+
+  /* サイドナビ */
+  --docs-sidenav-fg: var(--c-fg);
+  --docs-sidenav-muted: var(--c-muted);
+  --docs-sidenav-bc: var(--c-border);
+  --docs-sidenav-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --docs-sidenav-bg-hover: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --docs-sidenav-bg-current: var(--c-accent);
+  --docs-sidenav-fg-current: var(--c-fg-inv, #fff);
+
+  /* TOC */
+  --docs-toc-fg: var(--c-fg);
+  --docs-toc-muted: var(--c-muted);
+  --docs-toc-bc: var(--c-border);
+  --docs-toc-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --docs-toc-bg-hover: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --docs-toc-accent: var(--c-accent);
+}
+.dark{
+  /* ダークは少し濃いめにしてコントラスト確保 */
+  --docs-sidenav-item-bg:        color-mix(in srgb, var(--docs-sidenav-bg, var(--c-panel)) 92%, transparent);
+  --docs-sidenav-item-bg-hover:  color-mix(in srgb, var(--docs-sidenav-bg, var(--c-panel)) 88%, transparent);
+
+  --docs-toc-link-bg:            color-mix(in srgb, var(--docs-toc-bg, var(--c-panel)) 92%, transparent);
+  --docs-toc-link-bg-hover:      color-mix(in srgb, var(--docs-toc-bg, var(--c-panel)) 88%, transparent);
+}
+
+:root{
+  /* content: コールアウト（ライト） */
+  --content-note-bg:  color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --content-tip-bg:   color-mix(in srgb, #e1fbea 70%, var(--c-panel) 30%);
+  --content-warn-bg:  color-mix(in srgb, #fff3cd 70%, var(--c-panel) 30%);
+
+  --content-callout-border: var(--c-border);
+  --content-callout-fg:     var(--c-fg);
+
+  /* code / quote は docs/single と揃える */
+  --content-quote-bg: color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --content-code-bg:  var(--c-panel);
+}
+.dark{
+  /* content: コールアウト（ダーク） */
+  --content-note-bg:  color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --content-tip-bg:   color-mix(in srgb, #1d3b2b 60%, var(--c-panel) 40%);
+  --content-warn-bg:  color-mix(in srgb, #3b2f1a 60%, var(--c-panel) 40%);
+
+  --content-callout-border: var(--c-border);
+  --content-callout-fg:     var(--c-fg);
+
+  --content-quote-bg: color-mix(in srgb, var(--c-panel) 86%, transparent);
+  --content-code-bg:  var(--c-panel);
+}
+:root{
+  /* 面・枠・影 */
+  --archive-surface: var(--c-panel);
+  --archive-border:  var(--c-border);
+  --archive-card-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --archive-card-bg-hover: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --archive-card-shadow: var(--shadow-1);
+  --archive-card-shadow-hover: var(--shadow-2);
+
+  /* テキスト */
+  --archive-title-fg: var(--c-fg);
+  --archive-meta-fg:  var(--c-muted);
+
+  /* タグ/バッジ */
+  --archive-tag-bg: color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --archive-tag-fg: var(--c-fg);
+  --archive-badge-bg: var(--c-accent);
+  --archive-badge-fg: var(--c-fg-inv, #fff);
+
+  /* メディアオーバーレイ（上に向かう薄いグラデ） */
+  --archive-media-overlay: linear-gradient(to top, rgba(0,0,0,.30), transparent 36%);
+
+  /* ページネーション */
+  --archive-pager-bg: var(--c-panel);
+  --archive-pager-fg: var(--c-fg);
+  --archive-pager-bc: var(--c-border);
+  --archive-pager-bg-current: var(--c-accent);
+  --archive-pager-fg-current: var(--c-fg-inv, #fff);
+}
+.dark{
+  --archive-card-bg:        color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --archive-card-bg-hover:  color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --archive-tag-bg:         color-mix(in srgb, var(--c-panel) 86%, transparent);
+  --archive-media-overlay:  linear-gradient(to top, rgba(0,0,0,.42), transparent 36%);
+}
+
+:root{
+  /* latest / machaki タイトルのフォントサイズを流体に */
+  --latest-title-fs:  clamp(1.625rem, 1.2rem + 1vw, 2rem);
+  --machaki-title-fs: clamp(1.625rem, 1.15rem + 1vw, 1.875rem);
+
+  /* 行間と字詰め（共通） */
+  --title-lh:   var(--lh-tight);
+  --title-trk:  var(--track-tight);
+
+  /* 余白 */
+  --latest-title-px: 1rem;
+  --latest-title-py: .75rem;
+  --machaki-title-px: 1.25rem;
+  --machaki-title-py: .75rem;
+
+  /* 文字色（フォールバック付き） */
+  --latest-fg:  var(--c-fg);
+  --machaki-fg: var(--c-fg);
+
+  /* 見出しまわりの縦リズム */
+  --latest-title-mb: .5rem;
+  --machaki-title-mb: .5rem;
+  --latest-meta-mt:  .25rem;
+  --machaki-meta-mt: .25rem;
+
+  /* 字詰めをほんの少しだけタイトに */
+  --title-trk: -0.01em; /* 既存の --title-trk を上書き */
+}
+.dark{
+  /* ダーク時に少しだけコントラストを底上げ（必要十分の範囲） */
+  --latest-fg:  color-mix(in srgb, var(--c-fg) 96%, white 4%);
+  --machaki-fg: color-mix(in srgb, var(--c-fg) 96%, white 4%);
+}
+
+:root{
+  /* 本文テキスト */
+  --prose-fg:        var(--c-fg);
+  --prose-muted:     var(--c-muted);
+  --prose-hr:        var(--c-border);
+  --prose-link:      var(--c-accent);
+  --prose-link-hover:color-mix(in srgb, var(--c-accent) 88%, black 12%);
+
+  /* 引用・コード */
+  --prose-quote-bc:  color-mix(in srgb, var(--c-border) 70%, transparent);
+  --prose-quote-bg:  color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --prose-code-fg:   var(--c-fg);
+  --prose-code-bg:   color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --prose-code-bc:   var(--c-border);
+
+  /* pre/code の影 */
+  --prose-pre-shadow: var(--shadow-1);
+
+  /* 表（table） */
+  --table-bc:        var(--c-border);
+  --table-bg:        var(--c-panel);
+  --table-th-bg:     color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --table-stripe-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --table-caption-fg:var(--c-muted);
+
+  /* 画像・キャプション */
+  --img-border:      var(--c-border);
+  --img-shadow:      var(--shadow-1);
+  --caption-fg:      var(--c-muted);
+
+  /* 余白＆タイポの基準（必要に応じて微調整） */
+  --prose-lh:        var(--lh-normal);
+  --prose-gap:       .9rem;       /* p と段落間隔 */
+  --prose-list-gap:  .5rem;       /* li の間隔 */
+  --prose-code-px:   .35em;
+  --prose-code-py:   .2em;
+  --table-cell-px:   .75rem;
+  --table-cell-py:   .5rem;
+  --figure-gap:      .75rem;
+}
+.dark{
+  --prose-link-hover: color-mix(in srgb, var(--c-accent) 88%, white 12%);
+  --prose-quote-bg:   color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --prose-code-bg:    color-mix(in srgb, var(--c-panel) 90%, transparent);
+  --table-th-bg:      color-mix(in srgb, var(--c-panel) 90%, transparent);
+  --table-stripe-bg:  color-mix(in srgb, var(--c-panel) 92%, transparent);
+}
+
+:root{
+  /* Header */
+  --header-h: 64px;
+  --header-bg:  var(--c-panel);
+  --header-fg:  var(--c-fg);
+  --header-bc:  var(--c-border);
+  --header-shadow: var(--shadow-1);
+  --header-gap-x: 1rem;
+  --header-gap-y: .5rem;
+
+  /* Nav links */
+  --nav-link-fg:         var(--c-fg);
+  --nav-link-hover-bg:   color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --nav-link-current-bg: var(--c-accent);
+  --nav-link-current-fg: var(--c-fg-inv,#fff);
+
+}
+/* === footer tokens (always-dark) === */
+:root{
+  --footer-bg: #0f172a;           /* 濃紺（slate-900 相当） */
+  --footer-fg: #e5e7eb;           /* 明るい灰 */
+  --footer-link-hover: #fff;
+  --footer-border: #1e293b;       /* 上ボーダー任意 */
+  --footer-py: clamp(.9rem, .6rem + 1vw, 1.5rem);
+  --footer-fs: 0.9375rem;
+  --footer-lh: 1.6;
+
+  /* コンテナ幅 */
+  --container-w: min(1320px, 92vw);
+}
+/* ダーク/ライトどちらでも同値（=常時ダーク配色） */
+html.dark :root{
+  --footer-bg: #0f172a;
+  --footer-fg: #e5e7eb;
+  --footer-link-hover: #fff;
+  --footer-border: #1e293b;
+}
+
+@media (min-width:1024px){
+  :root{ --footer-py: 1.5rem; }
+}
+.dark{
+  --header-bg:  color-mix(in srgb, var(--c-panel) 92%, transparent);
+  --nav-link-hover-bg:   color-mix(in srgb, var(--c-panel) 88%, transparent);
+
+  --footer-bg:  color-mix(in srgb, var(--c-panel) 90%, transparent);
+}
+
+:root{
+  /* colors */
+  --form-bg:        var(--c-panel);
+  --form-fg:        var(--c-fg);
+  --form-bc:        var(--c-border);
+  --form-ph:        color-mix(in srgb, var(--c-fg) 60%, transparent);
+  --form-ring:      color-mix(in srgb, var(--c-accent) 35%, transparent);
+
+  /* metrics */
+  --form-h:         40px;
+  --form-radius:    var(--radius-md);
+  --form-px:        .75rem;
+  --form-py:        .45rem;
+  --form-gap:       .75rem;
+
+  /* shadows */
+  --form-shadow:        var(--shadow-1);
+  --form-shadow-focus:  0 0 0 2px var(--form-ring), var(--shadow-2);
+}
+.dark{
+  --form-bg: color-mix(in srgb, var(--c-panel) 90%, transparent);
+  --form-ph: color-mix(in srgb, var(--c-fg) 70%, transparent);
+}
+
+:root{
+  /* フォーム内 必須バッジ */
+  --badge-required-bg: var(--c-accent);
+  --badge-required-fg: var(--c-fg-inv, #fff);
+  --badge-required-bc: color-mix(in srgb, var(--badge-required-bg) 60%, black);
+}
+.dark{
+  /* ダークでもアクセント基準のまま。必要なら微調整 */
+  --badge-required-bg: var(--c-accent);
+  --badge-required-fg: var(--c-fg-inv, #fff);
+  --badge-required-bc: color-mix(in srgb, var(--badge-required-bg) 55%, black);
+}
+
+:root{
+  /* 見出しとメタ */
+  --search-title-fs: 2rem;
+  --search-title-fg: var(--c-fg);
+  --search-meta-fg:  var(--c-muted);
+
+  /* クエリ表示バッジ */
+  --search-badge-bg: var(--c-accent);
+  --search-badge-fg: var(--c-fg-inv, #fff);
+
+  /* ハイライト（<mark>） */
+  --search-mark-bg:  color-mix(in srgb, var(--c-accent) 22%, transparent);
+  --search-mark-fg:  var(--c-fg);
+
+  /* 空結果のパネル */
+  --search-empty-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --search-empty-bc: var(--c-border);
+}
+.dark{
+  --search-mark-bg:  color-mix(in srgb, var(--c-accent) 28%, transparent);
+  --search-empty-bg: color-mix(in srgb, var(--c-panel) 90%, transparent);
+}
+
+:root{
+  /* 外観 */
+  --comment-bg:        color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --comment-bc:        var(--c-border);
+  --comment-shadow:    var(--shadow-1);
+  --comment-meta-fg:   var(--c-muted);
+  --comment-author-fg: var(--c-fg);
+
+  /* ネスト（ツリー） */
+  --comment-gap:       1rem;
+  --comment-indent:    1rem;   /* 子コメントの字下げ */
+  --comment-thread-line: var(--c-border); /* ツリーの縦線 */
+
+  /* アバター・UI */
+  --comment-avatar:    40px;
+  --comment-avatar-md: 48px;
+
+  /* 返信ボタン */
+  --comment-reply-bg:  var(--c-accent);
+  --comment-reply-fg:  var(--c-fg-inv, #fff);
+
+  /* 承認待ち */
+  --comment-mod-bg:    color-mix(in srgb, var(--c-accent) 18%, transparent);
+}
+.dark{
+  --comment-bg:        color-mix(in srgb, var(--c-panel) 90%, transparent);
+  --comment-mod-bg:    color-mix(in srgb, var(--c-accent) 24%, transparent);
+}
+
+:root{
+    /* breadcrumbs */
+    --crumb-fg:        var(--c-muted);
+    --crumb-fg-active: var(--c-fg);
+    --crumb-sep:       var(--c-border);
+    --crumb-bg:        color-mix(in srgb, var(--c-panel) 98%, transparent);
+    --crumb-bc:        var(--c-border);
+    --crumb-hover-bg:  color-mix(in srgb, var(--c-panel) 96%, transparent);
+
+    /* 404 */
+    --err-title-fs: clamp(2rem, 1.4rem + 2vw, 3rem);
+    --err-title-fg: var(--c-fg);
+    --err-msg-fg:   var(--c-muted);
+    --err-panel-bg: color-mix(in srgb, var(--c-panel) 98%, transparent);
+    --err-panel-bc: var(--c-border);
+  }
+  .dark{
+    --crumb-bg:       color-mix(in srgb, var(--c-panel) 90%, transparent);
+    --crumb-hover-bg: color-mix(in srgb, var(--c-panel) 88%, transparent);
+
+    --err-panel-bg:   color-mix(in srgb, var(--c-panel) 90%, transparent);
+  }
+
+:root{
+  /* サイドバー全体 */
+  --sidebar-bg:     color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --sidebar-bc:     var(--c-border);
+  --sidebar-shadow: var(--shadow-1);
+  --sidebar-gap:    1rem;
+  --sidebar-sticky-top: calc(var(--header-h, 0px) + 12px);
+
+  /* ウィジェット */
+  --widget-title-fs: 1rem;
+  --widget-title-fg: var(--c-fg);
+  --widget-title-bc: var(--c-border);
+  --widget-title-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --widget-body-gap: .5rem;
+
+  /* リンク/テキスト */
+  --widget-link-fg:        var(--c-fg);
+  --widget-link-hover-bg:  color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --widget-meta-fg:        var(--c-muted);
+
+  /* タグクラウド */
+  --tag-bg:  color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --tag-fg:  var(--c-fg);
+  --tag-bg-hover: color-mix(in srgb, var(--c-panel) 92%, transparent);
+
+  /* カレンダー */
+  --cal-bc:   var(--c-border);
+  --cal-th-bg: color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --cal-td-bg-hover: color-mix(in srgb, var(--c-panel) 96%, transparent);
+}
+.dark{
+  --sidebar-bg:      color-mix(in srgb, var(--c-panel) 90%, transparent);
+  --widget-title-bg: color-mix(in srgb, var(--c-panel) 90%, transparent);
+  --tag-bg:          color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --tag-bg-hover:    color-mix(in srgb, var(--c-panel) 84%, transparent);
+  --cal-th-bg:       color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --cal-td-bg-hover: color-mix(in srgb, var(--c-panel) 88%, transparent);
+}
+
+:root{
+  /* 色（基本は白地・黒字） */
+  --print-bg: #fff;
+  --print-fg: #000;
+  --print-muted: #444;
+
+  /* 枠・罫線 */
+  --print-border: #ccc;
+
+  /* 行間・余白 */
+  --print-lh: 1.6;
+  --print-gap: 0.9rem;
+
+  /* コード/表 */
+  --print-code-bg: #fafafa;
+  --print-code-bc: #ddd;
+  --print-table-th: #f3f3f3;
+
+  /* ページ余白 (A4/Letter 両対応の無難値) */
+  --print-page-margin: 12.7mm; /* 0.5in */
+}
+
+:root{
+  /* Focus ring */
+  --a11y-ring:      color-mix(in srgb, var(--c-accent) 40%, transparent);
+  --a11y-ring-weak: color-mix(in srgb, var(--c-accent) 25%, transparent);
+  --a11y-ring-offset: 2px;
+
+  /* 選択色（text selection） */
+  --selection-bg: color-mix(in srgb, var(--c-accent) 25%, transparent);
+  --selection-fg: var(--c-fg);
+
+  /* skip link */
+  --skip-bg: var(--c-accent);
+  --skip-fg: var(--c-fg-inv, #fff);
+
+  /* <kbd> 表示 */
+  --kbd-bg:  color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --kbd-fg:  var(--c-fg);
+  --kbd-bc:  var(--c-border);
+}
+.dark{
+  --a11y-ring:      color-mix(in srgb, var(--c-accent) 55%, transparent);
+  --a11y-ring-weak: color-mix(in srgb, var(--c-accent) 35%, transparent);
+  --selection-bg:   color-mix(in srgb, var(--c-accent) 32%, transparent);
+}
+
+:root{
+  /* ベース */
+  --code-bg:      color-mix(in srgb, var(--c-panel) 96%, transparent);
+  --code-fg:      var(--c-fg);
+  --code-bc:      var(--c-border);
+  --code-shadow:  var(--shadow-1);
+
+  /* 構文色 */
+  --code-comment: #6a737d;
+  --code-punct:   #5b6168;
+  --code-keyword: #b454ff;
+  --code-string:  #2da44e;
+  --code-number:  #d73a49;
+  --code-operator:#b47b1e;
+  --code-func:    #0969da;
+  --code-class:   #cf222e;
+  --code-attr:    #0a7f5a;
+  --code-builtin: #8b6cff;
+  --code-var:     #1f2328;
+  --code-boolean: #d73a49;
+  --code-const:   #7d4af8;
+
+  /* ライン表示 */
+  --code-ln-fg:   var(--c-muted);
+  --code-ln-bc:   var(--c-border);
+  --code-hl-bg:   color-mix(in srgb, var(--c-accent) 12%, transparent);
+
+  /* コピーUI */
+  --code-copy-bg: var(--c-panel);
+  --code-copy-fg: var(--c-fg);
+  --code-copy-bc: var(--c-border);
+
+  /* 余白 */
+  --code-px: 1rem;
+  --code-py: .75rem;
+  --code-rd: .5rem;
+}
+.dark{
+  --code-bg:      color-mix(in srgb, var(--c-panel) 88%, transparent);
+  --code-comment: #8b949e;
+  --code-punct:   #a1a8b0;
+  --code-keyword: #d2a8ff;
+  --code-string:  #7ee787;
+  --code-number:  #ff7b72;
+  --code-operator:#e3b341;
+  --code-func:    #79c0ff;
+  --code-class:   #ffa198;
+  --code-attr:    #93e1c8;
+  --code-builtin: #b6a6ff;
+  --code-var:     #c9d1d9;
+  --code-boolean: #ff7b72;
+  --code-const:   #c6a2ff;
+  --code-hl-bg:   color-mix(in srgb, var(--c-accent) 18%, transparent);
+}
+
+:root{
+  /* Related */
+  --related-gap: 1rem;
+  --related-title-fs: 1.25rem;
+  --related-title-fg: var(--c-fg);
+  --related-meta-fg:  var(--c-muted);
+
+  /* Author box */
+  --author-bg:   color-mix(in srgb, var(--c-panel) 98%, transparent);
+  --author-bc:   var(--c-border);
+  --author-fg:   var(--c-fg);
+  --author-meta: var(--c-muted);
+  --author-shadow: var(--shadow-1);
+  --author-av-size: 72px;   /* md以上で拡大 */
+  --author-av-size-md: 96px;
+  --author-gap: .75rem;
+  --author-social-gap: .5rem;
+}
+.dark{
+  --author-bg: color-mix(in srgb, var(--c-panel) 90%, transparent);
+}
+
+:root{
+  --theme-anim-dur: .2s;
+  --theme-anim-ease: cubic-bezier(.2,.8,.2,1);
+}
+@media (prefers-reduced-motion: reduce){
+  :root{ --theme-anim-dur: 1ms; }
+}
+
+/* === タイトル系の色・サイズ（ベース＝モバイル） === */
+:root{
+  --title-lh: 1.25;
+
+  /* フォントサイズ（ベース：モバイル） */
+  --latest-title-fs: 1.6rem;
+  --machaki-title-fs: 1.6rem;
+
+  /* 文字色（ベースはテーマの前景色に従う） */
+  --latest-title-fg: var(--c-fg, #111);
+  --machaki-title-fg: var(--c-fg, #111);
+
+  /* アクセント（不足分を補完） */
+  --hd-accentB: #06b6d4;         /* ← 未定義だったので追加（シアン系） */
+  --hd-fg:      #111;
+}
+
+html.dark :root{
+  --latest-title-fg: var(--c-fg-inv, #fff);
+  --machaki-title-fg: var(--c-fg-inv, #fff);
+  --hd-fg:            #fff;
+}
+
+/* ≥ sm (640px) */
+@media (min-width: 640px){
+  :root{
+    --latest-title-fs: 1.9rem;
+    --machaki-title-fs: 1.9rem;
+  }
+}
+
+/* ≥ lg (1024px) — デスクトップ相当 */
+@media (min-width: 1024px){
+  :root{
+    --title-lh: 1.20;
+    --latest-title-fs: 2.25rem;
+    --machaki-title-fs: 2.25rem;
+  }
+}
+
+/* ≥ xl (1280px) — 余力で少しだけ増やす場合 */
+@media (min-width: 1280px){
+  :root{
+    --latest-title-fs: 2.5rem;
+    --machaki-title-fs: 2.5rem;
+  }
+}
+
+/* base (mobile) */
+:root{
+  --title-lh: 1.25;
+  --latest-title-fs: 1.6rem;
+  --machaki-title-fs: 1.6rem;
+  --latest-title-fg: var(--c-fg, #111);
+  --machaki-title-fg: var(--c-fg, #111);
+}
+
+/* dark の色は tokens 側ではそのまま（#eee に固定はしない） */
+html.dark :root{
+  --latest-title-fg: var(--c-fg-inv, #fff);
+  --machaki-title-fg: var(--c-fg-inv, #fff);
+}
+
+/* ≥ sm */
+@media (min-width:640px){
+  :root{
+    --latest-title-fs: 1.9rem;
+    --machaki-title-fs: 1.9rem;
+  }
+}
+
+/* ≥ lg (desktop) */
+@media (min-width:1024px){
+  :root{
+    --title-lh: 1.20;
+    --latest-title-fs: 2.25rem;
+    --machaki-title-fs: 2.25rem;
+  }
+}
+
+:root{ --logo-h: 40px; }                  /* デスクトップ既定 */
+@media (max-width:1023.98px){
+  :root{ --logo-h: 48px; }                /* モバイルで少し大きく */
+}
+
+/* tokens.css（ライト/ダーク同一に固定） */
+:root{
+  --header-bg: #1f2937; /* gray-800 相当 */
+  --header-fg: #fff;
+}
+html.dark :root{
+  --header-bg: #1f2937;
+  --header-fg: #fff;
+}
+
+:root{ --hero-h: 40vh; }
+@media (min-width:1024px){
+  :root{ --hero-h: 56vh; } /* 好みで 50〜60vh などに */
+}
+
+/* ヘッダー配色（ライト/ダーク共通） */
+:root{
+  --header-bg: #1f2937;   /* 背景 */
+  --header-fg: #fff;      /* 文字 */
+
+  /* 追加：hover/active */
+  --header-hover-bg: rgba(255,255,255,0.14);
+  --header-hover-fg: #fff;
+  --header-active-bg: rgba(255,255,255,0.22);
+  --header-active-fg: #fff;
+}
+
+html.dark :root{
+  /* ダークも同値に固定（必要なら別値に） */
+  --header-bg: #1f2937;
+  --header-fg: #fff;
+  --header-hover-bg: rgba(255,255,255,0.14);
+  --header-hover-fg: #fff;
+  --header-active-bg: rgba(255,255,255,0.22);
+  --header-active-fg: #fff;
+}
+
+/* === hero (featured image) === */
+:root{
+  /* レイアウト */
+  --hero-h: 40vh;                 /* モバイル高さ */
+  --hero-pad-x: 1rem;             /* 右下の余白X */
+  --hero-pad-y: 1rem;             /* 右下の余白Y */
+  --hero-text-align: right;       /* 右寄せ */
+
+  /* タイトル */
+  --hero-title-fs: clamp(2rem, 1.2rem + 2.5vw, 3.25rem);
+  --hero-title-lh: 1.1;
+  --hero-title-fg: rgba(255,255,255,.9);
+  --hero-title-shadow: 0 2px 12px rgba(0,0,0,.6), 0 0 1px rgba(0,0,0,.6);
+
+  /* サブタイトル */
+  --hero-subtitle-fs: 0.9rem;
+  --hero-subtitle-fg: rgba(255,255,255,.85);
+
+  /* Machaki / Biblio 互換カラー・装飾 */
+  --machaki-heading-border: #454036;
+  --machaki-heading-alt-border: #0000ff;
+  --machaki-heading-padding-x: 1.25rem;
+  --machaki-body-indent: 1rem;
+  --machaki-list-gap: 1rem;
+  --machaki-dl-bg: #1e90ff;
+  --machaki-dl-fg: #fff;
+  --machaki-dl-shadow: 1px 1px rgba(0,0,0,0.4);
+  --machaki-table-th-bg: #295890;
+  --machaki-table-th-fg: #fff;
+  --machaki-table-th-arrow: #295890;
+  --machaki-table-td-bg: #f8f8f8;
+  --machaki-table-td-fg: #333;
+  --machaki-table-divider: #3366cc;
+  --machaki-table-caption-fg: #3366cc;
+  --machaki-title-shadow: 1px 1px 0 #fff, 2px 2px 0 #999;
+  --machaki-label-base-fg: #fff;
+  --machaki-label-font-size: 0.8rem;
+  --machaki-label-shadow-strong: 3px 3px 5px #000;
+  --machaki-label-shadow-soft: 1px 1px 3px red;
+  --machaki-label-shadow-glow: 3px 3px 5px #fff;
+  --machaki-label-sf-bg: #4d1cff;
+  --machaki-label-adv-bg: #996699;
+  --machaki-label-mys-bg: #ed181e;
+  --machaki-label-kimyo-bg: #000;
+  --machaki-label-denki-bg: #2f8b20;
+  --machaki-label-sus-bg: #ef1f1d;
+  --machaki-label-normal-bg: #00ffff;
+  --machaki-label-normal-fg: #000;
+  --machaki-label-normal-shadow: 3px 3px 5px #fff;
+  --machaki-kai-shadow: 1px 1px 3px #000;
+  --machaki-kai-small-fg: #fff;
+  --machaki-short-arrow: url('/wp-content/themes/unomoon/public/images/arrow_02.png');
+  --machaki-censor-fg: #fff;
+  --machaki-censor-shadow: 0 2px 4px rgba(0,0,0,.25);
+  --biblio-entry-border: #2199e8;
+  --biblio-side-nav-bg: #00a0e9;
+  --biblio-side-nav-fg: #e7e7e7;
+  --biblio-side-nav-link: #fff;
+  --biblio-side-nav-border: #ccc;
+
+  /* オーバーレイ（中央は少し明るく周辺を暗く＝ビネット） */
+  --hero-overlay:
+    radial-gradient(110% 80% at 50% 45%,
+      rgba(0,0,0,.05) 0%,
+      rgba(0,0,0,.25) 40%,
+      rgba(0,0,0,.55) 100%),
+    rgba(0,0,0,.35);
+}
+
+@media (min-width:1024px){
+  :root{
+    --hero-h: 56vh;               /* デスクトップ高さ */
+    --hero-pad-x: 2rem;
+    --hero-pad-y: 1.5rem;
+    /* フォントはそのままでもOK。さらに大きくしたければ ↑ の clamp の最大値を上げる */
+  }
+}
+
+/* ダーク時は少しだけオーバーレイ強め（任意） */
+html.dark :root{
+  --hero-overlay:
+    radial-gradient(110% 80% at 50% 45%,
+      rgba(0,0,0,.07) 0%,
+      rgba(0,0,0,.28) 40%,
+      rgba(0,0,0,.6) 100%),
+    rgba(0,0,0,.38);
+}
+
+/* Dark mode: Machaki label colors */
+.dark {
+  --machaki-label-kimyo-bg: #666;
+}
+
+/* ===== Code Block Tokens ===== */
+:root {
+  /* Base styles */
+  --code-bg: #f6f8fa;
+  --code-fg: #24292f;
+  --code-bc: #d0d7de;
+  --code-rd: 0.375rem;
+  --code-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --code-px: 1rem;
+  --code-py: 0.875rem;
+
+  /* Syntax highlighting colors (light mode) */
+  --code-comment: #6a737d;
+  --code-punct: #24292f;
+  --code-const: #cf222e;
+  --code-number: #0550ae;
+  --code-string: #0a3069;
+  --code-operator: #cf222e;
+  --code-attr: #8250df;
+  --code-keyword: #cf222e;
+  --code-func: #8250df;
+  --code-class: #953800;
+  --code-var: #953800;
+  --code-builtin: #0550ae;
+
+  /* Highlight */
+  --code-hl-bg: rgba(255,212,0,0.15);
+
+  /* Line numbers */
+  --code-ln-fg: #57606a;
+  --code-ln-bc: #d0d7de;
+
+  /* Copy button */
+  --code-copy-bg: #f6f8fa;
+  --code-copy-fg: #24292f;
+  --code-copy-bc: #d0d7de;
+}
+
+.dark {
+  /* Base styles (dark mode) */
+  --code-bg: #161b22;
+  --code-fg: #c9d1d9;
+  --code-bc: #30363d;
+  --code-shadow: 0 1px 3px rgba(0,0,0,0.3);
+
+  /* Syntax highlighting colors (dark mode) */
+  --code-comment: #8b949e;
+  --code-punct: #c9d1d9;
+  --code-const: #ff7b72;
+  --code-number: #79c0ff;
+  --code-string: #a5d6ff;
+  --code-operator: #ff7b72;
+  --code-attr: #d2a8ff;
+  --code-keyword: #ff7b72;
+  --code-func: #d2a8ff;
+  --code-class: #ffa657;
+  --code-var: #ffa657;
+  --code-builtin: #79c0ff;
+
+  /* Highlight (dark mode) */
+  --code-hl-bg: rgba(255,212,0,0.1);
+
+  /* Line numbers (dark mode) */
+  --code-ln-fg: #8b949e;
+  --code-ln-bc: #30363d;
+
+  /* Copy button (dark mode) */
+  --code-copy-bg: #161b22;
+  --code-copy-fg: #c9d1d9;
+  --code-copy-bc: #30363d;
+}
+
+/* ===== Print Tokens ===== */
+:root {
+  /* Page setup */
+  --print-page-margin: 1.5cm;
+
+  /* Colors */
+  --print-bg: #fff;
+  --print-fg: #000;
+  --print-muted: #666;
+
+  /* Layout */
+  --print-lh: 1.6;
+  --print-gap: 0.75rem;
+
+  /* Borders and code */
+  --print-border: #ccc;
+  --print-code-bg: #f5f5f5;
+  --print-code-bc: #ddd;
+
+  /* Table */
+  --print-table-th: #f0f0f0;
+}

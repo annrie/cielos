@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'DIN Medium';
+  src: url('/fonts/DIN_Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#theme-toggle-desktop[data-mode="system"]::after{
+  content: "S";
+  position: absolute;
+  inset: auto 2px 2px auto;
+  font-size: 10px;
+  line-height: 1;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: rgba(0,0,0,.2);
+  color: #fff;
+}

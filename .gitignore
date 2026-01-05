@@ -1,0 +1,13 @@
+node_modules
+削除候補
+dist
+packaged
+*.log*
+.cache
+.output
+.data
+.env
+.env.*
+tmp
+*-tmp
+色々使い方meno.txt

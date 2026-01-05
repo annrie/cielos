@@ -1,0 +1,133 @@
+.has-submenu {
+  position: relative;
+}
+
+.sub-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  min-width: 200px;
+  z-index: 10;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #333; /* Dark mode background */
+  color: #fff; /* Dark mode text color */
+  border: 1px solid #555; /* Dark mode border */
+}
+
+html.dark .sub-menu {
+  background-color: #333 !important;
+  border-color: #555 !important;
+  color: #fff !important; /* Dark mode text color */
+}
+
+
+
+.sub-menu .sub-menu {
+    left: 100%;
+    top: 0;
+}
+
+/* Mobile Menu Accordion Styles */
+@media (max-width: 1023px) { /* Below lg breakpoint */
+  .mobile-sub-menu {
+    position: static !important;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    z-index: auto !important;
+  }
+  
+  .mobile-sub-menu li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Indentation for mobile menu items using @apply */
+  .mobile-menu li.menu-item-depth-0 > div {
+    @apply pl-4;
+  }
+
+  .mobile-menu li.menu-item-depth-1 > div {
+    @apply pl-8;
+  }
+
+  .mobile-menu li.menu-item-depth-2 > div {
+    @apply pl-12;
+  }
+
+  .mobile-menu li.menu-item-depth-3 > div {
+    @apply pl-16;
+  }
+
+  .mobile-menu li.menu-item-depth-4 > div {
+    @apply pl-20;
+  }
+  
+  .mobile-sub-menu li:last-child {
+    border-bottom: none;
+  }
+  
+  /* Carbon Icon 強制表示 */
+  .submenu-toggle-icon .i-carbon-chevron-down {
+    background-color: currentColor !important;
+    color: white !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    display: inline-block !important;
+    transition: transform 0.3s ease !important;
+  }
+  
+  /* アイコン回転クラス */
+  .submenu-toggle-icon .i-carbon-chevron-down.rotate-180 {
+    transform: rotate(180deg) !important;
+  }
+  
+  /* フォールバック用テキストアイコン */
+  .submenu-toggle-icon .i-carbon-chevron-down:before {
+    content: "▼";
+    color: white;
+    font-size: 0.75rem;
+    display: inline-block;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+  }
+  
+  .i-carbon-chevron-down.rotate-180:before {
+    transform: rotate(180deg) !important;
+  }
+}
+
+/* Desktop Menu Hover Effects */
+@media (min-width: 1024px) { /* lg breakpoint */
+  #menu .has-submenu:hover > .sub-menu {
+    display: block;
+  }
+
+  #menu .has-submenu:hover > a > .i-carbon-chevron-down {
+    transform: rotate(180deg);
+  }
+}
+
+
+/* --- Added by ChatGPT: Mobile menu indentation fix (targets .mobile-menu) --- */
+@media (max-width: 1023px) {
+  /* Indentation for mobile menu items inside .mobile-menu */
+  .mobile-menu li.menu-item-depth-0 > div,
+  .mobile-menu li.menu-item-depth-0 > a { padding-left: 1rem !important; } /* 16px */
+
+  .mobile-menu li.menu-item-depth-1 > div,
+  .mobile-menu li.menu-item-depth-1 > a { padding-left: 2rem !important; } /* 32px */
+
+  .mobile-menu li.menu-item-depth-2 > div,
+  .mobile-menu li.menu-item-depth-2 > a { padding-left: 3rem !important; } /* 48px */
+
+  .mobile-menu li.menu-item-depth-3 > div,
+  .mobile-menu li.menu-item-depth-3 > a { padding-left: 4rem !important; } /* 64px */
+
+  .mobile-menu li.menu-item-depth-4 > div,
+  .mobile-menu li.menu-item-depth-4 > a { padding-left: 5rem !important; } /* 80px */
+}
+/* --- /Added by ChatGPT --- */

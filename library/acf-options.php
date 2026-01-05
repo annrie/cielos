@@ -1,0 +1,40 @@
+<?php
+/**
+ * ACF Option Pages
+ *
+ * PHP Version >=7.0
+ *
+ * @category unomoon
+ * @package.json  unomoon
+ * @author   annrie <blastspinner @gmail.com>
+ * @license  MIT
+ * @link     https://unomoon.cielos.com
+ */
+
+if (function_exists('acf_add_options_page')) {
+    acf_add_options_page(
+        array(
+            'page_title' => 'Site Settings',
+            'menu_title' => 'Site Settings',
+            'menu_slug'  => 'site-settings',
+            'capability' => 'edit_posts',
+            'redirect'   => false,
+        )
+    );
+
+    acf_add_options_sub_page(
+        array(
+            'page_title'  => 'Header Settings',
+            'menu_title'  => 'Header',
+            'parent_slug' => 'site-settings',
+        )
+    );
+
+    acf_add_options_sub_page(
+        array(
+            'page_title'  => 'Footer Settings',
+            'menu_title'  => 'Footer',
+            'parent_slug' => 'site-settings',
+        )
+    );
+}

@@ -1,0 +1,810 @@
+/*
+ * ブロックエディタ用見出しスタイル
+ * shortcuts/headings.ts の定義を CSS に展開
+ * 2025-12-30 全スタイル対応
+ */
+
+/* ========================================
+   heading01: 上下破線-切り取り線
+   ======================================== */
+.heading01 {
+  position: relative;
+  display: block;
+  padding: 0.5rem 1rem;
+  color: var(--hd01-fg);
+  background-color: var(--hd01-bg);
+  border: 1px solid var(--hd01-b1);
+  border-radius: 0.25rem;
+}
+
+/* ========================================
+   heading02: 傾き-テープ
+   ======================================== */
+.heading02 {
+  position: relative;
+  width: 25%;
+  margin: 0 -1px;
+  font-weight: bold;
+  font-size: var(--hd02-fs);
+  line-height: 1.6;
+  font-family: sans-serif;
+  color: var(--hd02-fg);
+  text-align: center;
+  text-shadow: var(--hd02-text-shadow);
+  background-color: var(--hd02-bg);
+  box-shadow: var(--hd02-shadow);
+  opacity: 0.7;
+  transform: rotate(-3deg) skew(-3deg);
+}
+
+/* ========================================
+   heading03: 傾き全幅-リボン
+   ======================================== */
+.heading03 {
+  position: relative;
+  padding: 5px;
+  margin: 0 -10px -10px;
+  font-weight: normal;
+  font-size: var(--hd03-fs);
+  line-height: 1.6;
+  font-family: serif;
+  color: var(--hd03-fg);
+  text-align: center;
+  background-color: var(--hd03-bg);
+  background-image: var(--hd03-gradient);
+  box-shadow: var(--hd03-shadow);
+  transform: rotate(-3deg) skew(-3deg);
+}
+.heading03::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-bottom-width: 5px;
+  border-left-width: 10px;
+  border-bottom-color: var(--hd03-before-border-b);
+}
+.heading03::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-top-width: 5px;
+  border-right-width: 10px;
+  border-top-color: var(--hd03-after-border-t);
+}
+
+/* ========================================
+   heading03-2: 折り返し
+   ======================================== */
+.heading03-2 {
+  position: relative;
+  padding: 15px 5px 10px 40px;
+  margin: 30px -40px 10px;
+  font-size: var(--hd03-2-fs);
+  line-height: 1;
+  color: var(--hd03-2-fg);
+  background-color: var(--hd03-2-bg);
+  box-shadow: var(--hd03-2-shadow);
+}
+.heading03-2::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 0;
+  border: 5px solid transparent;
+  border-top-width: 5px;
+  border-top-color: var(--hd03-2-triangle);
+  border-left-width: 5px;
+  border-left-color: var(--hd03-2-triangle);
+}
+.heading03-2::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 5px solid transparent;
+  border-top-width: 5px;
+  border-top-color: var(--hd03-2-triangle);
+  border-right-width: 5px;
+  border-right-color: var(--hd03-2-triangle);
+}
+
+/* ========================================
+   heading04: 角丸下三角-吹き出し
+   ======================================== */
+.heading04 {
+  position: relative;
+  padding: var(--h4-p1, 10px) var(--h4-p2, 20px);
+  margin: var(--h4-m1, 0) var(--h4-m2, 15px);
+  font-weight: bold;
+  font-size: var(--hd04-fs);
+  line-height: 1.6;
+  font-family: sans-serif;
+  color: var(--hd04-fg);
+  background-color: var(--hd04-bg);
+  border: 3px solid var(--hd04-border);
+  border-radius: 18px;
+  box-shadow: var(--hd04-shadow);
+}
+.heading04::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 14px;
+  border: 20px solid transparent;
+  border-top-color: var(--hd04-triangle-top);
+}
+.heading04::after {
+  content: '';
+  position: absolute;
+  bottom: -27px;
+  left: 18px;
+  border: 14px solid transparent;
+  border-top-color: var(--hd04-triangle-bottom);
+}
+
+/* ========================================
+   heading04-2: 下三角塗り潰し
+   ======================================== */
+.heading04-2 {
+  position: relative;
+  padding: 15px 5px 12px 10px;
+  margin: 30px -10px 10px;
+  font-size: var(--hd04-2-fs);
+  line-height: 1;
+  color: var(--hd04-2-fg);
+  text-shadow: var(--hd04-2-text-shadow);
+  background-color: var(--hd04-2-bg);
+  border: 1px solid var(--hd04-2-border);
+  border-radius: 3px;
+}
+.heading04-2::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 30px;
+  border: 10px solid transparent;
+  border-top-width: 10px;
+  border-top-color: var(--hd04-2-triangle);
+}
+
+/* ========================================
+   heading04-3: 下三角-枠つき
+   ======================================== */
+.heading04-3 {
+  position: relative;
+  padding: 15px 5px 12px 10px;
+  margin: 30px -10px 10px;
+  font-size: var(--hd04-3-fs);
+  line-height: 1;
+  color: var(--hd04-3-fg);
+  background-color: var(--hd04-3-bg);
+  border: 2px solid var(--hd04-3-border);
+  border-radius: 3px;
+}
+.heading04-3::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 30px;
+  width: 0;
+  height: 0;
+  border: 14px solid transparent;
+  border-top-width: 14px;
+  border-top-color: var(--hd04-3-notch-outer);
+}
+.heading04-3::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 33px;
+  width: 0;
+  height: 0;
+  border: 11px solid transparent;
+  border-top-width: 11px;
+  border-top-color: var(--hd04-3-notch-inner);
+}
+
+/* ========================================
+   heading05: 装飾
+   ======================================== */
+.heading05 {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 0;
+  font-size: 1.125rem;
+  font-weight: bold;
+  color: var(--hd05-fg);
+  text-align: left;
+  background: var(--hd05-bg-color);
+  background-image: var(--hd05-gradient);
+  border: 1px solid var(--hd05-border);
+  border-radius: 4px;
+}
+
+/* ========================================
+   heading06: 文字下線-付箋
+   ======================================== */
+.heading06 {
+  position: relative;
+  display: block;
+  padding: 14px 15px 0 20px;
+  margin: 0 22px 0 10px;
+  font-weight: normal;
+  font-size: var(--hd06-fs);
+  line-height: 1.3;
+  font-family: serif;
+  color: var(--hd06-fg);
+  background-color: var(--hd06-bg);
+  box-shadow: var(--hd06-shadow);
+}
+.heading06::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-color: transparent;
+  border-top-width: 12px;
+  border-right-width: 12px;
+  border-top-color: var(--hd06-corner);
+}
+
+/* ========================================
+   heading06-label: 帯幅＝テキスト幅
+   ======================================== */
+.heading06-label {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+.heading06-label::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: var(--hd06-accent-h);
+  background-color: var(--hd06-accent-bg);
+  transform: rotate(var(--hd06-accent-rotate));
+}
+
+/* ========================================
+   heading07: 角丸なし左窪み-Depository
+   ======================================== */
+.heading07 {
+  position: relative;
+  padding: 10px 10px 10px 30px;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: var(--hd07-fs);
+  line-height: 1.2;
+  font-family: var(--hd07-ff);
+  color: var(--hd07-fg);
+  text-shadow: var(--hd07-text-shadow);
+  background-color: var(--hd07-bg);
+  background-image: linear-gradient(
+    to bottom,
+    var(--hd07-grad-1),
+    var(--hd07-grad-2) 25%,
+    var(--hd07-grad-3) 30%,
+    var(--hd07-grad-2) 36%,
+    var(--hd07-grad-3) 50%,
+    var(--hd07-grad-4) 80%,
+    var(--hd07-grad-5)
+  );
+  border-top: 1px solid var(--hd07-bg);
+  border-right: 1px solid var(--hd07-bc);
+  border-bottom: 1px solid var(--hd07-bc);
+  border-left: 1px solid var(--hd07-bg);
+  box-shadow: var(--hd07-inset);
+}
+.heading07::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15px;
+  height: 100%;
+  border-left: 1px solid var(--hd07-bg);
+}
+.heading07::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 16px;
+  height: 100%;
+  border-right: 1px solid var(--hd07-after-border);
+}
+
+/* ========================================
+   heading08: 左装飾Gracias
+   ======================================== */
+.heading08 {
+  position: relative;
+  z-index: 1;
+  padding: 0 10px 0 55px;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: var(--hd08-fs);
+  line-height: var(--hd08-lh);
+  font-family: var(--hd08-ff);
+  color: var(--hd08-fg);
+  background-color: var(--hd08-bg);
+}
+.heading08::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 40px;
+  height: 40px;
+  background-color: var(--hd08-badge-bg);
+  background-image: var(--hd08-grad-bottom);
+  border-right: 2px solid var(--hd08-after-border);
+}
+.heading08::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 40px;
+  height: 40px;
+  background-image: var(--hd08-grad-right);
+}
+
+/* ========================================
+   heading08-2: 左装飾Gracias（メタル）
+   ======================================== */
+.heading08-2 {
+  position: relative;
+  z-index: 1;
+  padding: 0 10px 0 55px;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: var(--hd08-fs);
+  line-height: var(--hd08-lh);
+  font-family: var(--hd08-ff);
+  color: var(--hd08-fg);
+  background-color: var(--hd08-bg);
+  background-image: var(--metal-grad-y), var(--metal-grad-x);
+  background-blend-mode: soft-light, normal;
+  box-shadow: var(--metal-inset), var(--metal-outer);
+}
+.heading08-2::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 40px;
+  height: 40px;
+  background-color: var(--hd08-badge-bg);
+  background-image: var(--hd08-icon), var(--hd08-grad-bottom);
+  background-repeat: no-repeat, repeat;
+  background-position: center, 0 0;
+  background-size: var(--hd08-icon-size) var(--hd08-icon-size), auto;
+  border-right: 2px solid var(--hd08-after-border);
+}
+.heading08-2::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 40px;
+  height: 40px;
+  background-image: var(--hd08-grad-right);
+}
+
+/* ========================================
+   heading09: 左旗
+   ======================================== */
+.heading09 {
+  position: relative;
+  padding: 10px 15px;
+  margin: 0 20px;
+  font-weight: bold;
+  font-size: var(--hd09-fs);
+  line-height: 1.2;
+  font-family: sans-serif;
+  color: var(--hd09-fg);
+  background-color: var(--hd09-bg);
+}
+.heading09::before {
+  content: '<';
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  font-size: 25px;
+  line-height: 1;
+  color: var(--hd09-before);
+  transform: translateY(-50%);
+}
+.heading09::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -10px;
+  height: 130%;
+  border: 2px solid var(--hd09-br);
+  border-radius: 2px;
+  transform: rotate(-2deg);
+}
+
+/* ========================================
+   heading09-2: 左旗（メタル）
+   ======================================== */
+.heading09-2 {
+  position: relative;
+  padding: 10px 15px;
+  margin: 0 20px;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 1.2;
+  font-family: sans-serif;
+  color: var(--hd09-2-fg);
+  background-color: var(--hd09-2-bg);
+  background-image: var(--metal-grad-y), var(--metal-grad-x);
+  background-blend-mode: soft-light, normal;
+  box-shadow: var(--metal-inset), var(--metal-outer);
+  border-style: solid;
+  border-color: var(--hd09-2-br);
+  border-top-color: var(--hd09-2-bg);
+  border-right-color: var(--hd09-2-edge);
+  border-bottom-color: var(--hd09-2-edge);
+  border-left-color: var(--hd09-2-bg);
+}
+.heading09-2::before {
+  content: '<';
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  display: inline-block;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: bold;
+  color: var(--hd09-2-angle-fg);
+  transform: translateY(-50%);
+}
+.heading09-2::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -10px;
+  height: 130%;
+  border: 2px solid var(--hd09-2-edge);
+  border-radius: 2px;
+  transform: rotate(-2deg);
+}
+
+/* ========================================
+   heading10: ピンマーク
+   ======================================== */
+.heading10 {
+  position: relative;
+  padding: 14px 5px 10px 50px;
+  margin: 30px 20px 10px -10px;
+  font-size: var(--hd10-fs);
+  line-height: 1;
+  color: var(--hd10-fg);
+  background: var(--hd10-bg);
+  border-radius: 22px 0 0 22px;
+}
+.heading10::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: var(--hd10-before-bg);
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 1px #777;
+}
+
+/* ========================================
+   heading10-2: ピンマーク2（メタル）
+   ======================================== */
+.heading10-2 {
+  position: relative;
+  padding: 14px 5px 10px 50px;
+  margin: 30px 20px 10px -10px;
+  font-size: var(--hd10-2-fs);
+  line-height: 1;
+  color: var(--hd10-2-fg);
+  background: var(--hd10-2-bg);
+  background-image: var(--metal-grad-y), var(--metal-grad-x);
+  background-blend-mode: soft-light, normal;
+  box-shadow: var(--metal-inset), var(--metal-outer);
+  border-radius: 22px 0 0 22px;
+}
+.heading10-2::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background: var(--hd10-2-pin-base);
+  border-radius: 50%;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+}
+.heading10-2::after {
+  content: '';
+  position: absolute;
+  top: calc(50% - 6px);
+  left: calc(14px + 6px);
+  width: 6px;
+  height: 6px;
+  background: var(--hd10-2-pin-spot);
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   heading10-3: ピンマーク3（内部ピン）
+   ======================================== */
+.heading10-3 {
+  position: relative;
+  padding: 12px 5px 12px 52px;
+  margin: 30px 20px 10px -10px;
+  font-size: var(--hd10-3-fs);
+  line-height: 1;
+  color: var(--hd10-3-fg);
+  background: var(--hd10-3-bg);
+  background-image: var(--metal-grad-y), var(--metal-grad-x);
+  background-blend-mode: soft-light, normal;
+  box-shadow: var(--metal-inset), var(--metal-outer);
+  border-radius: 22px 0 0 22px;
+}
+.heading10-3::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 44px;
+  height: 100%;
+  background: var(--hd10-3-pin-bg);
+  border-radius: 22px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.25),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.35);
+}
+.heading10-3::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 19px;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  background: var(--hd10-3-pin-inner);
+  border-radius: 50%;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* ========================================
+   heading11: 左ボーダー + 破線下線
+   ======================================== */
+.heading11 {
+  position: relative;
+  padding: 15px 5px 10px 20px;
+  margin: 30px -30px 10px;
+  font-size: var(--hd11-fs, inherit);
+  line-height: 1;
+  border-left: 10px solid var(--hd11-blc, #777);
+}
+.heading11::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px dashed var(--hd11-bc, #555);
+}
+
+/* ========================================
+   heading12: 回転四角形ワンポイント
+   ======================================== */
+.heading12 {
+  position: relative;
+  padding: 14px 5px 10px 10px;
+  margin-top: 30px;
+  font-size: var(--hd12-fs, 1.25rem);
+  line-height: 1;
+  color: var(--hd12-fg, #111);
+}
+.heading12::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--hd12-b1, #999);
+  transform: rotate(45deg);
+}
+.heading12::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -10px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--hd12-b2, #777);
+  transform: rotate(12deg);
+}
+
+/* ========================================
+   heading13: 左バー + 破線下線
+   ======================================== */
+.heading13 {
+  position: relative;
+  display: block;
+  padding: 0.5em 0 0.5em 1em;
+  margin-bottom: 1.5em;
+  font-weight: bold;
+  color: var(--hd13-fg, inherit);
+  border-left: 4px solid var(--hd13-blc, #a00);
+  border-bottom-width: var(--hd13-bw, 2px);
+  border-bottom-style: var(--hd13-bs, dashed);
+  border-bottom-color: var(--hd13-bc, #e6e6fa);
+}
+
+/* ========================================
+   heading13-2: 上下 double ボーダー
+   ======================================== */
+.heading13-2 {
+  padding: 0.8em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-2-fs);
+  font-weight: bold;
+  border-top: 3px double var(--hd13-2-btc);
+  border-bottom: 3px double var(--hd13-2-bbc);
+}
+
+/* ========================================
+   heading13-3: 角丸ボーダー
+   ======================================== */
+.heading13-3 {
+  padding: 0.8em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-3-fs);
+  font-weight: bold;
+  color: var(--hd13-3-fg);
+  border: 2px solid var(--hd13-3-bc);
+  border-radius: 10px;
+}
+
+/* ========================================
+   heading13-4: 縦バー付き
+   ======================================== */
+.heading13-4 {
+  position: relative;
+  padding: 0.8em 0.8em 0.8em 1.5em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-4-fs);
+  font-weight: bold;
+  border: 2px solid var(--hd13-4-bc);
+}
+.heading13-4::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  width: 8px;
+  height: 30px;
+  margin-top: -15px;
+  background-color: var(--hd13-4-bg);
+  border-radius: 2px;
+}
+
+/* ========================================
+   heading13-5: 丸アイコン付き角丸
+   ======================================== */
+.heading13-5 {
+  position: relative;
+  padding: 0.8em 0.8em 0.8em 2.5em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-5-fs);
+  font-weight: bold;
+  border: 1px solid var(--hd13-5-bc);
+  border-radius: 20px;
+}
+.heading13-5::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  background-color: var(--hd13-5-bg);
+  border-radius: 15px;
+  box-shadow: inset 1px 1px 1px var(--hd13-5-bc);
+}
+
+/* ========================================
+   heading13-6: 吹き出し三角形付き
+   ======================================== */
+.heading13-6 {
+  position: relative;
+  padding: 0.8em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-6-fs);
+  font-weight: bold;
+  color: var(--hd13-6-fg);
+  background-color: var(--hd13-6-bg);
+  border-radius: 5px;
+}
+.heading13-6::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 10%;
+  margin-left: -15px;
+  border-top: 15px solid var(--hd13-6-bc);
+  border-right: 15px solid transparent;
+  border-left: 15px solid transparent;
+}
+
+/* ========================================
+   heading13-7: ドロップシャドウ付き
+   ======================================== */
+.heading13-7 {
+  padding: 0.8em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-7-fs);
+  font-weight: bold;
+  color: var(--hd13-7-fg);
+  border: 2px solid var(--hd13-7-bc);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* ========================================
+   heading13-8: 傾き + 拡張背景
+   ======================================== */
+.heading13-8 {
+  position: relative;
+  padding: 0.8em;
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-8-fs);
+  font-weight: bold;
+  color: var(--hd13-8-fg);
+  text-align: center;
+  background-color: var(--hd13-8-bg);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2),
+    1em 0 0 0 var(--hd13-8-bg),
+    -1em 0 0 0 var(--hd13-8-bg);
+  transform: rotate(-1deg) skew(-1deg);
+}
+
+/* ========================================
+   heading13-9: 下線 + ドロップキャップ
+   ======================================== */
+.heading13-9 {
+  margin-bottom: 1.5em;
+  font-size: var(--hd13-9-fs);
+  font-weight: bold;
+  color: var(--hd13-9-fg);
+  text-shadow: 0 1px 1px var(--hd13-9-tsc);
+  border-bottom: 2px solid var(--hd13-9-bc);
+  box-shadow: 0 1px 0 var(--hd13-9-sc);
+}
+.heading13-9::first-letter {
+  font-size: 3.75rem;
+}

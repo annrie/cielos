@@ -1,0 +1,15 @@
+.entry-content h2 {
+  @apply text-2xl font-bold my-4;
+}
+
+.entry-content p {
+  @apply leading-relaxed mb-4;
+}
+
+.entry-content a {
+  @apply text-blue-600 hover:underline;
+}
+
+.entry-content ul {
+  @apply list-disc list-inside my-4;
+}
