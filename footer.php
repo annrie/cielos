@@ -1,15 +1,11 @@
 <?php
 /**
- * The template for displaying 404 pages (not found)
+ * The template for displaying the footer
  *
  * @package Cielos
- * @since   unomoon 1.0.0
+ * @since   Cielos 1.0.0
  */
 
-?> <?php
-/**
- * Back to Top
- */
 ?>
 <!-- Navigation Control - Clean navigation functionality -->
 <script src="<?php echo get_template_directory_uri(); ?>/nav-control.js" defer></script>
@@ -22,7 +18,7 @@
  * Footer
  */
 ?>
-<footer class="bg-gray-800 text-white py-8 px-4 mt-16 dark:bg-gray-900">
+<footer class="bg-[var(--footer-bg)] text-[var(--footer-fg)] py-[var(--footer-py)] px-4 mt-16">
     <div class="footer-grid flex flex-col items-center">
         <div class="cell"> <?php dynamic_sidebar('footer-widgets1'); ?> </div>
         <div id="copyright"
