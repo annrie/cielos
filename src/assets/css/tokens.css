@@ -1381,47 +1381,12 @@ html.dark :root{
   --hero-subtitle-fs: 0.9rem;
   --hero-subtitle-fg: rgba(255,255,255,.85);
 
-  /* Machaki / Biblio 互換カラー・装飾 */
-  --machaki-heading-border: #454036;
-  --machaki-heading-alt-border: #0000ff;
-  --machaki-heading-padding-x: 1.25rem;
-  --machaki-body-indent: 1rem;
-  --machaki-list-gap: 1rem;
-  --machaki-dl-bg: #1e90ff;
-  --machaki-dl-fg: #fff;
-  --machaki-dl-shadow: 1px 1px rgba(0,0,0,0.4);
-  --machaki-table-th-bg: #295890;
-  --machaki-table-th-fg: #fff;
-  --machaki-table-th-arrow: #295890;
-  --machaki-table-td-bg: #f8f8f8;
-  --machaki-table-td-fg: #333;
-  --machaki-table-divider: #3366cc;
-  --machaki-table-caption-fg: #3366cc;
-  --machaki-title-shadow: 1px 1px 0 #fff, 2px 2px 0 #999;
-  --machaki-label-base-fg: #fff;
-  --machaki-label-font-size: 0.8rem;
-  --machaki-label-shadow-strong: 3px 3px 5px #000;
-  --machaki-label-shadow-soft: 1px 1px 3px red;
-  --machaki-label-shadow-glow: 3px 3px 5px #fff;
-  --machaki-label-sf-bg: #4d1cff;
-  --machaki-label-adv-bg: #996699;
-  --machaki-label-mys-bg: #ed181e;
-  --machaki-label-kimyo-bg: #000;
-  --machaki-label-denki-bg: #2f8b20;
-  --machaki-label-sus-bg: #ef1f1d;
-  --machaki-label-normal-bg: #00ffff;
-  --machaki-label-normal-fg: #000;
-  --machaki-label-normal-shadow: 3px 3px 5px #fff;
-  --machaki-kai-shadow: 1px 1px 3px #000;
-  --machaki-kai-small-fg: #fff;
-  --machaki-short-arrow: url('/wp-content/themes/unomoon/public/images/arrow_02.png');
-  --machaki-censor-fg: #fff;
-  --machaki-censor-shadow: 0 2px 4px rgba(0,0,0,.25);
-  --biblio-entry-border: #2199e8;
-  --biblio-side-nav-bg: #00a0e9;
+  /* Biblio 互換カラー（汎用） */
+  --biblio-entry-border: var(--c-primary);
+  --biblio-side-nav-bg: var(--c-primary);
   --biblio-side-nav-fg: #e7e7e7;
   --biblio-side-nav-link: #fff;
-  --biblio-side-nav-border: #ccc;
+  --biblio-side-nav-border: var(--c-border);
 
   /* オーバーレイ（中央は少し明るく周辺を暗く＝ビネット） */
   --hero-overlay:
@@ -1449,11 +1414,6 @@ html.dark :root{
       rgba(0,0,0,.28) 40%,
       rgba(0,0,0,.6) 100%),
     rgba(0,0,0,.38);
-}
-
-/* Dark mode: Machaki label colors */
-.dark {
-  --machaki-label-kimyo-bg: #666;
 }
 
 /* ===== Code Block Tokens ===== */

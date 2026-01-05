@@ -3,7 +3,6 @@ import App from './App.vue'
 import BackToTop from './components/BackToTop.vue'
 import CommentPagination from './components/CommentPagination.vue'
 import Gallery from './components/Gallery.vue'
-import MachakiPickup from './components/MachakiPickup.vue'
 import Pagination from './components/Pagination.vue'
 import PostList from './components/PostList.vue'
 import SidebarBooks from './components/SidebarBooks.vue'
@@ -231,20 +230,6 @@ if (paginationElement && typeof window.cielosPagination !== 'undefined') {
     totalPages: window.cielosPagination.totalPages,
     base: window.cielosPagination.base,
   }).mount(paginationElement)
-}
-
-// Mount MachakiPickup component lazily
-const machakiPickupContainer = document.getElementById('machaki-pickup-app')
-if (machakiPickupContainer) {
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        createApp(MachakiPickup).mount('#machaki-pickup-app')
-        observer.unobserve(machakiPickupContainer)
-      }
-    })
-  })
-  observer.observe(machakiPickupContainer)
 }
 
 // Mount SidebarTop component if data is available
