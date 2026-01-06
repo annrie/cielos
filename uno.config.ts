@@ -18,9 +18,10 @@ import {
 } from 'unocss'
 import {presetExtra} from 'unocss-preset-extra'
 import transformerAlias from 'unocss-transformer-alias'
-import {preflight404,preflightA11y,preflightArchive,preflightAuthor,preflightBase,preflightBiblio,preflightBreadcrumbs,preflightChildPages,preflightComments,preflightContent,preflightDocs,preflightFooter,preflightFooterVisibilityGuard,preflightForms,preflightHeader,preflightHeaderDesktopRow,preflightHeroFeature,preflightHeroPage,preflightMobileMenu,preflightNavSolid,preflightPrint,preflightRelated,preflightSearch,preflightSidebar,preflightSingle,preflightStickyFooter,preflightSyntax,preflightThemeIcons,preflightThemeTransition,preflightTop,preflightWpAdmin,tabsPreflight,tokensPreflight} from './preflight'
+import {preflight404,preflightA11y,preflightArchive,preflightAuthor,preflightBase,preflightBiblio,preflightBreadcrumbs,preflightChildPages,preflightComments,preflightContent,preflightDocs,preflightFooter,preflightFooterVisibilityGuard,preflightForms,preflightHeader,preflightHeaderDesktopRow,preflightHeroFeature,preflightHeroPage,preflightLayout,preflightMobileMenu,preflightNavSolid,preflightPrint,preflightRelated,preflightSearch,preflightSidebar,preflightSingle,preflightStickyFooter,preflightSyntax,preflightThemeIcons,preflightThemeTransition,preflightTop,preflightWpAdmin,tabsPreflight,tokensPreflight} from './preflight'
 
 import compatShortcuts from './shortcuts/compat'
+import {componentShortcuts, namesFromComponentShortcuts} from './shortcuts/components'
 import {extrasShortcuts} from './shortcuts/extras'
 import {headingShortcuts} from './shortcuts/headings'
 
@@ -215,12 +216,17 @@ export default defineConfig({
 				'!mb-20','!mt-20',
     ...namesFromShortcuts(headingShortcuts),
 				...namesFromShortcuts(extrasShortcuts),
-				
+    ...namesFromComponentShortcuts(),
+
     // compat は selector/regex が多いので基本は不要。文字名だけ拾うなら↓
     // ...namesFromShortcuts(compatShortcuts),
     ...SAFE_FIXED,
      'no-theme-anim',
      'w-[var(--container-w)]',  // パンクズナビとcontainerの幅統一
+     // レイアウト
+     'container-page', 'layout-2col', 'layout-2col-rev',
+     'main-content', 'main-content-full', 'sidebar-area',
+     'hero-section', 'featured-posts', 'page-section',
      // 'top-hero-title' は preflight.top.ts で定義されているため safelist 不要
      // テキストサイズ
      'text-h1','text-h2','text-h3','text-h4','text-h5','text-h6',
@@ -393,9 +399,9 @@ export default defineConfig({
     ...headingShortcuts,
     ...extrasShortcuts,
     ...compatShortcuts,
-		
-    // 1) 引数なし mixin → そのままshortcut
- ['btn', 'px-4 py-1 rounded inline-block bg-[var(--color-primary)] text-[var(--color-on-primary)] hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed'],
+    ...componentShortcuts,
+
+    // 1) 引数なし mixin → そのままshortcut（componentShortcuts に移行済み）
 
     // 2) 変数参照の定数系（Sass不要）
     ['container-pad', 'px-[var(--section-x)]'],
@@ -576,6 +582,7 @@ preflights: [
   preflightBase,
   preflightStickyFooter,
   preflightContent,
+  preflightLayout,
 
   // レイアウト/ヘッダの骨組み
   preflightHeader,

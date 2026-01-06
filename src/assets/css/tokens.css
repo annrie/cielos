@@ -1,6 +1,124 @@
+/* ===== Cielos タイポグラフィ =====
+ * lqd.jp 風：日本語の可読性重視、クリーンなサンセリフ
+ */
+:root {
+  /* フォントファミリー */
+  --font-sans: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+               "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", "Source Code Pro",
+               "Menlo", "Consolas", monospace;
+
+  /* 本文タイポグラフィ（日本語向け広めの行間） */
+  --prose-fs: 1rem;
+  --prose-lh: 1.9;              /* 日本語は広めが読みやすい */
+  --prose-tracking: 0.02em;     /* 日本語は少し広げる */
+
+  /* 見出しタイポグラフィ */
+  --heading-weight: 600;
+  --heading-lh: 1.3;
+  --heading-tracking: -0.02em;  /* 見出しは詰め気味 */
+
+  /* フォントサイズスケール（モバイルベース） */
+  --fs-xs: 0.75rem;    /* 12px */
+  --fs-sm: 0.875rem;   /* 14px */
+  --fs-base: 1rem;     /* 16px */
+  --fs-lg: 1.125rem;   /* 18px */
+  --fs-xl: 1.25rem;    /* 20px */
+  --fs-2xl: 1.5rem;    /* 24px */
+  --fs-3xl: 1.875rem;  /* 30px */
+  --fs-4xl: 2.25rem;   /* 36px */
+}
+
+/* デスクトップでは本文を少し大きく */
+@media (min-width: 1024px) {
+  :root {
+    --prose-fs: 1.0625rem;  /* 17px */
+    --prose-lh: 1.85;
+  }
+}
+
+/* ===== Cielos レイアウト ===== */
 :root{
-  --layout-gap: 1.25rem;  /* 本文とサイドの間隔 */
-  --sidebar-w: 320px;     /* サイドバーの最大幅 */
+  --layout-gap: 1.5rem;   /* 本文とサイドの間隔 */
+  --sidebar-w: 300px;     /* サイドバーの幅 */
+  --content-max-w: 72ch;  /* 本文の最大幅（読みやすさ重視） */
+  --container-w: min(1280px, 92vw);  /* コンテナ最大幅 */
+}
+
+/* ===== Cielos コンポーネント =====
+ * Nuxt/Docus 風：クリーンでモダン、微妙なシャドウと角丸
+ */
+:root {
+  /* ボタン（Primary） */
+  --btn-bg: var(--c-primary);
+  --btn-fg: #fff;
+  --btn-hover-bg: var(--c-primary-dark);
+  --btn-radius: 0.5rem;           /* 8px */
+  --btn-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  --btn-shadow-hover: 0 4px 6px -1px rgba(0,0,0,0.1);
+  --btn-px: 1.25rem;
+  --btn-py: 0.625rem;
+  --btn-font-weight: 500;
+  --btn-transition: all 0.15s ease;
+
+  /* ボタン（Secondary / Outline） */
+  --btn-outline-bg: transparent;
+  --btn-outline-fg: var(--c-primary);
+  --btn-outline-border: var(--c-primary);
+  --btn-outline-hover-bg: var(--c-primary);
+  --btn-outline-hover-fg: #fff;
+
+  /* ボタン（Accent / CTA） */
+  --btn-accent-bg: var(--c-accent);
+  --btn-accent-fg: #fff;
+  --btn-accent-hover-bg: var(--c-accent-dark);
+
+  /* カード */
+  --card-bg: var(--c-panel);
+  --card-border: var(--c-border);
+  --card-radius: 0.75rem;         /* 12px */
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+  --card-padding: 1.5rem;
+  --card-transition: all 0.2s ease;
+
+  /* リンク */
+  --link-fg: var(--c-primary);
+  --link-hover-fg: var(--c-primary-dark);
+  --link-decoration: none;
+  --link-hover-decoration: underline;
+
+  /* バッジ */
+  --badge-bg: var(--c-primary);
+  --badge-fg: #fff;
+  --badge-radius: 9999px;         /* pill shape */
+  --badge-px: 0.625rem;
+  --badge-py: 0.25rem;
+  --badge-fs: var(--fs-xs);
+
+  /* バッジ（Accent） */
+  --badge-accent-bg: var(--c-accent);
+  --badge-accent-fg: #fff;
+
+  /* 入力フィールド */
+  --input-bg: var(--c-panel);
+  --input-border: var(--c-border);
+  --input-focus-border: var(--c-primary);
+  --input-focus-ring: color-mix(in srgb, var(--c-primary) 20%, transparent);
+  --input-radius: 0.5rem;
+  --input-px: 0.875rem;
+  --input-py: 0.625rem;
+}
+
+/* ダークモードのコンポーネント調整 */
+.dark {
+  --btn-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  --btn-shadow-hover: 0 4px 6px -1px rgba(0,0,0,0.3);
+
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  --card-shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.3);
+
+  --input-focus-ring: color-mix(in srgb, var(--c-primary) 30%, transparent);
 }
 
 :root {
