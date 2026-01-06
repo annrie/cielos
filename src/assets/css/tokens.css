@@ -141,6 +141,16 @@
   --c-accent-light: #fbbf24; /* amber-400 */
   --c-accent-dark: #d97706;  /* amber-600 */
 
+  /* セマンティックカラー（状態表示用） */
+  --c-success: #22c55e;        /* green-500 */
+  --c-success-light: #dcfce7;  /* green-100 */
+  --c-danger: #ef4444;         /* red-500 */
+  --c-danger-light: #fee2e2;   /* red-100 */
+  --c-warning: #f59e0b;        /* amber-500 */
+  --c-warning-light: #fef3c7;  /* amber-100 */
+  --c-info: #0ea5e9;           /* sky-500 */
+  --c-info-light: #e0f2fe;     /* sky-100 */
+
   /* 背景・ボーダー */
   --c-border: #e2e8f0;       /* slate-200 */
   --c-panel: #ffffff;
@@ -432,6 +442,16 @@
   --c-accent: #fbbf24;          /* amber-400 */
   --c-accent-light: #fcd34d;    /* amber-300 */
   --c-accent-dark: #f59e0b;     /* amber-500 */
+
+  /* セマンティックカラー（状態表示用・ダーク） */
+  --c-success: #4ade80;        /* green-400 */
+  --c-success-light: #14532d;  /* green-900 */
+  --c-danger: #f87171;         /* red-400 */
+  --c-danger-light: #7f1d1d;   /* red-900 */
+  --c-warning: #fbbf24;        /* amber-400 */
+  --c-warning-light: #78350f;  /* amber-900 */
+  --c-info: #38bdf8;           /* sky-400 */
+  --c-info-light: #0c4a6e;     /* sky-900 */
 
   /* 互換用（旧トークン） */
   --c-accent-bisque: #92400e;   /* amber-800 相当 */
