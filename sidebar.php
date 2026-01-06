@@ -13,8 +13,8 @@
       <?php get_template_part('searchform'); ?>
     </div><!-- .widget-search end -->
     <?php if (is_category() ) : ?>
-    <div class="rss-link bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm">
-      <a href="<?php echo get_category_feed_link($cat); ?>" class="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline transition-colors duration-200">
+    <div class="rss-link bg-[var(--c-panel)] border border-[var(--c-border)] rounded-lg p-4 shadow-sm">
+      <a href="<?php echo get_category_feed_link($cat); ?>" class="flex items-center gap-2 text-sm font-semibold text-[var(--c-primary)] hover:text-[var(--c-primary-dark)] hover:underline transition-colors duration-200">
         <i class="i-carbon-rss text-orange-500"></i>
         <span>RSS フィード</span>
       </a>

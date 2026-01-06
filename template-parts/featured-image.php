@@ -32,7 +32,7 @@ if ($image_url && (!is_single() || is_singular('machaki'))):
 if ($image_url && (!is_single() || is_singular('machaki')) && !is_front_page() && !is_page() && !is_home()) : ?>
   <nav aria-label="breadcrumb" class="breadcrumb-nav container mx-auto px-4 pt-4 pb-3">
     <?php if (function_exists('bcn_display')) : ?>
-      <div class="breadcrumb-navxt text-sm bg-gray-100 dark:bg-gray-700 px-3 py-1.5 rounded inline-flex">
+      <div class="breadcrumb-navxt text-sm bg-[var(--c-bg)] px-3 py-1.5 rounded inline-flex">
         <?php bcn_display(); ?>
       </div>
     <?php endif; ?>

@@ -17,7 +17,7 @@
  */
 
 if ( ! function_exists('cielos_menu_fallback') ) :
-    function cielos_menu_fallback() {         echo '<div class="bg-blue-100 text-blue-800 p-4 rounded">';
+    function cielos_menu_fallback() {         echo '<div class="bg-[var(--c-primary-light)] text-[var(--c-primary)] p-4 rounded">';
         printf(
         /* translators: %1$s: link to menus, %2$s: link to customize. */
             __('Please assign a menu to the primary menu location under %1$s or %2$s the design.', 'cielos'),
@@ -244,7 +244,7 @@ if ( ! function_exists('cielos_sidebar_widget_styler') ) {
     function cielos_sidebar_widget_styler($params) {
         $params[0]['before_widget'] = '<aside class="widget %1$s %2$s">';
         $params[0]['after_widget'] = '</aside>';
-        $params[0]['before_title'] = '<h4 class="widget-title text-xl font-bold mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700 dark:text-white">';
+        $params[0]['before_title'] = '<h4 class="widget-title text-xl font-bold mb-4 pb-2 border-b-2 border-[var(--c-border)] text-[var(--c-fg)]">';
         $params[0]['after_title'] = '</h4>';
 
         return $params;

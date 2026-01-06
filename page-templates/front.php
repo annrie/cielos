@@ -10,16 +10,16 @@ Template Name: Front
 
 get_header(); ?>
 
-<header class="front-hero bg-gray-100 dark:bg-gray-800 py-16 text-center" role="banner">
+<header class="front-hero bg-[var(--c-bg)] py-16 text-center" role="banner">
 	<div class="container mx-auto px-4">
 		<div class="marketing space-y-6">
-			<h1 class="text-5xl font-bold text-gray-900 dark:text-white"><?php bloginfo('name'); ?></h1>
-			<h4 class="text-xl text-gray-700 dark:text-gray-300"><?php bloginfo('description'); ?></h4>
-			<a role="button" class="inline-block px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300" href="https://github.com/annrie/unomoonNG">Download unomoon</a>
+			<h1 class="text-5xl font-bold text-[var(--c-fg)]"><?php bloginfo('name'); ?></h1>
+			<h4 class="text-xl text-[var(--c-muted)]"><?php bloginfo('description'); ?></h4>
+			<a role="button" class="inline-block px-8 py-3 text-lg font-semibold text-white bg-[var(--c-primary)] rounded-lg shadow-md hover:bg-[var(--c-primary-dark)] transition-colors duration-300" href="https://github.com/annrie/unomoonNG">Download unomoon</a>
 		</div>
 
 		<div class="watch mt-8 flex justify-center space-x-4">
-			<span id="twitter"><a href="https://twitter.com/muraie_jin" class="text-blue-600 dark:text-blue-400 hover:underline">@muraie_jin</a></span>
+			<span id="twitter"><a href="https://twitter.com/muraie_jin" class="text-[var(--c-primary)] hover:underline">@muraie_jin</a></span>
 		</div>
 	</div>
 </header>
@@ -42,7 +42,7 @@ foreach ($myposts as $post) :
         setup_postdata($post);
         ?>
 
-<article <?php post_class('bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300'); ?>>
+<article <?php post_class('bg-[var(--c-panel)] p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300'); ?>>
 <a href="<?php the_permalink(); ?>" class="block">
 
 		<?php
@@ -64,7 +64,7 @@ foreach ($myposts as $post) :
 </figure>
 		<?php endif; ?>
 
-<h3 class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"><?php the_title(); ?></h3>
+<h3 class="text-xl font-bold text-[var(--c-fg)] hover:text-[var(--c-primary)] transition-colors duration-200"><?php the_title(); ?></h3>
 
 </a>
 </article>
@@ -114,44 +114,44 @@ the_post();
 <?php do_action('cielos_after_content'); ?> -->
 
 <div class="section-divider py-8">
-	<hr class="border-t border-gray-200 dark:border-gray-700" />
+	<hr class="border-t border-[var(--c-border)]" />
 </div>
 
 
-<section class="benefits py-16 bg-gray-50 dark:bg-gray-900/50">
+<section class="benefits py-16 bg-[var(--c-bg)]">
 	<header class="text-center mb-12">
-		<h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Build Cielos based sites, powered by WordPress</h2>
-		<h4 class="text-lg text-gray-700 dark:text-gray-300">Cielos is the professional choice for designers, developers and teams. <br /> WordPress is by far, <a href="http://trends.builtwith.com/cms" class="text-blue-600 dark:text-blue-400 hover:underline">the world's most popular CMS</a> (currently powering 38% of the web).</h4>
+		<h2 class="text-3xl font-bold text-[var(--c-fg)] mb-4">Build Cielos based sites, powered by WordPress</h2>
+		<h4 class="text-lg text-[var(--c-muted)]">Cielos is the professional choice for designers, developers and teams. <br /> WordPress is by far, <a href="http://trends.builtwith.com/cms" class="text-[var(--c-primary)] hover:underline">the world's most popular CMS</a> (currently powering 38% of the web).</h4>
 	</header>
 
 	<div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-		<div class="semantic text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+		<div class="semantic text-center p-6 bg-[var(--c-panel)] rounded-lg shadow-md">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/public/images/demo/semantic.svg" alt="semantic" class="mx-auto mb-4 h-24 w-auto" loading="lazy" decoding="async">
-			<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Semantic</h3>
-			<p class="text-gray-700 dark:text-gray-300">Everything is semantic. You can have the cleanest markup without sacrificing the utility and speed of Cielos.</p>
+			<h3 class="text-xl font-bold text-[var(--c-fg)] mb-2">Semantic</h3>
+			<p class="text-[var(--c-muted)]">Everything is semantic. You can have the cleanest markup without sacrificing the utility and speed of Cielos.</p>
 		</div>
 
-		<div class="responsive text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+		<div class="responsive text-center p-6 bg-[var(--c-panel)] rounded-lg shadow-md">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/public/images/demo/responsive.svg" alt="responsive" class="mx-auto mb-4 h-24 w-auto" loading="lazy" decoding="async">
-			<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Responsive</h3>
-			<p class="text-gray-700 dark:text-gray-300">You can build for small devices first. Then, as devices get larger and larger, layer in more complexity for a complete responsive design.</p>
+			<h3 class="text-xl font-bold text-[var(--c-fg)] mb-2">Responsive</h3>
+			<p class="text-[var(--c-muted)]">You can build for small devices first. Then, as devices get larger and larger, layer in more complexity for a complete responsive design.</p>
 		</div>
 
-		<div class="customizable text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+		<div class="customizable text-center p-6 bg-[var(--c-panel)] rounded-lg shadow-md">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/public/images/demo/customizable.svg" alt="customizable" class="mx-auto mb-4 h-24 w-auto" loading="lazy" decoding="async">
-			<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Customizable</h3>
-			<p class="text-gray-700 dark:text-gray-300">You can customize your build to include or remove certain elements, as well as define the size of columns, colors, font size and more.</p>
+			<h3 class="text-xl font-bold text-[var(--c-fg)] mb-2">Customizable</h3>
+			<p class="text-[var(--c-muted)]">You can customize your build to include or remove certain elements, as well as define the size of columns, colors, font size and more.</p>
 		</div>
 
-		<div class="professional text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+		<div class="professional text-center p-6 bg-[var(--c-panel)] rounded-lg shadow-md">
             <img src="<?php echo get_stylesheet_directory_uri(); ?>/public/images/demo/professional.svg" alt="professional" class="mx-auto mb-4 h-24 w-auto" loading="lazy" decoding="async">
-			<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Professional</h3>
-			<p class="text-gray-700 dark:text-gray-300">Millions of designers and developers depend on Cielos. We have business support, training and consulting to help grow your product or service.</p>
+			<h3 class="text-xl font-bold text-[var(--c-fg)] mb-2">Professional</h3>
+			<p class="text-[var(--c-muted)]">Millions of designers and developers depend on Cielos. We have business support, training and consulting to help grow your product or service.</p>
 		</div>
 	</div>
 
 	<div class="why-foundation text-center mt-12">
-		<a href="/kitchen-sink" class="inline-block px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300">See what's in Cielos out of the box →</a>
+		<a href="/kitchen-sink" class="inline-block px-8 py-3 text-lg font-semibold text-white bg-[var(--c-primary)] rounded-lg shadow-md hover:bg-[var(--c-primary-dark)] transition-colors duration-300">See what's in Cielos out of the box →</a>
 	</div>
 
 </section>

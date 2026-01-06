@@ -10,7 +10,7 @@
 <article id="post-<?php the_ID(); ?>" aria-labelledby="entry-title" <?php post_class('prose dark:prose-invert max-w-none'); ?>>
   <header class="entry-header my-8">
     <?php the_title('<h1 class="entry-title heading05">', '</h1>'); ?>
-    <div class="entry-meta text-gray-500 dark:text-gray-400 mt-2">
+    <div class="entry-meta text-[var(--c-muted)] mt-2">
       <?php cielos_entry_meta(); ?>
     </div>
   </header>
@@ -48,12 +48,12 @@
   $tags = get_the_tags();
   if ($tags) :
   ?>
-  <footer class="mt-8 pt-4 pb-4 px-4 border-t border-gray-200 dark:border-gray-700 rounded-b-md">
+  <footer class="mt-8 pt-4 pb-4 px-4 border-t border-[var(--c-border)] rounded-b-md">
         <div class="flex items-center gap-2 text-sm">
-          <i class="i-carbon-tag text-gray-400 dark:text-gray-500"></i>
+          <i class="i-carbon-tag text-[var(--c-muted)]"></i>
           <div class="flex flex-wrap gap-2">
             <?php foreach ($tags as $tag) : ?>
-            <a href="<?php echo get_tag_link($tag->term_id); ?>" class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 text-xs">
+            <a href="<?php echo get_tag_link($tag->term_id); ?>" class="px-2 py-1 bg-[var(--c-bg)] text-[var(--c-muted)] rounded-md hover:bg-[var(--c-primary-light)] hover:text-[var(--c-primary-dark)] transition-colors duration-200 text-xs">
               <?php echo $tag->name; ?>
             </a>
             <?php endforeach; ?>

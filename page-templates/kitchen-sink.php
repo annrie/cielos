@@ -152,41 +152,41 @@ while (have_posts() ) :
 						</li>
 					</ul>
 					<!-- Accordion Menu -->
-						<h2 id="accordion-menu" class="docs-heading text-3xl font-bold mb-4"><a href="#accordion-menu" class="text-gray-900 dark:text-white hover:underline">Accordion Menu</a></h2>
-						<ul class="vertical menu space-y-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4" data-accordion-menu>
+						<h2 id="accordion-menu" class="docs-heading text-3xl font-bold mb-4"><a href="#accordion-menu" class="text-[var(--c-fg)] hover:underline">Accordion Menu</a></h2>
+						<ul class="vertical menu space-y-2 bg-[var(--c-panel)] rounded-lg shadow-sm border border-[var(--c-border)] p-4" data-accordion-menu>
 							<li>
-								<a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1</a>
+								<a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1</a>
 								<ul class="vertical menu nested ml-4 mt-2 space-y-1">
 									<li>
-										<a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1A</a>
+										<a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1A</a>
 										<ul class="vertical menu nested ml-4 mt-2 space-y-1">
-											<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1Ai</a></li>
-											<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1Aii</a></li>
-											<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1Aiii</a></li>
+											<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1Ai</a></li>
+											<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1Aii</a></li>
+											<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1Aiii</a></li>
 										</ul>
 									</li>
-									<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1B</a></li>
-									<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 1C</a></li>
+									<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1B</a></li>
+									<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 1C</a></li>
 								</ul>
 							</li>
 							<li>
-								<a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 2</a>
+								<a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 2</a>
 								<ul class="vertical menu ml-4 mt-2 space-y-1">
-									<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 2A</a></li>
-									<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 2B</a></li>
+									<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 2A</a></li>
+									<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 2B</a></li>
 								</ul>
 							</li>
-							<li><a href="#" class="block p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white">Item 3</a></li>
+							<li><a href="#" class="block p-2 rounded-md hover:bg-[var(--c-bg)] text-[var(--c-fg)]">Item 3</a></li>
 						</ul>
 						<!-- Badge -->
-						<h2 id="badge" class="docs-heading text-3xl font-bold mb-4"><a href="#badge" class="text-gray-900 dark:text-white hover:underline">Badge</a></h2>
+						<h2 id="badge" class="docs-heading text-3xl font-bold mb-4"><a href="#badge" class="text-[var(--c-fg)] hover:underline">Badge</a></h2>
 						<div class="flex space-x-2">
-							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200">2</span>
-							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-200">3</span>
-							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-200">A</span>
-							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-yellow-200 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-200">B</span>
+							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-[var(--c-bg)] text-[var(--c-fg)]">2</span>
+							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-[var(--c-success-light)] text-[var(--c-success)]">3</span>
+							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-[var(--c-danger-light)] text-[var(--c-danger)]">A</span>
+							<span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-[var(--c-warning-light)] text-[var(--c-warning)]">B</span>
 						</div>
-						<hr class="my-8 border-t border-gray-300 dark:border-gray-700">
+						<hr class="my-8 border-t border-[var(--c-border)]">
 
 					<!-- Breadcrumbs -->
 					<h2 id="breadcrumbs" class="docs-heading" data-magellan-target="breadcrumbs"><a href="#breadcrumbs"></a>Breadcrumbs</h2>

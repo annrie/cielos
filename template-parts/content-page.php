@@ -10,7 +10,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class('prose dark:prose-invert max-w-none'); ?> aria-labelledby="entry-title">
   <header class="entry-header mb-8">
     <h1 id="entry-title" class="entry-title heading05 lt-sm:text-h1 md:text-h3 tb:text-h1" style="display: none;"><?php the_title(); ?></h1>
-    <div class="entry-meta text-gray-500 dark:text-gray-400 mt-2">
+    <div class="entry-meta text-[var(--c-muted)] mt-2">
         <?php cielos_entry_meta(); ?>
     </div>
   </header>
@@ -30,11 +30,11 @@
   $tags = get_the_tags();
   if ($tags) :
   ?>
-  <footer class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
+  <footer class="mt-8 pt-4 border-t border-[var(--c-border)]">
     <div class="flex items-center gap-2">
       <span class="i-carbon-tag text-lg"></span>
       <div class="tags">
-        <?php the_tags('<span class="tag-link inline-block bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 dark:text-gray-200 mr-2 mb-2">', '</span><span class="tag-link inline-block bg-gray-100 dark:bg-gray-800 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 dark:text-gray-200 mr-2 mb-2">', '</span>'); ?>
+        <?php the_tags('<span class="tag-link inline-block bg-[var(--c-bg)] rounded-full px-3 py-1 text-sm font-semibold text-[var(--c-muted)] mr-2 mb-2">', '</span><span class="tag-link inline-block bg-[var(--c-bg)] rounded-full px-3 py-1 text-sm font-semibold text-[var(--c-muted)] mr-2 mb-2">', '</span>'); ?>
       </div>
     </div>
   </footer>

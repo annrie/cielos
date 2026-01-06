@@ -11,9 +11,9 @@ get_header(); ?>
 <div class="container mx-auto px-4 py-8">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     <main id="main" class="lg:col-span-2" role="main" tabindex="-1">
-      <header class="page-header mt-[-1rem] mb-40 border-b border-gray-200 dark:border-gray-700 pb-4">
-        <h1 class="page-title text-4xl font-bold text-gray-900 dark:text-white">
-          <?php _e('Search Results for', 'cielos'); ?> "<span class="text-blue-600 dark:text-blue-400"><?php echo get_search_query(); ?></span>"
+      <header class="page-header mt-[-1rem] mb-40 border-b border-[var(--c-border)] pb-4">
+        <h1 class="page-title text-4xl font-bold text-[var(--c-fg)]">
+          <?php _e('Search Results for', 'cielos'); ?> "<span class="text-[var(--c-primary)]"><?php echo get_search_query(); ?></span>"
         </h1>
       </header>
 
@@ -32,8 +32,8 @@ get_header(); ?>
             cielos_pagination();
         else :
             the_posts_navigation(array(
-                'prev_text' => '<span class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; ' . __('Older posts', 'cielos') . '</span>',
-                'next_text' => '<span class="text-sm text-blue-600 dark:text-blue-400 hover:underline">' . __('Newer posts &rarr;', 'cielos') . '</span>',
+                'prev_text' => '<span class="text-sm text-[var(--c-primary)] hover:underline">&larr; ' . __('Older posts', 'cielos') . '</span>',
+                'next_text' => '<span class="text-sm text-[var(--c-primary)] hover:underline">' . __('Newer posts &rarr;', 'cielos') . '</span>',
             ));
         endif;
         ?>

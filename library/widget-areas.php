@@ -21,7 +21,7 @@ if (! function_exists('cielos_sidebar_widgets')) :
                 'description'   => __('Drag widgets to this sidebar container.', 'cielos'),
                 'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
                 'after_widget'  => '</div>',
-                'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700 dark:text-white">',
+                'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4 pb-2 border-b-2 border-[var(--c-border)] text-[var(--c-fg)]">',
                 'after_title'   => '</h3>',
             )
         );
@@ -33,7 +33,7 @@ if (! function_exists('cielos_sidebar_widgets')) :
                 'description'   => __('Drag widgets to this sidebar container', 'cielos'),
                 'before_widget' => '<div id="%1$s" class="widget %2$s mb-6">',
                 'after_widget'  => '</div>',
-                'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4 pb-2 border-b-2 border-gray-200 dark:border-gray-700 dark:text-white">',
+                'before_title'  => '<h3 class="widget-title text-xl font-bold mb-4 pb-2 border-b-2 border-[var(--c-border)] text-[var(--c-fg)]">',
                 'after_title'   => '</h3>',
             )
         );

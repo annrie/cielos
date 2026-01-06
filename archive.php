@@ -27,14 +27,14 @@ get_header(); ?>
             $category = get_queried_object();
             $image_url = z_taxonomy_image_url($category->term_id);
             if ($image_url) {
-                echo '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($category->name) . '" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md dark:shadow-gray-800" loading="lazy" decoding="async">';
+                echo '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($category->name) . '" class="w-full h-auto object-cover rounded-lg mb-6 shadow-md" loading="lazy" decoding="async">';
             }
         }
         ?>
 
         <div class="space-y-3">
-          <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <i class="i-carbon-folder text-blue-600 dark:text-blue-400"></i>
+          <div class="flex items-center gap-2 text-sm text-[var(--c-muted)]">
+            <i class="i-carbon-folder text-[var(--c-primary)]"></i>
             <span class="font-medium">
               <?php
               if (is_category()) {
@@ -86,7 +86,7 @@ get_header(); ?>
           <?php if (is_category() || is_tag() || is_tax()) : ?>
             <?php $description = term_description(); ?>
             <?php if (!empty($description)) : ?>
-              <div class="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed mt-4">
+              <div class="text-[var(--c-muted)] text-sm sm:text-base leading-relaxed mt-4">
                 <?php echo $description; ?>
               </div>
             <?php endif; ?>

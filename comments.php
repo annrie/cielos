@@ -11,10 +11,10 @@ if (post_password_required()) {
 }
 ?>
 
-<div id="comments" class="comments-area mt-12 bg-gray-50 dark:bg-gray-900/50 p-6 rounded-lg">
+<div id="comments" class="comments-area mt-12 bg-[var(--c-bg)] p-6 rounded-lg">
 
     <?php if (have_comments()) : ?>
-        <h2 class="comments-title text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <h2 class="comments-title text-2xl font-bold text-[var(--c-fg)] mb-6">
             <?php
             $comment_count = get_comments_number();
             if ('1' === $comment_count) {
@@ -49,14 +49,14 @@ if (post_password_required()) {
 
         <?php
         the_comments_navigation(array(
-            'prev_text' => '<span class="text-sm text-blue-600 dark:text-blue-400 hover:underline">&larr; ' . __('Older comments', 'cielos') . '</span>',
-            'next_text' => '<span class="text-sm text-blue-600 dark:text-blue-400 hover:underline">' . __('Newer comments', 'cielos') . ' &rarr;</span>',
+            'prev_text' => '<span class="text-sm text-[var(--c-primary)] hover:underline">&larr; ' . __('Older comments', 'cielos') . '</span>',
+            'next_text' => '<span class="text-sm text-[var(--c-primary)] hover:underline">' . __('Newer comments', 'cielos') . ' &rarr;</span>',
         ));
 
         // If comments are closed and there are comments, let's leave a little note, shall we?
         if (!comments_open() && get_comments_number() && post_type_supports(get_post_type(), 'comments')) :
             ?>
-            <p class="no-comments mt-6 text-gray-600 dark:text-gray-400"><?php esc_html_e('Comments are closed.', 'cielos'); ?></p>
+            <p class="no-comments mt-6 text-[var(--c-muted)]"><?php esc_html_e('Comments are closed.', 'cielos'); ?></p>
             <?php
         endif;
 

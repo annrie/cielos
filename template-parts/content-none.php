@@ -10,21 +10,21 @@
 
 ?>
 
-<article class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 mb-8 text-center" aria-labelledby="page-title">
+<article class="bg-[var(--c-panel)] p-6 rounded-lg shadow-sm border border-[var(--c-border)] mb-8 text-center" aria-labelledby="page-title">
   <header class="page-header mt-[-1rem] mb-40">
-    <h1 id="page-title" class="page-title text-3xl font-bold text-gray-900 dark:text-white">
+    <h1 id="page-title" class="page-title text-3xl font-bold text-[var(--c-fg)]">
       <?php _e('Nothing Found', 'cielos'); ?>
     </h1>
   </header>
 
-  <div class="page-content text-gray-700 dark:text-gray-300">
+  <div class="page-content text-[var(--c-muted)]">
     <?php if (is_home() && current_user_can('publish_posts')) : ?>
 
     <p class="mb-4">
       <?php
             printf(
             /* translators: %1$s: new post url */
-                __('Ready to publish your first post? <a href="%1$s" class="text-blue-600 dark:text-blue-400 hover:underline">Get started here</a>.', 'cielos'),
+                __('Ready to publish your first post? <a href="%1$s" class="text-[var(--c-primary)] hover:underline">Get started here</a>.', 'cielos'),
     admin_url('post-new.php')
 );
             ?>
