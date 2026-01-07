@@ -42,7 +42,7 @@ const buttonClass = computed(() => {
     case 'facebook':
       return 'bg-blue-800 hover:bg-blue-900'
     default:
-      return 'bg-gray-500 hover:bg-gray-600'
+      return 'bg-[var(--c-muted)] hover:bg-[var(--c-fg)]'
   }
 })
 

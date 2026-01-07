@@ -37,7 +37,7 @@ const gridClasses = computed(() => {
           class="w-full h-auto rounded-lg shadow-md" :class="[image.orientation === 'portrait' ? 'object-contain' : 'object-cover']"
         >
       </a>
-      <p v-if="image.caption" class="mt-2 text-sm text-gray-600 text-center">
+      <p v-if="image.caption" class="mt-2 text-sm text-[var(--c-muted)] text-center">
         {{ image.caption }}
       </p>
     </div>

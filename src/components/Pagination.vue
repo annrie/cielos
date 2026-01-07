@@ -104,33 +104,33 @@ const items = computed(() => {
   <nav v-if="totalPages > 1" :aria-label="ariaLabel" class="w-full">
     <ul class="flex flex-wrap items-center justify-center gap-2 py-4">
       <li v-if="showFirstLast" class="contents">
-        <a v-if="cur > 1" :href="pageUrl(1)" aria-label="First page" class="px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition">«</a>
-        <span v-else class="px-3 py-2 rounded-md border border-transparent text-gray-400 select-none">«</span>
+        <a v-if="cur > 1" :href="pageUrl(1)" aria-label="First page" class="px-3 py-2 rounded-md border border-[var(--c-border)] hover:bg-[var(--c-bg)] transition">«</a>
+        <span v-else class="px-3 py-2 rounded-md border border-transparent text-[var(--c-muted)] select-none">«</span>
       </li>
 
       <li v-if="showPrevNext" class="contents">
-        <a v-if="hasPrev" :href="prevHref" aria-label="Previous page" rel="prev" class="px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition">‹</a>
-        <span v-else class="px-3 py-2 rounded-md border border-transparent text-gray-400 select-none">‹</span>
+        <a v-if="hasPrev" :href="prevHref" aria-label="Previous page" rel="prev" class="px-3 py-2 rounded-md border border-[var(--c-border)] hover:bg-[var(--c-bg)] transition">‹</a>
+        <span v-else class="px-3 py-2 rounded-md border border-transparent text-[var(--c-muted)] select-none">‹</span>
       </li>
 
       <li v-for="it in items" :key="it.type === 'ellipsis' ? it.key : `p-${it.n}`">
         <template v-if="it.type === 'ellipsis'">
-          <span class="px-2 text-gray-400 select-none">…</span>
+          <span class="px-2 text-[var(--c-muted)] select-none">…</span>
         </template>
         <template v-else>
-          <a v-if="!it.current" :href="it.href" class="min-w-[2.25rem] text-center px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition">{{ it.n }}</a>
-          <span v-else aria-current="page" class="min-w-[2.25rem] text-center px-3 py-2 rounded-md bg-gray-900 text-white dark:bg-gray-100 dark:text-gray-900 border border-gray-900 dark:border-gray-100">{{ it.n }}</span>
+          <a v-if="!it.current" :href="it.href" class="min-w-[2.25rem] text-center px-3 py-2 rounded-md border border-[var(--c-border)] hover:bg-[var(--c-bg)] transition">{{ it.n }}</a>
+          <span v-else aria-current="page" class="min-w-[2.25rem] text-center px-3 py-2 rounded-md bg-[var(--c-fg)] text-[var(--c-fg-inv)] border border-[var(--c-fg)]">{{ it.n }}</span>
         </template>
       </li>
 
       <li v-if="showPrevNext" class="contents">
-        <a v-if="hasNext" :href="nextHref" aria-label="Next page" rel="next" class="px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition">›</a>
-        <span v-else class="px-3 py-2 rounded-md border border-transparent text-gray-400 select-none">›</span>
+        <a v-if="hasNext" :href="nextHref" aria-label="Next page" rel="next" class="px-3 py-2 rounded-md border border-[var(--c-border)] hover:bg-[var(--c-bg)] transition">›</a>
+        <span v-else class="px-3 py-2 rounded-md border border-transparent text-[var(--c-muted)] select-none">›</span>
       </li>
 
       <li v-if="showFirstLast" class="contents">
-        <a v-if="cur < totalPages" :href="pageUrl(totalPages)" aria-label="Last page" class="px-3 py-2 rounded-md border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition">»</a>
-        <span v-else class="px-3 py-2 rounded-md border border-transparent text-gray-400 select-none">»</span>
+        <a v-if="cur < totalPages" :href="pageUrl(totalPages)" aria-label="Last page" class="px-3 py-2 rounded-md border border-[var(--c-border)] hover:bg-[var(--c-bg)] transition">»</a>
+        <span v-else class="px-3 py-2 rounded-md border border-transparent text-[var(--c-muted)] select-none">»</span>
       </li>
     </ul>
   </nav>

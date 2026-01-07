@@ -24,7 +24,7 @@ onUnmounted(() => {
   <transition name="fade">
     <button
       v-if="showButton"
-      class="fixed bottom-4 right-4 w-12 h-12 flex-center rounded-full bg-blue-500 dark:bg-blue-700 text-white shadow-lg dark:shadow-xl hover:bg-blue-600 dark:hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 z-50"
+      class="fixed bottom-4 right-4 w-12 h-12 flex-center rounded-full bg-[var(--c-primary)] text-white shadow-lg dark:shadow-xl hover:bg-[var(--c-primary-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--c-primary)] focus:ring-opacity-75 z-50"
       aria-label="トップへ戻る"
       @click="scrollToTop"
     >
