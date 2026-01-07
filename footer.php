@@ -47,7 +47,14 @@
         <?php endif; ?>
 
         <div id="copyright" class="text-center border-t border-[var(--footer-fg)]/20 pt-6">
-            <small>Copyright &copy; <?php bloginfo('name'); ?> All rights reserved.</small>
+            <?php
+            $copyright_text = get_theme_mod('cielos_copyright_text', '');
+            if ($copyright_text) :
+            ?>
+                <small><?php echo wp_kses_post($copyright_text); ?></small>
+            <?php else : ?>
+                <small>Copyright &copy; <?php bloginfo('name'); ?> All rights reserved.</small>
+            <?php endif; ?>
         </div>
     </div>
 </footer>
