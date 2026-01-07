@@ -87,9 +87,15 @@
     </div>
   <?php endif; ?>
 
-  <?php if (is_active_sidebar('sidebar-1')) : ?>
+  <?php if (is_active_sidebar('sidebar')) : ?>
     <div class="space-y-6">
-      <?php dynamic_sidebar('sidebar-1'); ?>
+      <?php dynamic_sidebar('sidebar'); ?>
+    </div>
+  <?php endif; ?>
+
+  <?php if (is_active_sidebar('sidebar-scroll')) : ?>
+    <div class="sidebar-scroll-area space-y-6 sticky top-4">
+      <?php dynamic_sidebar('sidebar-scroll'); ?>
     </div>
   <?php endif; ?>
 </aside>

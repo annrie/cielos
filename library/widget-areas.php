@@ -230,6 +230,40 @@ function cielos_register_widget_areas()
         'description' => __('投稿末尾のCall-to-Actionエリア。', 'cielos'),
         'before_widget' => '<div id="%1$s" class="widget cielos-widget cielos-cta-box %2$s p-6 my-8 bg-gradient-to-r from-[var(--c-primary-light)] to-[var(--c-accent-light)] rounded-xl border border-[var(--c-primary)]">',
     )));
+
+    // =========================================================================
+    // 後方互換性（旧テーマからの移行用）
+    // =========================================================================
+
+    register_sidebar(array_merge($default, array(
+        'id'          => 'sidebar-1',
+        'name'        => __('Sidebar widgets (Legacy)', 'cielos'),
+        'description' => __('旧サイドバー。「サイドバー」への移行を推奨。', 'cielos'),
+    )));
+
+    register_sidebar(array_merge($default, array(
+        'id'          => 'sidebar-2',
+        'name'        => __('Secondary Sidebar (Legacy)', 'cielos'),
+        'description' => __('旧セカンダリサイドバー。', 'cielos'),
+    )));
+
+    register_sidebar(array_merge($footer, array(
+        'id'          => 'footer-1',
+        'name'        => __('Footer widgets1 (Legacy)', 'cielos'),
+        'description' => __('旧フッター1。「フッター（左）」への移行を推奨。', 'cielos'),
+    )));
+
+    register_sidebar(array_merge($footer, array(
+        'id'          => 'footer-2',
+        'name'        => __('Footer widgets2 (Legacy)', 'cielos'),
+        'description' => __('旧フッター2。「フッター（中央）」への移行を推奨。', 'cielos'),
+    )));
+
+    register_sidebar(array_merge($footer, array(
+        'id'          => 'footer-3',
+        'name'        => __('Footer widgets3 (Legacy)', 'cielos'),
+        'description' => __('旧フッター3。「フッター（右）」への移行を推奨。', 'cielos'),
+    )));
 }
 
 add_action('widgets_init', 'cielos_register_widget_areas');
