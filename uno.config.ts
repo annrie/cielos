@@ -242,7 +242,7 @@ export default defineConfig({
      'i-carbon-launch',    // 外部リンク
      'i-twemoji-classical-building', // page-machaki.php タイトル 🏛️
      // Bibliography pages (page-id-3136など) で使用されるクラス
-     'grid', 'grid-cols-1', 'lg:grid-cols-2', 'md:grid-cols-2',
+     'grid', 'grid-cols-1', 'grid-cols-3', 'lg:grid-cols-2', 'md:grid-cols-2', 'md:grid-cols-3',
      'gap-6', 'gap-4', 'gap-8',
      'lg:hidden', 'md:hidden', 'sm:hidden',
      'print:hidden',
