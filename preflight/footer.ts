@@ -33,5 +33,42 @@ footer, .site-footer, #site-footer{
 footer a{ color:inherit; opacity:.9; text-decoration:none; }
 footer a:hover{ color:var(--footer-link-hover); opacity:1; text-decoration:underline; }
 
+/* ===== Footer widgets styling ===== */
+/* Reset widget backgrounds to transparent in footer */
+footer .widget,
+footer .widget-title,
+footer .widgettitle,
+footer .textwidget,
+footer .footer-widget-area{
+  background: transparent !important;
+  border-color: var(--footer-border, rgba(255,255,255,0.15)) !important;
+}
+
+/* Ensure all widget text inherits footer foreground color */
+footer .widget,
+footer .widget-title,
+footer .widgettitle,
+footer .textwidget,
+footer .widget ul,
+footer .widget li,
+footer .widget p,
+footer .widget span,
+footer .footer-widget-area,
+footer .footer-widget-area *:not(a){
+  color: var(--footer-fg) !important;
+}
+
+/* Widget links in footer */
+footer .widget a,
+footer .footer-widget-area a{
+  color: var(--footer-fg) !important;
+  opacity: .85;
+}
+footer .widget a:hover,
+footer .footer-widget-area a:hover{
+  color: var(--footer-link-hover, #fff) !important;
+  opacity: 1;
+}
+
 `,
 }

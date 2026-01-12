@@ -247,6 +247,8 @@ export default defineConfig({
      'lg:hidden', 'md:hidden', 'sm:hidden',
      'print:hidden',
      'col-span-1', 'col-span-2',
+     // ランキングバッジの背景色（人気記事ウィジェット）
+     'bg-amber-500', 'bg-amber-700', 'bg-gray-500', 'text-white',
   ])),
   theme: {
     breakpoint: {

@@ -40,6 +40,7 @@ require_once 'library/woocommerce-image-sizes.php';
 require_once 'library/remove-type.php';
 require_once 'library/customizer.php';
 require_once 'library/cielos.php';
+require_once 'library/class-related-posts-scoring.php';  // 関連記事（スコアリング方式）
 require_once 'cielos-block.php';
 
 /* -------------------------------------------------------------------------- */

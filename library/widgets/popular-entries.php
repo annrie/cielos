@@ -135,44 +135,44 @@ class Cielos_Popular_Entries_Widget extends WP_Widget {
 
         // ランキングバッジの色
         $rank_colors = array(
-            1 => 'bg-amber-400 text-amber-900',   // 金
-            2 => 'bg-gray-300 text-gray-700',     // 銀
-            3 => 'bg-amber-600 text-amber-100',   // 銅
+            1 => 'bg-amber-500 text-white',       // 金（濃いめ）
+            2 => 'bg-gray-500 text-white',        // 銀（濃いめ）
+            3 => 'bg-amber-700 text-white',       // 銅
         );
         $rank_class = isset($rank_colors[$rank]) ? $rank_colors[$rank] : 'bg-[var(--c-muted)] text-[var(--c-fg-inv)]';
         ?>
 
-        <li class="cielos-entry-item cielos-popular-item flex gap-3 mb-4 last:mb-0 relative">
-            <?php if ($show_rank) : ?>
-                <span class="cielos-rank absolute -top-2 -left-2 w-6 h-6 flex items-center justify-center text-xs font-bold rounded-full <?php echo $rank_class; ?> z-10 shadow-sm">
-                    <?php echo esc_html($rank); ?>
-                </span>
-            <?php endif; ?>
+        <li class="cielos-entry-item cielos-popular-item flex gap-3 mb-4 last:mb-0">
+            <div class="cielos-entry-thumb-wrap relative flex-shrink-0 w-20 h-20">
+                <?php if ($show_rank) : ?>
+                    <span class="cielos-rank absolute top-0 left-0 w-6 h-6 flex items-center justify-center text-xs font-bold rounded-sm <?php echo $rank_class; ?> z-10 shadow-sm">
+                        <?php echo esc_html($rank); ?>
+                    </span>
+                <?php endif; ?>
 
-            <?php if ($thumb_id) : ?>
-                <a href="<?php echo esc_url($permalink); ?>" class="cielos-entry-thumb flex-shrink-0 w-20 h-20 <?php echo $show_rank ? 'ml-2' : ''; ?>">
-                    <?php echo wp_get_attachment_image($thumb_id, 'thumbnail', false, array(
-                        'class' => 'w-full h-full object-cover rounded',
-                        'alt'   => esc_attr($title),
-                        'loading' => 'lazy',
-                    )); ?>
-                </a>
-            <?php endif; ?>
+                <?php if ($thumb_id) : ?>
+                    <a href="<?php echo esc_url($permalink); ?>" class="cielos-entry-thumb block w-full h-full">
+                        <?php echo wp_get_attachment_image($thumb_id, 'thumbnail', false, array(
+                            'class' => 'w-full h-full object-cover rounded',
+                            'alt'   => esc_attr($title),
+                            'loading' => 'lazy',
+                        )); ?>
+                    </a>
+                <?php endif; ?>
+            </div>
 
             <div class="cielos-entry-content flex-1 min-w-0">
                 <a href="<?php echo esc_url($permalink); ?>" class="cielos-entry-title block text-sm font-medium text-[var(--c-fg)] hover:text-[var(--c-primary)] line-clamp-2 mb-1">
                     <?php echo esc_html($title); ?>
                 </a>
                 <div class="cielos-entry-meta flex flex-wrap gap-2 text-xs text-[var(--c-muted)]">
-                    <span class="cielos-entry-date">
-                        <i class="fas fa-calendar-alt mr-1" aria-hidden="true"></i><?php echo esc_html($date); ?>
-                    </span>
+                    <span class="cielos-entry-date"><?php echo esc_html($date); ?></span>
                     <?php if ($show_count && $count_value > 0) : ?>
                         <span class="cielos-entry-count">
                             <?php if ($method === self::METHOD_COMMENTS) : ?>
-                                <i class="fas fa-comments mr-1" aria-hidden="true"></i><?php echo number_format($count_value); ?>
+                                <?php echo number_format($count_value); ?> コメント
                             <?php else : ?>
-                                <i class="fas fa-eye mr-1" aria-hidden="true"></i><?php echo number_format($count_value); ?>
+                                <?php echo number_format($count_value); ?> PV
                             <?php endif; ?>
                         </span>
                     <?php endif; ?>

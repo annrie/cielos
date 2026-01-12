@@ -225,16 +225,12 @@ class Cielos_New_Entries_Widget extends WP_Widget {
         ?>
         <div class="cielos-entry-meta flex flex-wrap gap-2 text-xs text-[var(--c-muted)]">
             <?php if ($show_date) : ?>
-                <span class="cielos-entry-date">
-                    <i class="fas fa-calendar-alt mr-1" aria-hidden="true"></i><?php echo esc_html($date); ?>
-                </span>
+                <span class="cielos-entry-date"><?php echo esc_html($date); ?></span>
             <?php endif; ?>
             <?php if ($show_cat) :
                 $cats = get_the_category();
                 if (!empty($cats)) : ?>
-                    <span class="cielos-entry-cat">
-                        <i class="fas fa-folder mr-1" aria-hidden="true"></i><?php echo esc_html($cats[0]->name); ?>
-                    </span>
+                    <span class="cielos-entry-cat"><?php echo esc_html($cats[0]->name); ?></span>
                 <?php endif;
             endif; ?>
         </div>

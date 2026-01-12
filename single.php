@@ -23,6 +23,12 @@ endif;
       while (have_posts()) :
           the_post();
           get_template_part('template-parts/content', 'single');
+
+          // スコアリングベースの関連記事を表示
+          if (function_exists('cielos_display_related_posts')) {
+              cielos_display_related_posts(get_the_ID(), 6, '関連記事');
+          }
+
           the_post_navigation();
           comments_template();
       ?>
