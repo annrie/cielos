@@ -19,7 +19,6 @@ require_once 'library/theme-support.php';
 // カスタムウィジェット
 require_once 'library/widgets/new-entries.php';
 require_once 'library/widgets/popular-entries.php';
-require_once 'library/widgets/toc.php';
 require_once 'library/widgets/cta-box.php';
 require_once 'library/widgets/profile.php';
 require_once 'library/navigation.php';
