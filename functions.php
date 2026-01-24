@@ -62,11 +62,11 @@ function cielos_is_vite_dev(): bool {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Script tag tweaks（fontawesomeのみ。mainは上でtype/defer済み） */
+/* Script tag tweaks（mainは上でtype/defer済み） */
 /* -------------------------------------------------------------------------- */
 // module を付けるのは “自分のESMだけ”。jQueryなどには付けない
 add_filter('script_loader_tag', function ($tag, $handle) {
-  $module_handles = ['cielos-main','cielos-theme-watcher']; // ←必要に応じて更新
+  $module_handles = ['cielos-main']; // ←必要に応じて更新
   return in_array($handle, $module_handles, true)
     ? str_replace('<script ', '<script type="module" ', $tag)
     : $tag;
@@ -162,69 +162,6 @@ function allow_svg_uploads( $mimes ) {
 }
 add_filter( 'upload_mimes', 'allow_svg_uploads' );
 
-/**
- * Theme watcher (OS color-scheme follow)
- * dev:  http://localhost:5173/src/assets/js/theme-watcher.unomoon.js（type="module"）
- * prod: dist/.vite/manifest.json の "src/assets/js/theme-watcher.unomoon.js"
- * not found: 読み込まない（/src/直読みはしない）
- */
-add_action('wp_enqueue_scripts', function () {
-  $handle    = 'cielos-theme-watcher';
-
-  // 二重登録防止
-  if (wp_script_is($handle, 'enqueued') || wp_script_is($handle, 'registered')) return;
-
-  // --- dev（Vite HMR） ---
-  if (function_exists('cielos_is_vite_dev') && cielos_is_vite_dev()) {
-    $src = 'http://localhost:5173/src/assets/js/theme-watcher.unomoon.js';
-    wp_enqueue_script($handle, $src, [], null, true);
-    if (function_exists('wp_script_add_data')) {
-      wp_script_add_data($handle, 'type', 'module'); // devはESMとして読む
-      wp_script_add_data($handle, 'defer', true);
-    }
-    return;
-  }
-
-  // --- prod（manifest 解決：子→親）---
-  $theme_dir_child = get_stylesheet_directory();
-  $theme_dir_parent = get_template_directory();
-  $theme_uri_child = get_stylesheet_directory_uri();
-  $theme_uri_parent = get_template_directory_uri();
-
-  $manifest_paths = [
-    [$theme_dir_child . '/dist/.vite/manifest.json', $theme_uri_child . '/dist/'],
-    [$theme_dir_parent . '/dist/.vite/manifest.json', $theme_uri_parent . '/dist/'],
-  ];
-
-  $map = null;
-  $base_uri = null;
-  foreach ($manifest_paths as [$m, $u]) {
-    if (file_exists($m)) {
-      $tmp = json_decode(file_get_contents($m), true);
-      if (is_array($tmp)) { $map = $tmp; $base_uri = $u; break; }
-    }
-  }
-  if (!$map) return; // 見つからなければ読み込まない
-
-  $entry_key = 'src/assets/js/theme-watcher.unomoon.js';
-  if (empty($map[$entry_key]['file'])) {
-    // 固定パスのフォールバック（ビルドで同名を出している場合のみ）
-    $fallback = $base_uri . 'assets/js/theme-watcher.unomoon.js';
-    // 存在確認が難しいので、ここでは無理に出さず return
-    return;
-  }
-
-  $src = $base_uri . ltrim($map[$entry_key]['file'], '/');
-  wp_enqueue_script($handle, $src, [], null, true);
-
-  // ビルド結果が ESM なら type="module" を、IIFE なら不要。
-  // どちらか不明なら defer のみ付与（import/export を使っているなら module を追加）
-  if (function_exists('wp_script_add_data')) {
-    wp_script_add_data($handle, 'defer', true);
-    // 必要なら↓を有効化（ビルドがESMの場合）
-    // wp_script_add_data($handle, 'type', 'module');
-  }
-}, 20);
 
 // dist/.vite/manifest.json から "file" を拾って <link rel="preload"> を出す
 add_action('wp_head', function () {
@@ -238,8 +175,7 @@ add_action('wp_head', function () {
   if (!is_array($man)) return;
 
   $want = [
-    'src/main.ts',        // ←エントリキー（必要に応じて追加）
-    // 'src/js/theme-watcher.unomoon.js',
+    'src/main.ts',
   ];
 
   $base = get_stylesheet_directory_uri() . '/dist/';
@@ -321,79 +257,26 @@ add_action('wp_head', function () {
 }, 11);
 
 /* -------------------------------------------------------------------------- */
-/* Single machaki: ヒーローに primary-book の画像をフェードインで重ねる（クローン） */
+/* Front Page Hero: 背景画像のCSS変数を動的に設定 */
 /* -------------------------------------------------------------------------- */
-add_action('wp_footer', function () {
-  if (!is_singular('machaki')) return;
-  global $post;
-  // PHPから直接画像URLを取得（loading="lazy" の影響を回避）
-  $book_img_id = get_post_meta($post->ID, 'fm_img_1', true);
-  if (empty($book_img_id)) return;
-  $book_img = wp_get_attachment_image_src($book_img_id, 'medium_large');
-  if (empty($book_img[0])) return;
-  $book_img_url = esc_url($book_img[0]);
-  $book_img_alt = esc_attr(get_the_title());
+add_action('wp_head', function () {
+  if (!is_front_page()) return;
+
+  $theme_uri = get_template_directory_uri();
+  $light_hero = $theme_uri . '/src/assets/images/hero/light-hero4.png';
+  $dark_hero = $theme_uri . '/src/assets/images/hero/dark-hero3.png';
   ?>
-  <script>
-  (function(){
-    try{
-      var hero = document.querySelector('.hero-feature');
-      if (!hero) return;
-      // 既に配置済みなら二重作成しない
-      if (hero.querySelector('.machaki-hero-book')) return;
-
-      var wrap = document.createElement('div');
-      wrap.className = 'machaki-hero-book';
-      var img = document.createElement('img');
-      img.src = <?php echo json_encode($book_img_url); ?>;
-      img.alt = <?php echo json_encode($book_img_alt); ?>;
-      wrap.appendChild(img);
-      hero.appendChild(wrap);
-
-      // 中央配置（高さに基づく計算）
-      var retryCount = 0;
-      function place() {
-        if (!hero || !wrap || !img) return;
-        var hh = hero.getBoundingClientRect().height || 0;
-        var ih = img.getBoundingClientRect().height || 0;
-        // 画像高さが小さすぎる場合はリトライ（最大15回）
-        if (!hh || !ih || (ih < 50 && retryCount < 15)) {
-          retryCount++;
-          requestAnimationFrame(place);
-          return;
-        }
-        wrap.style.position = 'absolute';
-        wrap.style.left = '50%';
-        wrap.style.transform = 'translateX(-50%)';
-        wrap.style.top = Math.max(0, (hh - ih) / 2 + 10) + 'px';
-      }
-      function ready(){ place(); wrap.classList.add('is-ready'); }
-      if (img.complete && img.naturalHeight > 0) {
-        requestAnimationFrame(ready);
-      } else {
-        img.addEventListener('load', function(){ requestAnimationFrame(ready); }, { once: true });
-      }
-      window.addEventListener('resize', function(){ requestAnimationFrame(place); });
-    }catch(e){ /* noop */ }
-  })();
-  </script>
-  <?php
-}, 100);
-
-/* -------------------------------------------------------------------------- */
-/* Body class: MW WP Form を含むページに識別子を付与（has-mwform） */
-/* -------------------------------------------------------------------------- */
-add_filter('body_class', function (array $classes) {
-  if (is_page()) {
-    $post = get_post();
-    $content = $post && isset($post->post_content) ? (string)$post->post_content : '';
-    // MW WP Form のショートコードが含まれるかを緩めに検出
-    if ($content && (strpos($content, '[mwform_') !== false || strpos($content, '[mwform') !== false)) {
-      $classes[] = 'has-mwform';
-    }
+  <style id="cielos-hero-images">
+  :root {
+    --hero-bg-image: url('<?php echo esc_url($light_hero); ?>');
   }
-  return $classes;
-});
+  .dark {
+    --hero-bg-image: url('<?php echo esc_url($dark_hero); ?>');
+  }
+  </style>
+  <?php
+}, 12);
+
 
 // どのキーが manifest にあり、何を enqueue したかをログに出すデバッガ
 add_action('wp_enqueue_scripts', function () {
@@ -444,7 +327,7 @@ add_action('wp_enqueue_scripts', function () {
 // === 超シンプル Vite ローダー（DevはHMR、ProdはmanifestからJS+CSS） ===
 add_action('wp_enqueue_scripts', function () {
   // ← ここに必要なエントリキーを列挙（manifest のキー名）
-  $entries = ['src/main.ts', 'src/blocks/my-block-editor.ts', 'src/assets/js/theme-watcher.unomoon.js']; // 例: 他にあれば 'src/blocks/my-block-editor.ts' などを追加
+  $entries = ['src/main.ts', 'src/blocks/my-block-editor.ts'];
 
   // --- Dev(HMR)検出（起動してるなら CSS <link> は出ません／HMRが挿入します） ---
   $hmr = @fsockopen('127.0.0.1', 5173, $e, $s, 0.15);
@@ -534,7 +417,7 @@ add_action('wp_enqueue_scripts', function () {
 
   global $wp_query;
 
-  wp_localize_script($handle, 'unomoonPagination', array(
+  wp_localize_script($handle, 'cielosPagination', array(
     'currentPage' => max(1, get_query_var('paged')),
     'totalPages'  => max(0, intval($wp_query->max_num_pages) - 1),
     'base'        => get_permalink(get_option('page_for_posts')) . user_trailingslashit('page/%#%/', 'paged'),
@@ -544,7 +427,7 @@ add_action('wp_enqueue_scripts', function () {
   if (is_singular() && (comments_open() || get_comments_number())) {
     $comment_pages = get_comment_pages_count();
     if ($comment_pages > 1) {
-      wp_localize_script($handle, 'unomoonCommentPagination', array(
+      wp_localize_script($handle, 'cielosCommentPagination', array(
         'currentPage' => get_query_var('cpage') ? intval(get_query_var('cpage')) : 1,
         'totalPages'  => $comment_pages,
         'links'       => paginate_comments_links(array('type' => 'array', 'echo' => false)),
@@ -552,21 +435,6 @@ add_action('wp_enqueue_scripts', function () {
     }
   }
 
-    /* --- Third-party scripts（必要なら継続） --- */
-    wp_enqueue_script(
-        'fontawesome',
-        'https://kit.fontawesome.com/9d5f8281c5.js',
-        [],
-        '6',
-        true
-    );
-    wp_enqueue_script(
-        'googlemapapi',
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyC1ok--EfDe-1tYrqFco5G9G6CRaIzKU',
-        [],
-        null,
-        true
-    );
 }, 30);
 
 add_action('wp_enqueue_scripts', function () {
@@ -600,7 +468,7 @@ if (!function_exists('cielos_get_raw_svg')) {
 
 // 生SVGを返すREST
 add_action('rest_api_init', function () {
-  register_rest_route('unomoon/v1', '/svg-raw/(?P<id>\d+)', [
+  register_rest_route('cielos/v1', '/svg-raw/(?P<id>\d+)', [
     'methods'  => 'GET',
     'callback' => function($req) {
       $id  = (int) $req['id'];
@@ -637,25 +505,6 @@ add_action('init', function () {
     return $svg;
   });
 });
-// /wp-json/unomoon/v1/svg-raw/{id} で生SVGを返す
-add_action('rest_api_init', function () {
-  register_rest_route('unomoon/v1', '/svg-raw/(?P<id>\d+)', [
-    'methods'  => 'GET',
-    'callback' => function($req) {
-      $id  = (int) $req['id'];
-      $svg = cielos_get_raw_svg($id); // ここで addslashes/esc_attr しない
-      if (is_wp_error($svg)) {
-        return new WP_REST_Response(['error' => $svg->get_error_message()], 404);
-      }
-      return new WP_REST_Response($svg, 200, ['Content-Type' => 'image/svg+xml; charset=UTF-8']);
-    },
-    'permission_callback' => '__return_true',
-  ]);
-});
-
-// （任意）すでに fontawesome 用の script_loader_tag を入れているならそれでOK。
-// theme-watcher は上で defer/type を付けるので loader_tag 側の特別処理は不要です。
-
 // 404を起こすCSS URLを正しいURLへ置換（と同時に script→style に修正）: 超後段で実行
 // プラグイン有効時だけこのCSSを止める（将来の再有効化に備えるならこちらもあり）
 add_action('wp_enqueue_scripts', function () {
@@ -665,17 +514,15 @@ add_action('wp_enqueue_scripts', function () {
   }
 }, PHP_INT_MAX);
 
-// 古い/混入の jQuery をやめて WP同梱 or CDN に切替
+// 古い/混入の jQuery をやめて jQuery 4.0 CDN に切替
 add_action('wp_enqueue_scripts', function () {
   // もしテーマやプラグインが独自 jQuery を登録しているなら消す
   wp_deregister_script('jquery');
   wp_dequeue_script('jquery');
 
-  // A) WP 同梱の jQuery（無難）
+  // jQuery 4.0 CDN
+  wp_register_script('jquery', 'https://code.jquery.com/jquery-4.0.0.min.js', [], '4.0.0', true);
   wp_enqueue_script('jquery');
-
-  // B) もしくは最新版 3.7.1 を使うなら（どちらか片方だけ）
-//   wp_enqueue_script('jquery-cdn', 'https://code.jquery.com/jquery-3.7.1.min.js', [], '3.7.1', true);
 }, 100);
 
 /**
@@ -770,8 +617,6 @@ function cielos_preload_vite(array $entries, bool $only_prod = true): void {
 add_action('wp_head', function () {
   cielos_preload_vite([
     'src/main.ts',
-    // 'src/blocks/my-block-editor.ts',
-    // 'src/assets/js/theme-watcher.unomoon.js',
   ]);
 }, 8);
 
@@ -781,134 +626,6 @@ add_action('wp_head', function () {
     echo '<link rel="preconnect" href="http://127.0.0.1:5173">' . "\n";
   }
 }, 2);
-
-// === Theme toggle UI（System / Light / Dark を保存・適用）===
-// - クリック: system → light → dark を巡回
-// - 右クリック: 即 system
-// - 保存先: localStorage 'unomoon:theme'（旧 'theme' から移行）
-// DISABLED: nav-enforcer-v5.js が統合制御するため無効化
-/*
-add_action('wp_enqueue_scripts', function () {
-    $toggle_handle = 'cielos-theme-toggle';
-
-    // watcher が存在すれば依存させて「後」に実行。無ければ単独で動く（フォールバック内蔵）。
-    $deps = [];
-    if (wp_script_is('cielos-theme-watcher', 'enqueued') || wp_script_is('cielos-theme-watcher', 'registered')) {
-        $deps[] = 'cielos-theme-watcher';
-    }
-
-    // 本体は“空スクリプト”だが、依存関係で順序制御する
-    wp_register_script($toggle_handle, '', $deps, null, true); // in footer
-
-    $js = <<<'JS'
-(function () {
-  var btn = document.getElementById('theme-toggle-desktop');
-  if (!btn) return;
-
-  var KEY = 'unomoon:theme';
-  var mql = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)')) || null;
-
-  // 旧キー 'theme' → 'unomoon:theme' に移行
-  try {
-    var legacy = localStorage.getItem('theme');
-    if (legacy === 'light' || legacy === 'dark' || legacy === 'system') {
-      localStorage.setItem(KEY, legacy);
-      localStorage.removeItem('theme');
-    }
-  } catch (e) {}
-
-  function get() {
-    try {
-      var v = localStorage.getItem(KEY);
-      return (v === 'light' || v === 'dark' || v === 'system') ? v : 'system';
-    } catch (e) { return 'system'; }
-  }
-  function set(mode) {
-    try { localStorage.setItem(KEY, mode); } catch (e) {}
-    apply(mode);
-    updateUI(mode);
-  }
-
-  // watcher が window に公開していない前提で“自前適用”を持つ（watcher が居ても両立可）
-  var bound = false;
-  function bindMql() {
-    if (bound || !mql) return; bound = true;
-    var handler = function (e) {
-      if (get() === 'system') {
-        document.documentElement.classList.toggle('dark', !!e.matches);
-      }
-    };
-    if (mql.addEventListener) mql.addEventListener('change', handler);
-    else if (mql.addListener) mql.addListener(handler); // Safari 旧
-  }
-  function apply(mode) {
-    var root = document.documentElement;
-    if (mode === 'system') {
-      var isDark = mql ? mql.matches : false;
-      root.classList.toggle('dark', !!isDark);
-      bindMql(); // OS変更に追従
-    } else {
-      root.classList.toggle('dark', mode === 'dark');
-    }
-  }
-
-  function cycle(mode) {
-    var order = ['system', 'light', 'dark'];
-    var i = order.indexOf(mode);
-    return order[(i + 1) % order.length];
-  }
-  function label(mode) {
-    return mode === 'system' ? 'System (OSに追従)' : (mode === 'dark' ? 'Dark' : 'Light');
-  }
-  function updateUI(mode) {
-    btn.dataset.mode = mode;
-    btn.setAttribute('aria-label', 'Theme: ' +  label(mode));
-    btn.title = 'Theme: ' + label(mode) + '（クリックで切替／右クリックでSystem）';
-  } function updateUI(mode) {
-    btn.dataset.mode = mode;
-    btn.setAttribute('aria-label', 'Theme: ' + label(mode));
-    btn.title = 'Theme: ' + label(mode) + '（クリックで切替／右クリックでSystem）';
-  }
-
-  // イベント
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    set(cycle(get()));
-  });
-  btn.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-    set('system');
-  });
-
-  // 初期反映
-  var mode = get();
-  apply(mode);
-  updateUI(mode);
-})();
-JS;
-
-    // 空ハンドルにインラインJSを付けて実行
-    wp_add_inline_script($toggle_handle, $js);
-    wp_enqueue_script($toggle_handle);
-}, 100);
-*/
-
-add_action('wp_enqueue_scripts', function () {
-  // あなたのテーマのパスに合わせて
-//  wp_enqueue_style( 'mobile-nav', get_template_directory_uri().'/assets/css/mobile-nav.css', [], null );
-
-  // DISABLED: nav-enforcer-v5.js が統合制御するため個別スクリプトは無効化
-  // wp_enqueue_script('mobile-nav', get_template_directory_uri().'/assets/js/mobile-nav.js', [], null, true);
-  // wp_enqueue_script('theme-toggle', get_template_directory_uri().'/assets/js/theme-toggle.js', [], null, true);
-});
-
-/* -------------------------------------------------------------------------- */
-/* サイドバーウィジェットの投稿タイトルにアイコンを追加（JavaScript使用） */
-/* -------------------------------------------------------------------------- */
-
-/* sidebar-icons.js, lang-tabs.js は src/assets/js/ に移動し、
-   main.ts から import して Vite 経由でビルドされるため、
-   ここでのエンキューは不要 */
 
 /* -------------------------------------------------------------------------- */
 /* Child Pagesショートコードで大きな画像サイズを使用 */

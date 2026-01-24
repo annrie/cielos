@@ -7,6 +7,7 @@
                "Yu Gothic", "Meiryo", sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Source Code Pro",
                "Menlo", "Consolas", monospace;
+  --font-lobster: "Lobster", cursive;
 
   /* 本文タイポグラフィ（日本語向け広めの行間） */
   --prose-fs: 1rem;
@@ -43,6 +44,61 @@
   --sidebar-w: 300px;     /* サイドバーの幅 */
   --content-max-w: 72ch;  /* 本文の最大幅（読みやすさ重視） */
   --container-w: min(1280px, 92vw);  /* コンテナ最大幅 */
+}
+
+/* ===== Cielos セクション =====
+ * FoundationPressNG風：セクション分割レイアウト
+ */
+:root {
+  /* Hero Section */
+  --section-hero-py-sm: 5rem;
+  --section-hero-py: 15rem;
+  --section-hero-bg-color: var(--c-primary);
+  --section-hero-fg: #fff;
+  --section-hero-align: left;
+
+  /* Hero Overlay (画像はfunctions.phpで動的設定) */
+  --hero-overlay: linear-gradient(135deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 100%);
+
+  /* Intro Section */
+  --section-intro-py-sm: 3rem;
+  --section-intro-py: 4rem;
+  --section-intro-bg: var(--c-bg);
+
+  /* Benefits Section */
+  --section-benefits-py-sm: 3rem;
+  --section-benefits-py: 4rem;
+  --section-benefits-bg: var(--c-bg);
+
+  /* Generic Page Section */
+  --section-page-py-sm: 3rem;
+  --section-page-py: 4rem;
+  --section-page-bg: var(--c-bg);
+
+  /* Alternate Section Background */
+  --section-alt-bg: var(--c-panel);
+
+  /* Feature Grid */
+  --feature-gap: 2rem;
+  --feature-item-padding: 1rem;
+  --feature-icon-size: 4rem;
+  --feature-icon-radius: 0.75rem;
+  --feature-icon-bg: var(--c-primary-light, #e0f2fe);
+  --feature-icon-color: var(--c-primary);
+  --feature-title-fs: 1.5rem;
+  --feature-title-weight: 300;
+  --feature-title-color: var(--c-fg);
+  --feature-desc-fs: 0.9375rem;
+  --feature-desc-color: var(--c-muted);
+}
+
+/* Dark mode section overrides */
+.dark {
+  --section-alt-bg: var(--c-panel);
+  --feature-icon-bg: rgba(14, 165, 233, 0.15);
+
+  /* Hero Overlay (dark mode) */
+  --hero-overlay: linear-gradient(135deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.15) 100%);
 }
 
 /* ===== Cielos コンポーネント =====
@@ -1083,7 +1139,7 @@
   --container-w: min(1320px, 92vw);
 }
 /* ダーク/ライトどちらでも同値（=常時ダーク配色） */
-html.dark :root{
+.dark {
   --footer-bg: #082f49;           /* sky-950: さらに深い夜空 */
   --footer-fg: #e0f2fe;
   --footer-link-hover: #fff;
@@ -1094,10 +1150,7 @@ html.dark :root{
   :root{ --footer-py: 1.5rem; }
 }
 .dark{
-  --header-bg:  color-mix(in srgb, var(--c-panel) 92%, transparent);
   --nav-link-hover-bg:   color-mix(in srgb, var(--c-panel) 88%, transparent);
-
-  --footer-bg:  color-mix(in srgb, var(--c-panel) 90%, transparent);
 }
 
 :root{
@@ -1400,7 +1453,7 @@ html.dark :root{
   --hd-fg:      #334155;           /* slate-700 */
 }
 
-html.dark :root{
+.dark {
   --latest-title-fg: var(--c-fg-inv, #fff);
   --machaki-title-fg: var(--c-fg-inv, #fff);
   --hd-fg:            #fff;
@@ -1441,7 +1494,7 @@ html.dark :root{
 }
 
 /* dark の色は tokens 側ではそのまま（#eee に固定はしない） */
-html.dark :root{
+.dark {
   --latest-title-fg: var(--c-fg-inv, #fff);
   --machaki-title-fg: var(--c-fg-inv, #fff);
 }
@@ -1475,9 +1528,9 @@ html.dark :root{
   --header-bg: #0284c7;         /* sky-600: メイン背景 */
   --header-fg: #fff;
 }
-html.dark :root{
-  --header-bg: #075985;         /* sky-800: ダークでは少し深めに */
-  --header-fg: #f0f9ff;         /* sky-50 */
+.dark {
+  --header-bg: #082f49;         /* sky-950: フッターと同じ深い夜空 */
+  --header-fg: #e0f2fe;         /* sky-100: フッターと同じ */
 }
 
 :root{ --hero-h: 40vh; }
@@ -1495,7 +1548,7 @@ html.dark :root{
   --header-active-fg: #fff;
 }
 
-html.dark :root{
+.dark {
   --header-hover-bg: rgba(255,255,255,0.12);
   --header-hover-fg: #f0f9ff;
   --header-active-bg: rgba(255,255,255,0.20);
@@ -1546,7 +1599,7 @@ html.dark :root{
 }
 
 /* ダーク時は少しだけオーバーレイ強め（任意） */
-html.dark :root{
+.dark {
   --hero-overlay:
     radial-gradient(110% 80% at 50% 45%,
       rgba(0,0,0,.07) 0%,

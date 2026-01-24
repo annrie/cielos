@@ -1,29 +1,29 @@
-import {presetHeroPatterns} from '@julr/unocss-preset-heropatterns'
+import { presetHeroPatterns } from '@julr/unocss-preset-heropatterns'
 import presetTagify from '@unocss/preset-tagify'
-import {createLocalFontProcessor} from '@unocss/preset-web-fonts/local'
-import {createRemToPxProcessor} from '@unocss/preset-wind4/utils'
+import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
+import { createRemToPxProcessor } from '@unocss/preset-wind4/utils'
 import transformerAttributifyJsx from '@unocss/transformer-attributify-jsx'
 import transformerCompileClass from '@unocss/transformer-compile-class'
-import {animatedUno} from 'animated-unocss'
-import {createRequire} from 'node:module'
+import { animatedUno } from 'animated-unocss'
+import { createRequire } from 'node:module'
 import {
-  defineConfig,
-  presetAttributify,
-  presetIcons,
-  presetTypography,
-  presetWebFonts,
-  presetWind4,
-  transformerDirectives,
-  transformerVariantGroup,
+    defineConfig,
+    presetAttributify,
+    presetIcons,
+    presetTypography,
+    presetWebFonts,
+    presetWind4,
+    transformerDirectives,
+    transformerVariantGroup,
 } from 'unocss'
-import {presetExtra} from 'unocss-preset-extra'
+import { presetExtra } from 'unocss-preset-extra'
 import transformerAlias from 'unocss-transformer-alias'
-import {preflight404,preflightA11y,preflightArchive,preflightAuthor,preflightBase,preflightBiblio,preflightBreadcrumbs,preflightChildPages,preflightComments,preflightContent,preflightDocs,preflightFooter,preflightFooterVisibilityGuard,preflightForms,preflightHeader,preflightHeaderDesktopRow,preflightHeroFeature,preflightHeroPage,preflightLayout,preflightMobileMenu,preflightNavSolid,preflightPrint,preflightRelated,preflightSearch,preflightSidebar,preflightSingle,preflightStickyFooter,preflightSyntax,preflightThemeIcons,preflightThemeTransition,preflightTop,preflightWpAdmin,tabsPreflight,tokensPreflight} from './preflight'
+import { preflight404, preflightA11y, preflightArchive, preflightAuthor, preflightBase, preflightBiblio, preflightBreadcrumbs, preflightChildPages, preflightComments, preflightContent, preflightDocs, preflightFeatureGrid, preflightFooter, preflightFooterVisibilityGuard, preflightForms, preflightHeader, preflightHeaderDesktopRow, preflightHeroFeature, preflightHeroPage, preflightLayout, preflightMobileMenu, preflightNavSolid, preflightPrint, preflightRelated, preflightSearch, preflightSections, preflightSidebar, preflightSingle, preflightStickyFooter, preflightSyntax, preflightThemeIcons, preflightThemeTransition, preflightTop, preflightWpAdmin, tabsPreflight, tokensPreflight } from './preflight'
 
 import compatShortcuts from './shortcuts/compat'
-import {componentShortcuts, namesFromComponentShortcuts} from './shortcuts/components'
-import {extrasShortcuts} from './shortcuts/extras'
-import {headingShortcuts} from './shortcuts/headings'
+import { componentShortcuts, namesFromComponentShortcuts } from './shortcuts/components'
+import { extrasShortcuts } from './shortcuts/extras'
+import { headingShortcuts } from './shortcuts/headings'
 
 const require = createRequire(import.meta.url)
 
@@ -249,6 +249,8 @@ export default defineConfig({
      'col-span-1', 'col-span-2',
      // ランキングバッジの背景色（人気記事ウィジェット）
      'bg-amber-500', 'bg-amber-700', 'bg-gray-500', 'text-white',
+     // Hero title font
+     'font-lobster',
   ])),
   theme: {
     breakpoint: {
@@ -466,7 +468,7 @@ export default defineConfig({
     ['bg-com', 'dark:bg-#333 bg-white'],
     ['shadow-com', 'border-t-1 border-#333 shadow-md border-op-20 dark:border-op-60 dark:shadow-#333'],
 	['pm-num-font', 'font-num font-bold'],
-		
+
     // heading01〜heading13-9 は shortcuts/headings.ts で定義
     ['linkIcon', 'relative before:absolute before:top-1/2 before:right-[15px] before:w-[6px] before:h-[6px] before:content-empty before:border-t-3 before:border-t-solid before:border-t-[var(--link-icon-color,#333)] before:border-r-3 before:border-r-solid before:border-r-[var(--link-icon-color,#333)] before:transform before:rotate-45 before:-translate-y-1/2'],
     ['info-wrap-style', 'mt-[3px] border-b border-b-black/10 shadow-[rgba(255,255,255,0.5)_0_1px_0] border-l border-l-black/10 shadow-[rgba(255,255,255,0.5)_-1px_0_0] border-r border-r-black/10 shadow-[inset_rgba(255,255,255,0.5)_-1px_0_0]' ],
@@ -547,7 +549,10 @@ export default defineConfig({
           { name: 'mono', provider: 'none' },
         ],
         mono: ['Fira Code', 'Fira Mono:400,700'],
-        lobster: [{ name: 'lobster', weights: ['400', '700'], italic: true }],
+        lobster: [
+          { name: 'Lobster', weights: ['400'], provider: 'google' },
+          { name: 'cursive', provider: 'none' }
+        ],
         lato: [
           { name: 'Lato', weights: ['400', '700'], italic: true },
           { name: 'sans-serif', provider: 'none' },
@@ -585,6 +590,8 @@ preflights: [
   preflightStickyFooter,
   preflightContent,
   preflightLayout,
+  preflightSections,
+  preflightFeatureGrid,
 
   // レイアウト/ヘッダの骨組み
   preflightHeader,
