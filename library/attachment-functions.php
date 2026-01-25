@@ -20,14 +20,7 @@
 
 function is_svg( $attachment_id ) {
     $mime_type = get_post_mime_type($attachment_id);
-    error_log( 'is_svg: Checking ID ' . $attachment_id . ', MIME type: ' . $mime_type );
-    if ('image/svg+xml' === $mime_type ) {
-        error_log( 'is_svg: ID ' . $attachment_id . ' is SVG (true)' );
-        return true;
-    } else {
-        error_log( 'is_svg: ID ' . $attachment_id . ' is NOT SVG (false)' );
-        return false;
-    }
+    return 'image/svg+xml' === $mime_type;
 }
 /**
  * Get the SVG as code
@@ -259,13 +252,11 @@ function get_the_image_bg( $attachment_id, $size = 'thumbnail', $icon = false, $
         if ( false === $data_uri ) {
             $svg_raw = get_svg( $attachment_id, $size, $icon ); // 既存の生SVG取得関数
             if ( empty( $svg_raw ) || is_wp_error( $svg_raw ) ) {
-                error_log( 'get_the_image_bg: failed to get raw SVG for ID ' . $attachment_id );
                 return '';
             }
             $data_uri = cielos_svg_to_data_uri( $svg_raw );
             // 失敗時ガード
             if ( empty( $data_uri ) ) {
-                error_log( 'get_the_image_bg: failed to build data URI for ID ' . $attachment_id );
                 return '';
             }
             set_transient( $cache_key, $data_uri, DAY_IN_SECONDS );

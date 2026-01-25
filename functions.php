@@ -114,31 +114,26 @@ function cielos_svg_image( array $args = [] ) {
 
     $att_id = intval($args['id']);
     if (!$att_id) {
-        error_log('cielos_svg_image: no id');
         return '';
     }
 
     $mime = get_post_mime_type($att_id);
     if ($mime !== 'image/svg+xml') {
-        error_log("cielos_svg_image: not svg (mime=$mime, id=$att_id)");
         return '';
     }
 
     $path = get_attached_file($att_id);
     if (!$path || !file_exists($path) || !is_readable($path)) {
-        error_log("cielos_svg_image: file missing or not readable ($path)");
         return '';
     }
 
     $size_kb = ceil(filesize($path) / 1024);
     if ($size_kb > $args['max_kb']) {
-        error_log("cielos_svg_image: svg too large ({$size_kb}KB)");
         return '';
     }
 
     $svg = file_get_contents($path);
     if ($svg === false || $svg === '') {
-        error_log("cielos_svg_image: empty svg");
         return '';
     }
 
@@ -278,56 +273,13 @@ add_action('wp_head', function () {
 }, 12);
 
 
-// どのキーが manifest にあり、何を enqueue したかをログに出すデバッガ
-add_action('wp_enqueue_scripts', function () {
-  if (!defined('WP_ENVIRONMENT_TYPE') || WP_ENVIRONMENT_TYPE !== 'production') return;
-
-  $manifest_path_child = get_stylesheet_directory() . '/dist/.vite/manifest.json';
-  $manifest_path_parent = get_template_directory() . '/dist/.vite/manifest.json';
-
-  $path = file_exists($manifest_path_child) ? $manifest_path_child : (file_exists($manifest_path_parent) ? $manifest_path_parent : '');
-  if (!$path) { error_log('[VITE] manifest not found'); return; }
-
-  $man = json_decode(file_get_contents($path), true);
-  if (!is_array($man)) { error_log('[VITE] manifest broken'); return; }
-
-  // まず全キーを出力（どんな key があるか把握）
-  $keys = implode(', ', array_keys($man));
-  error_log('[VITE] keys: ' . $keys);
-
-  $entry = 'src/main.ts'; // ←あなたのエントリ
-  if (empty($man[$entry])) { error_log("[VITE] missing entry: $entry"); return; }
-
-  $base = trailingslashit(dirname(str_replace(ABSPATH, site_url('/'), $path))) . '../';
-
-  // JS
-  if (!empty($man[$entry]['file'])) {
-    $js = $base . ltrim($man[$entry]['file'], '/');
-    error_log('[VITE] enqueue JS: ' . $js);
-    wp_enqueue_script('cielos-'.$entry, $js, [], null, true);
-    add_filter('script_loader_tag', function($tag,$h) use($entry){
-      return $h === 'cielos-'.$entry ? str_replace('<script ', '<script type="module" ', $tag) : $tag;
-    }, 10, 2);
-  }
-
-  // CSS
-  if (!empty($man[$entry]['css']) && is_array($man[$entry]['css'])) {
-    foreach ($man[$entry]['css'] as $i => $css) {
-      $href = $base . ltrim($css, '/');
-      error_log('[VITE] enqueue CSS: ' . $href);
-      wp_enqueue_style('cielos-'.$entry.'-css-'.$i, $href, [], null);
-    }
-  } else {
-    error_log('[VITE] no css array for entry (UnoCSS未取込 or import漏れの可能性)');
-  }
-}, 19);
-
 // manifestからエントリのJS + ひも付くCSSをまとめてenqueue
 // === Vite 自動ローダー（DevならHMR、無ければmanifestでJS+CSSをenqueue） ===
 // === 超シンプル Vite ローダー（DevはHMR、ProdはmanifestからJS+CSS） ===
 add_action('wp_enqueue_scripts', function () {
   // ← ここに必要なエントリキーを列挙（manifest のキー名）
-  $entries = ['src/main.ts', 'src/blocks/my-block-editor.ts'];
+  // Note: block editor scripts are handled by cielos-block.php (editor context only)
+  $entries = ['src/main.ts'];
 
   // --- Dev(HMR)検出（起動してるなら CSS <link> は出ません／HMRが挿入します） ---
   $hmr = @fsockopen('127.0.0.1', 5173, $e, $s, 0.15);
@@ -353,16 +305,16 @@ add_action('wp_enqueue_scripts', function () {
   $use_child   = file_exists($child_path);
   $manifest_path = $use_child ? $child_path : (file_exists($parent_path) ? $parent_path : '');
 
-  if (!$manifest_path) { error_log('[VITE] manifest not found'); return; }
+  if (!$manifest_path) { return; }
 
   $man = json_decode(file_get_contents($manifest_path), true);
-  if (!is_array($man)) { error_log('[VITE] manifest decode fail'); return; }
+  if (!is_array($man)) { return; }
 
   // ★ base は素直に /dist/ 直下を指す（パス組み立ての迷子を防止）
   $base = ($use_child ? get_stylesheet_directory_uri() : get_template_directory_uri()) . '/dist/';
 
   foreach ($entries as $key) {
-    if (empty($man[$key])) { error_log("[VITE] missing entry: $key"); continue; }
+    if (empty($man[$key])) { continue; }
     $entry = $man[$key];
 
     // JS
@@ -373,9 +325,6 @@ add_action('wp_enqueue_scripts', function () {
       add_filter('script_loader_tag', function($tag,$hh) use($h){
         return $hh===$h ? str_replace('<script ', '<script type="module" ', $tag) : $tag;
       },10,2);
-      error_log('[VITE] JS '.$key.' => '.$js);
-    } else {
-      error_log("[VITE] no JS file for $key");
     }
 
     // CSS（エントリー直接）
@@ -383,7 +332,6 @@ add_action('wp_enqueue_scripts', function () {
       foreach ($entry['css'] as $i => $css) {
         $href = $base . ltrim($css, '/');
         wp_enqueue_style('vite-style-'.md5($key).'-'.$i, $href, [], null);
-       // error_log('[VITE] CSS '.$key.' => '.$href); // 必要なら残す
       }
     }
 
@@ -474,13 +422,6 @@ add_action('rest_api_init', function () {
       $id  = (int) $req['id'];
       $svg = cielos_get_raw_svg($id);
 
-      // ログで実体確認
-      if (is_string($svg)) {
-        error_log('[svg-raw] id='.$id.' bytes='.strlen($svg).' head='.substr(trim($svg),0,20));
-      } else {
-        error_log('[svg-raw] id='.$id.' error='. (is_wp_error($svg)?$svg->get_error_message():'unknown'));
-      }
-
       if (is_wp_error($svg)) {
         return new WP_REST_Response(['error' => $svg->get_error_message()], 404);
       }
@@ -499,7 +440,6 @@ add_action('init', function () {
     $id = intval($atts['id'] ?? 0);
     $svg = cielos_get_raw_svg($id);
     if (is_wp_error($svg)) {
-      error_log('svg_raw: '.$svg->get_error_message());
       return '<!-- svg_raw error: '.esc_html($svg->get_error_message()).' -->';
     }
     return $svg;

@@ -33,20 +33,17 @@ function cielos_get_svg_data( WP_REST_Request $request ) {
 
     $mime = get_post_mime_type( $id );
     if ( $mime !== 'image/svg+xml' ) {
-        error_log("cielos_get_svg_data: id={$id} mime={$mime} (not svg)");
         return new WP_Error( 'not_svg', 'Attachment is not SVG', [ 'status' => 400 ] );
     }
 
     // できるだけファイルパスから読む（URL経由だと権限やリダイレクトで落ちやすい）
     $path = get_attached_file( $id );
     if ( ! $path || ! file_exists( $path ) ) {
-        error_log("cielos_get_svg_data: id={$id} attached file missing. path=" . var_export($path, true));
         return new WP_Error( 'no_file', 'SVG file not found on disk', [ 'status' => 500 ] );
     }
 
     $svg_raw = @file_get_contents( $path );
     if ( $svg_raw === false ) {
-        error_log("cielos_get_svg_data: id={$id} file_get_contents failed for path={$path}");
         return new WP_Error( 'read_fail', 'Failed to read SVG content', [ 'status' => 500 ] );
     }
 

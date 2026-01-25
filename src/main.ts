@@ -28,9 +28,9 @@ if (import.meta.env.DEV) {
 
 // === [UNOMoon SVG Common Utils] BEGIN ======================================
 export const isProd = import.meta.env.PROD
-export function log(...a: any[]) {
-  if (!isProd)
-    console.log(...a)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function log(..._a: any[]) {
+  // Debug logging disabled in production build
 }
 
 // Shadow DOM に安全にマウント（影DOMでレガシー上書きを無効化）
