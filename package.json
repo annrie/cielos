@@ -24,23 +24,23 @@
   "dependencies": {
     "@iconify-json/fa6-solid": "^1.2.4",
     "animate.css": "^4.1.1",
-    "animejs": "^4.3.0",
+    "animejs": "^4.3.4",
     "axios": "^1.13.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^7.1.0",
+    "@antfu/eslint-config": "^7.2.0",
     "@csstools/postcss-sass": "^5.1.1",
     "@iconify-json/carbon": "^1.2.18",
     "@iconify-json/eos-icons": "^1.2.4",
     "@iconify-json/ic": "^1.2.4",
     "@iconify-json/line-md": "^1.2.13",
     "@iconify-json/logos": "^1.2.10",
-    "@iconify-json/material-symbols": "^1.2.52",
+    "@iconify-json/material-symbols": "^1.2.53",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/prime": "^1.2.4",
     "@iconify-json/streamline": "^1.2.5",
     "@iconify-json/twemoji": "^1.2.5",
-    "@iconify/json": "^2.2.430",
+    "@iconify/json": "^2.2.431",
     "@iconify/vue": "^5.0.0",
     "@julr/unocss-preset-heropatterns": "^2.0.0",
     "@rushstack/eslint-patch": "^1.15.0",
@@ -68,7 +68,7 @@
     "@wordpress/i18n": "^6.11.0",
     "animated-unocss": "^0.0.6",
     "rollup-plugin-external-globals": "^0.13.0",
-    "sass-embedded": "^1.97.2",
+    "sass-embedded": "^1.97.3",
     "standard-version": "^9.5.0",
     "typescript": "^5.9.3",
     "unocss": "66.6.0",
@@ -81,6 +81,6 @@
     "vite-plugin-vue-layouts": "^0.11.0",
     "vue": "^3.5.27",
     "vue-eslint-parser": "^10.2.0",
-    "vue-tsc": "^3.2.2"
+    "vue-tsc": "^3.2.3"
   }
 }
