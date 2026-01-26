@@ -24,8 +24,8 @@
   "dependencies": {
     "@iconify-json/fa6-solid": "^1.2.4",
     "animate.css": "^4.1.1",
-    "animejs": "^4.3.4",
-    "axios": "^1.13.2"
+    "animejs": "^4.3.5",
+    "axios": "^1.13.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^7.2.0",
@@ -33,14 +33,14 @@
     "@iconify-json/carbon": "^1.2.18",
     "@iconify-json/eos-icons": "^1.2.4",
     "@iconify-json/ic": "^1.2.4",
-    "@iconify-json/line-md": "^1.2.13",
+    "@iconify-json/line-md": "^1.2.14",
     "@iconify-json/logos": "^1.2.10",
     "@iconify-json/material-symbols": "^1.2.53",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/prime": "^1.2.4",
     "@iconify-json/streamline": "^1.2.5",
     "@iconify-json/twemoji": "^1.2.5",
-    "@iconify/json": "^2.2.431",
+    "@iconify/json": "^2.2.432",
     "@iconify/vue": "^5.0.0",
     "@julr/unocss-preset-heropatterns": "^2.0.0",
     "@rushstack/eslint-patch": "^1.15.0",
@@ -81,6 +81,6 @@
     "vite-plugin-vue-layouts": "^0.11.0",
     "vue": "^3.5.27",
     "vue-eslint-parser": "^10.2.0",
-    "vue-tsc": "^3.2.3"
+    "vue-tsc": "^3.2.4"
   }
 }
