@@ -5,7 +5,9 @@
       "Bash(grep:*)",
       "mcp__sequential-thinking__sequentialthinking",
       "Bash(chmod:*)",
-      "Bash(node scripts/generate-biblio-embeddings.mjs:*)"
+      "Bash(node scripts/generate-biblio-embeddings.mjs:*)",
+      "Bash(source:*)",
+      "Bash(bash scripts/generate-image.sh:*)"
     ],
     "deny": []
   }
