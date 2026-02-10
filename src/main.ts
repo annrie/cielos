@@ -10,6 +10,20 @@ import SidebarFull from './components/SidebarFull.vue'
 import SidebarTop from './components/SidebarTop.vue'
 import SocialShareButton from './components/SocialShareButton.vue'
 import SvgImage from './components/SvgImage.vue'
+// Hero Showcase Components
+import HeroAuroraWave from './components/hero/HeroAuroraWave.vue'
+import HeroCinematic from './components/hero/HeroCinematic.vue'
+import HeroGeometric from './components/hero/HeroGeometric.vue'
+import HeroGlassmorphism from './components/hero/HeroGlassmorphism.vue'
+import HeroGradientMesh from './components/hero/HeroGradientMesh.vue'
+import HeroInteractiveCards from './components/hero/HeroInteractiveCards.vue'
+import HeroMinimalZen from './components/hero/HeroMinimalZen.vue'
+import HeroParallaxLayers from './components/hero/HeroParallaxLayers.vue'
+import HeroScrollReveal from './components/hero/HeroScrollReveal.vue'
+import HeroSplitDiagonal from './components/hero/HeroSplitDiagonal.vue'
+import HeroTypography from './components/hero/HeroTypography.vue'
+// Definitive Edition Hero
+import HeroDefinitive from './components/hero/HeroDefinitive.vue'
 import 'virtual:uno.css'
 import 'animate.css'
 import './assets/css/index.css'
@@ -291,6 +305,42 @@ if ('serviceWorker' in navigator && import.meta.env.DEV) {
     regs.forEach(reg => reg.unregister())
   })
 }
+
+// Mount Hero Showcase Components
+const heroComponentMap: Record<string, any> = {
+  'gradient-mesh': HeroGradientMesh,
+  'split-diagonal': HeroSplitDiagonal,
+  'glassmorphism': HeroGlassmorphism,
+  'typography': HeroTypography,
+  'parallax-layers': HeroParallaxLayers,
+  'minimal-zen': HeroMinimalZen,
+  'interactive-cards': HeroInteractiveCards,
+  'cinematic': HeroCinematic,
+  'geometric': HeroGeometric,
+  'scroll-reveal': HeroScrollReveal,
+  'aurora-wave': HeroAuroraWave,
+}
+
+document.querySelectorAll<HTMLElement>('.hero-showcase-mount').forEach((el) => {
+  const heroType = el.dataset.heroType || ''
+  const component = heroComponentMap[heroType]
+  if (component) {
+    createApp(component, {
+      siteName: el.dataset.siteName || '',
+      tagline: el.dataset.tagline || '',
+      themeUri: el.dataset.themeUri || '',
+    }).mount(el)
+  }
+})
+
+// Mount HeroDefinitive (front-page)
+document.querySelectorAll<HTMLElement>('.hero-definitive-mount').forEach((el) => {
+  createApp(HeroDefinitive, {
+    siteName: el.dataset.siteName || '',
+    tagline: el.dataset.tagline || '',
+    themeUri: el.dataset.themeUri || '',
+  }).mount(el)
+})
 
 // マウント
 app.mount('#app')

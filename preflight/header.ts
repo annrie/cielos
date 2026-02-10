@@ -205,6 +205,8 @@ html.dark #theme-toggle-desktop svg[data-icon="moon"] { display:block !important
   }
 }
 
+/* Site Branding Icon styles are in header.php inline <style> */
+
 /* 祖先の overflow で sticky を殺さない */
 :where(#page, .page-container, .wrap, .container){ overflow: visible !important; }
 
