@@ -33,16 +33,25 @@ export const preflightSections: Preflight = {
 .section-hero {
   position: relative;
   z-index: 1;
-  padding-block: var(--section-hero-py-sm, 3rem);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding-block: 1rem !important;
   background-color: var(--section-hero-bg-color, var(--c-primary));
   color: var(--section-hero-fg, #fff);
   text-align: var(--section-hero-align, left);
   overflow: hidden;
 }
 
+.section-hero .hero-definitive-mount {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 @media (min-width: 768px) {
   .section-hero {
-    padding-block: var(--section-hero-py, 5rem);
+    padding-block: 1.5rem !important;
   }
 }
 
@@ -53,7 +62,7 @@ export const preflightSections: Preflight = {
   inset: 0;
   background-image: var(--hero-bg-image);
   background-size: cover;
-  background-position: center;
+  background-position: center 65%;
   background-repeat: no-repeat;
   pointer-events: none;
   z-index: -1;

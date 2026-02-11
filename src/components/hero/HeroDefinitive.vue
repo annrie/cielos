@@ -241,27 +241,6 @@ const features = [
 </template>
 
 <style scoped>
-/* Override parent .section-hero: full viewport + background crop */
-:global(.section-hero) {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  padding-block: 1rem !important;
-}
-:global(.section-hero .hero-definitive-mount) {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-:global(.section-hero::before) {
-  background-position: center 65% !important;
-}
-@media (min-width: 768px) {
-  :global(.section-hero) {
-    padding-block: 1.5rem !important;
-  }
-}
-
 /* Container - fits inside existing .section-hero */
 .hero-definitive {
   position: relative;
