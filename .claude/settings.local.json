@@ -34,7 +34,8 @@
       "Bash(node -e:*)",
       "Bash(ls:*)",
       "mcp__playwright__browser_wait_for",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }

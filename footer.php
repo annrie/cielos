@@ -18,7 +18,7 @@
  * Footer
  */
 ?>
-<footer class="bg-[var(--footer-bg)] text-[var(--footer-fg)] py-[var(--footer-py)] px-4 mt-16">
+<footer class="bg-[var(--footer-bg)] text-[var(--footer-fg)] py-[var(--footer-py)] px-4 <?php echo is_front_page() ? '' : 'mt-16'; ?>">
     <div class="footer-container max-w-screen-xl mx-auto">
         <?php if (is_active_sidebar('footer-left') || is_active_sidebar('footer-center') || is_active_sidebar('footer-right')) : ?>
         <div class="footer-widgets grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
