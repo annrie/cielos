@@ -1,0 +1,588 @@
+<!-- WordPress 投稿用 HTML — Cielos テーマ完全ガイド -->
+<!-- タイトル: Cielos テーマ完全ガイド — セットアップからカスタムブロックスタイルの作成まで -->
+
+<p>Vite + UnoCSS + Vue 3 + TypeScript で構築されたモダン WordPress テーマ「Cielos」の導入・カスタマイズ・カスタムブロック開発を、テーマ開発経験者向けに解説します。</p>
+
+<hr />
+
+<nav>
+<h2>目次</h2>
+<ol>
+  <li><a href="#introduction">はじめに</a></li>
+  <li><a href="#setup">セットアップ</a></li>
+  <li><a href="#customize">テーマのカスタマイズ</a></li>
+  <li><a href="#block-styles">既存ブロックへのスタイル追加</a></li>
+  <li><a href="#custom-blocks">カスタムブロックの新規作成</a></li>
+  <li><a href="#summary">まとめ</a></li>
+</ol>
+</nav>
+
+<hr />
+
+<!-- ========================================== -->
+<!-- はじめに -->
+<!-- ========================================== -->
+<h2 id="introduction">はじめに</h2>
+
+<h3>Cielos とは</h3>
+
+<p>Cielos は、従来の WordPress テーマ開発のワークフローを一新するモダンテーマです。</p>
+
+<figure class="wp-block-table">
+<table>
+<thead><tr><th>技術</th><th>役割</th></tr></thead>
+<tbody>
+  <tr><td><strong>Vite</strong></td><td>ビルドツール・HMR 開発サーバー</td></tr>
+  <tr><td><strong>UnoCSS</strong> (Wind4)</td><td>ユーティリティファースト CSS エンジン</td></tr>
+  <tr><td><strong>Vue 3</strong> (Composition API)</td><td>インタラクティブ UI コンポーネント</td></tr>
+  <tr><td><strong>TypeScript</strong></td><td>型安全な開発</td></tr>
+  <tr><td><strong>theme.json v3</strong></td><td>WordPress フルサイトエディタ対応</td></tr>
+</tbody>
+</table>
+</figure>
+
+<h3>前提条件</h3>
+
+<figure class="wp-block-table">
+<table>
+<thead><tr><th>ツール</th><th>バージョン</th></tr></thead>
+<tbody>
+  <tr><td>WordPress</td><td>6.0 以上</td></tr>
+  <tr><td>PHP</td><td>8.0 以上</td></tr>
+  <tr><td>Node.js</td><td>18 以上</td></tr>
+  <tr><td>pnpm</td><td>8 以上</td></tr>
+</tbody>
+</table>
+</figure>
+
+<p>WordPress のテーマ開発経験があることを前提に進めます。</p>
+
+<hr />
+
+<!-- ========================================== -->
+<!-- セットアップ -->
+<!-- ========================================== -->
+<h2 id="setup">セットアップ</h2>
+
+<h3>1. テーマのインストール</h3>
+
+<pre><code class="language-bash">cd wp-content/themes/
+git clone https://github.com/annrie/cielos.git
+cd cielos
+pnpm install</code></pre>
+
+<h3>2. 開発環境の起動</h3>
+
+<pre><code class="language-bash">pnpm dev</code></pre>
+
+<p>これにより Vite 開発サーバーがポート <code>5173</code> で起動します。WordPress 側で <code>WP_ENVIRONMENT_TYPE</code> を <code>development</code> に設定しておく必要があります。</p>
+
+<pre><code class="language-php">// wp-config.php
+define('WP_ENVIRONMENT_TYPE', 'development');</code></pre>
+
+<h3>3. Vite と WordPress の連携の仕組み</h3>
+
+<p>Cielos の最大の特徴は、Vite を WordPress と直接統合している点です。<code>functions.php</code> 内で以下のように切り替えています。</p>
+
+<pre><code>開発時: 127.0.0.1:5173 への接続を検知 → HMR モード
+本番時: dist/.vite/manifest.json からビルド済みアセットを読み込み</code></pre>
+
+<p>具体的には <code>cielos_is_vite_dev()</code> 関数が開発サーバーの起動状態を検出します。</p>
+
+<pre><code class="language-php">// functions.php:56-62
+function cielos_is_vite_dev(): bool {
+    if (defined('WP_ENVIRONMENT_TYPE') &amp;&amp; WP_ENVIRONMENT_TYPE === 'development') {
+        $fp = @fsockopen('127.0.0.1', 5173, $errno, $errstr, 0.05);
+        if ($fp) { fclose($fp); return true; }
+    }
+    return false;
+}</code></pre>
+
+<p>開発モードでは <code>@vite/client</code> と <code>src/main.ts</code> が直接読み込まれ、CSS や Vue コンポーネントの変更が即座にブラウザに反映されます。</p>
+
+<h3>4. エントリーポイント構成</h3>
+
+<p>Cielos には 2 つのエントリーポイントがあります。</p>
+
+<figure class="wp-block-table">
+<table>
+<thead><tr><th>エントリー</th><th>用途</th><th>読み込みタイミング</th></tr></thead>
+<tbody>
+  <tr><td><code>src/main.ts</code></td><td>フロントエンド全体</td><td>すべてのページ</td></tr>
+  <tr><td><code>src/blocks/my-block-editor.ts</code></td><td>カスタムブロック</td><td>ブロックエディタのみ</td></tr>
+</tbody>
+</table>
+</figure>
+
+<p><code>main.ts</code> は Vue アプリの初期化、各種コンポーネントのマウント、UnoCSS や Animate.css の読み込みを担当します。<code>my-block-editor.ts</code> はブロックエディタ内でのみ読み込まれ、カスタムブロックの登録を行います。</p>
+
+<h3>5. 本番ビルドとデプロイ</h3>
+
+<pre><code class="language-bash">pnpm build</code></pre>
+
+<p>ビルド成果物は <code>dist/</code> ディレクトリに出力されます。Vite のマニフェスト (<code>dist/.vite/manifest.json</code>) をもとに、<code>functions.php</code> 側が適切な JS/CSS ファイルを <code>wp_enqueue_script</code> / <code>wp_enqueue_style</code> で読み込みます。</p>
+
+<p>テーマを配布する場合：</p>
+
+<pre><code class="language-bash">pnpm archive    # ビルド後に zip アーカイブを作成</code></pre>
+
+<hr />
+
+<!-- ========================================== -->
+<!-- テーマのカスタマイズ -->
+<!-- ========================================== -->
+<h2 id="customize">テーマのカスタマイズ</h2>
+
+<h3>theme.json によるグローバル設定</h3>
+
+<p>Cielos は <code>theme.json</code> v3 を使用し、WordPress のフルサイトエディタと連携しています。</p>
+
+<h4>カラーパレット</h4>
+
+<pre><code class="language-json">// theme.json (抜粋)
+{
+  "settings": {
+    "color": {
+      "palette": [
+        { "color": "#0ea5e9", "name": "Primary",       "slug": "primary" },
+        { "color": "#38bdf8", "name": "Primary Light",  "slug": "primary-light" },
+        { "color": "#0284c7", "name": "Primary Dark",   "slug": "primary-dark" },
+        { "color": "#f59e0b", "name": "Accent",         "slug": "accent" },
+        { "color": "#22c55e", "name": "Success",        "slug": "success" },
+        { "color": "#ef4444", "name": "Danger",         "slug": "danger" }
+      ]
+    }
+  }
+}</code></pre>
+
+<p>ここに追加したカラーはブロックエディタのカラーピッカーに自動的に反映されます。</p>
+
+<h4>タイポグラフィ</h4>
+
+<p>日本語に最適化されたフォントスタックを使用しています。</p>
+
+<pre><code class="language-json">{
+  "settings": {
+    "typography": {
+      "fontFamilies": [
+        {
+          "fontFamily": "\"Noto Sans JP\", \"Hiragino Sans\", \"Yu Gothic\", sans-serif",
+          "name": "Sans Serif",
+          "slug": "sans"
+        },
+        {
+          "fontFamily": "\"JetBrains Mono\", \"Fira Code\", monospace",
+          "name": "Monospace",
+          "slug": "mono"
+        }
+      ]
+    }
+  }
+}</code></pre>
+
+<h4>レイアウト</h4>
+
+<pre><code class="language-json">{
+  "settings": {
+    "layout": {
+      "contentSize": "840px",
+      "wideSize": "1280px"
+    }
+  }
+}</code></pre>
+
+<h3>デザイントークン（CSS カスタムプロパティ）</h3>
+
+<p>テーマ全体の色やスペーシングは CSS カスタムプロパティで管理しています。ハードコードされた値ではなく、必ずトークンを参照します。</p>
+
+<pre><code class="language-css">/* src/assets/css/tokens.css */
+:root {
+  --c-fg: #334155;           /* テキスト色 */
+  --c-muted: #64748b;        /* セカンダリテキスト */
+  --c-primary: #0ea5e9;      /* プライマリカラー */
+  --c-accent: #f59e0b;       /* アクセントカラー */
+  --c-bg: #ffffff;           /* 背景色 */
+  --c-panel: #f8fafc;        /* パネル背景 */
+  --c-border: #e2e8f0;       /* ボーダー色 */
+  --c-success: #22c55e;
+  --c-danger: #ef4444;
+  --c-warning: #f59e0b;
+}
+
+.dark {
+  --c-fg: #e2e8f0;
+  --c-bg: #0f172a;
+  --c-panel: #1e293b;
+  --c-border: #334155;
+}</code></pre>
+
+<p>テンプレート内での使用例：</p>
+
+<pre><code class="language-html">&lt;!-- 推奨: デザイントークンを使用 --&gt;
+&lt;div class="bg-[var(--c-panel)] text-[var(--c-fg)] rounded-lg shadow-md"&gt;
+
+&lt;!-- 非推奨: ハードコード --&gt;
+&lt;div class="bg-gray-100 text-gray-900 rounded-lg shadow-md"&gt;</code></pre>
+
+<h3>UnoCSS 設定</h3>
+
+<p><code>uno.config.ts</code> で UnoCSS の設定を管理しています。Cielos では以下のプリセットとプラグインを統合しています。</p>
+
+<figure class="wp-block-table">
+<table>
+<thead><tr><th>プリセット</th><th>用途</th></tr></thead>
+<tbody>
+  <tr><td><code>presetWind4</code></td><td>Tailwind CSS 互換のユーティリティクラス</td></tr>
+  <tr><td><code>presetAttributify</code></td><td>HTML 属性ベースのクラス指定 (<code>bg="blue-500"</code>)</td></tr>
+  <tr><td><code>presetIcons</code></td><td>Iconify アイコン (<code>class="i-mdi-home"</code>)</td></tr>
+  <tr><td><code>presetTypography</code></td><td>prose クラスによる本文スタイル</td></tr>
+  <tr><td><code>presetWebFonts</code></td><td>Web フォントの自動読み込み</td></tr>
+  <tr><td><code>presetTagify</code></td><td><code>&lt;un-button&gt;</code> 等のタグベース記法</td></tr>
+  <tr><td><code>presetHeroPatterns</code></td><td>Hero Patterns の SVG 背景パターン</td></tr>
+  <tr><td><code>animatedUno</code></td><td>Animate.css のアニメーションクラス統合</td></tr>
+</tbody>
+</table>
+</figure>
+
+<p>レスポンシブデザインはモバイルファーストで記述します。</p>
+
+<pre><code class="language-html">&lt;div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"&gt;</code></pre>
+
+<h3>ダークモード対応</h3>
+
+<p><code>&lt;html&gt;</code> 要素の <code>.dark</code> クラスで切り替えるクラスベース方式を採用しています。CSS カスタムプロパティがライト/ダークで自動的に切り替わるため、テンプレートでは特別な対応は不要です。</p>
+
+<pre><code class="language-html">&lt;!-- header.php 内の初期化スクリプト --&gt;
+&lt;script&gt;
+(() =&gt; {
+  const theme = localStorage.getItem('cielos:theme') || 'system';
+  const isDark = theme === 'system'
+    ? window.matchMedia('(prefers-color-scheme: dark)').matches
+    : theme === 'dark';
+  document.documentElement.classList.toggle('dark', isDark);
+})();
+&lt;/script&gt;</code></pre>
+
+<hr />
+
+<!-- ========================================== -->
+<!-- 既存ブロックへのスタイル追加 -->
+<!-- ========================================== -->
+<h2 id="block-styles">既存ブロックへのスタイル追加</h2>
+
+<p>Cielos では 27 種類の見出しスタイルバリエーションが用意されています。独自のスタイルを追加する手順を解説します。</p>
+
+<h3>アーキテクチャ</h3>
+
+<p>見出しブロックのスタイルシステムは以下の 3 ファイルで構成されています。</p>
+
+<pre><code>src/blocks/heading-styles.css       ← CSS スタイル定義
+src/blocks/my-block-editor.ts       ← STYLE_OPTIONS 配列（エディタ選択肢）
+src/blocks/HeadingStyleSelector.vue ← Vue セレクターコンポーネント</code></pre>
+
+<h3>ステップ 1: CSS クラスの定義</h3>
+
+<p><code>src/blocks/heading-styles.css</code> に新しいスタイルを追加します。既存スタイルの命名規則 (<code>heading01</code> ~ <code>heading13-9</code>) に従います。</p>
+
+<pre><code class="language-css">/* heading14 - 星マーク + 下線スタイル */
+h1.heading14, h2.heading14, h3.heading14,
+h4.heading14, h5.heading14, h6.heading14 {
+  position: relative;
+  padding-left: 1.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid var(--c-primary);
+}
+
+h1.heading14::before, h2.heading14::before, h3.heading14::before,
+h4.heading14::before, h5.heading14::before, h6.heading14::before {
+  content: "\2605"; /* ★ */
+  position: absolute;
+  left: 0;
+  color: var(--c-accent);
+}</code></pre>
+
+<p><strong>ポイント:</strong></p>
+<ul>
+  <li>必ず <code>h1</code> から <code>h6</code> まで全レベルに対応するセレクターを書く</li>
+  <li>色はデザイントークン (<code>var(--c-primary)</code> 等) を参照する</li>
+  <li>ダークモードは CSS カスタムプロパティの切り替えで自動対応</li>
+</ul>
+
+<h3>ステップ 2: エディタの選択肢に登録</h3>
+
+<p><code>src/blocks/my-block-editor.ts</code> の <code>STYLE_OPTIONS</code> 配列に追加します。</p>
+
+<pre><code class="language-typescript">// src/blocks/my-block-editor.ts:20-48
+const STYLE_OPTIONS = [
+  { label: 'Heading 01（上下破線-切り取り線）', value: 'heading01' },
+  { label: 'Heading 02（傾き-テープ）', value: 'heading02' },
+  // ... 既存の 27 スタイル ...
+  { label: 'Heading 14（星マーク+下線）', value: 'heading14' },  // 追加
+]</code></pre>
+
+<p>これだけで、ブロックエディタの「見出し設定」パネルから新しいスタイルを選択できるようになります。</p>
+
+<h3>ステップ 3: Vue セレクターの更新（任意）</h3>
+
+<p><code>HeadingStyleSelector.vue</code> を使用している場合は、こちらにも追加します。</p>
+
+<pre><code class="language-typescript">// src/blocks/HeadingStyleSelector.vue
+const styles = [
+  // ... 既存のスタイル ...
+  { value: 'heading14', label: 'スタイル 14' },
+]</code></pre>
+
+<h3>ステップ 4: 確認</h3>
+
+<pre><code class="language-bash">pnpm dev</code></pre>
+
+<p>ブロックエディタで「Uno テーマ見出し」ブロックを挿入し、右パネルの「スタイル」から新しいスタイルが選択できることを確認します。</p>
+
+<hr />
+
+<!-- ========================================== -->
+<!-- カスタムブロックの新規作成 -->
+<!-- ========================================== -->
+<h2 id="custom-blocks">カスタムブロックの新規作成</h2>
+
+<p>Cielos では WordPress のブロックエディタ (React ベース) の中で Vue コンポーネントを動作させる独自の<strong>ブリッジパターン</strong>を採用しています。ここでは「アラートブロック」を例に、新規カスタムブロックの作成手順を解説します。</p>
+
+<h3>アーキテクチャ概要</h3>
+
+<pre><code>cielos-block.php              ← PHP: アセット登録 &amp; ブロックタイプ登録
+  ↓ Vite manifest.json 参照
+src/blocks/my-block-editor.ts ← TS: registerBlockType() でブロック定義
+  ↓ Vue コンポーネント import
+src/blocks/AlertBlock.vue     ← Vue: エディタ表示用コンポーネント</code></pre>
+
+<p>PHP がブロックの WordPress 側登録を担当し、TypeScript がブロックのロジックを定義し、Vue がエディタ内のリッチ UI を担当します。</p>
+
+<h3>ステップ 1: Vue コンポーネントを作成する</h3>
+
+<p><code>src/blocks/AlertBlock.vue</code>:</p>
+
+<pre><code class="language-html">&lt;script setup lang="ts"&gt;
+defineProps&lt;{
+  type?: 'info' | 'warning' | 'danger' | 'success'
+  content?: string
+}&gt;()
+
+defineEmits&lt;{
+  'update:content': [value: string]
+}&gt;()
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div :class="['alert-block', `alert-${type || 'info'}`]"&gt;
+    &lt;div class="alert-icon"&gt;
+      &lt;span :class="`i-mdi-${
+        type === 'danger'  ? 'alert-circle' :
+        type === 'warning' ? 'alert' :
+        type === 'success' ? 'check-circle' :
+        'information'
+      }`" /&gt;
+    &lt;/div&gt;
+    &lt;div
+      class="alert-content"
+      contenteditable="true"
+      @input="$emit('update:content', ($event.target as HTMLElement).textContent || '')"
+      data-placeholder="テキストを入力..."
+    /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+.alert-block {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+}
+.alert-info    { background: #eff6ff; border-color: var(--c-primary); }
+.alert-warning { background: #fffbeb; border-color: var(--c-warning); }
+.alert-danger  { background: #fef2f2; border-color: var(--c-danger); }
+.alert-success { background: #f0fdf4; border-color: var(--c-success); }
+
+[contenteditable]:empty::before {
+  content: attr(data-placeholder);
+  color: var(--c-muted, #999);
+  pointer-events: none;
+}
+&lt;/style&gt;</code></pre>
+
+<h3>ステップ 2: ブロックを TypeScript で登録する</h3>
+
+<p><code>src/blocks/my-block-editor.ts</code> に以下を追加します。これが Cielos の核心である <strong>Vue-React ブリッジパターン</strong> です。</p>
+
+<pre><code class="language-typescript">import AlertBlock from './AlertBlock.vue'
+
+registerBlockType('uno/alert', {
+  title: 'アラートブロック',
+  description: '情報・警告・エラー・成功のアラート表示',
+  icon: 'warning',
+  category: 'design',
+  keywords: ['alert', 'notice', '通知'],
+
+  attributes: {
+    content:   { type: 'string', default: '' },
+    alertType: { type: 'string', default: 'info' },
+  },
+
+  edit: (props: any) =&gt; {
+    const { attributes, setAttributes } = props
+    const containerRef = useRef&lt;HTMLDivElement | null&gt;(null)
+    const appRef = useRef&lt;ReturnType&lt;typeof createApp&gt; | null&gt;(null)
+
+    // Vue アプリのマウント関数
+    const mountVueApp = () =&gt; {
+      if (appRef.current) appRef.current.unmount()
+      appRef.current = createApp({
+        render() {
+          return h(AlertBlock, {
+            type: attributes.alertType,
+            content: attributes.content,
+            'onUpdate:content': (v: string) =&gt; setAttributes({ content: v }),
+          })
+        },
+      })
+      if (containerRef.current) appRef.current.mount(containerRef.current)
+    }
+
+    // 初回マウント &amp; クリーンアップ
+    useEffect(() =&gt; {
+      if (containerRef.current &amp;&amp; !appRef.current) mountVueApp()
+      return () =&gt; {
+        if (appRef.current) { appRef.current.unmount(); appRef.current = null }
+      }
+    }, [])
+
+    // 属性変更時に再マウント
+    useEffect(() =&gt; {
+      if (appRef.current &amp;&amp; containerRef.current) mountVueApp()
+    }, [attributes.alertType])
+
+    return createElement(
+      'div', null,
+      createElement(InspectorControls, null,
+        createElement(PanelBody, { title: 'アラート設定', initialOpen: true },
+          createElement(SelectControl, {
+            label: 'タイプ',
+            value: attributes.alertType,
+            options: [
+              { label: '情報', value: 'info' },
+              { label: '警告', value: 'warning' },
+              { label: 'エラー', value: 'danger' },
+              { label: '成功', value: 'success' },
+            ],
+            onChange: (v: string) =&gt; setAttributes({ alertType: v }),
+          })
+        )
+      ),
+      createElement('div', { ref: containerRef })
+    )
+  },
+
+  save: ({ attributes }: any) =&gt; {
+    return createElement(
+      'div',
+      { className: `alert-block alert-${attributes.alertType}` },
+      createElement('p', null, attributes.content)
+    )
+  },
+})</code></pre>
+
+<h4>Vue-React ブリッジの仕組み</h4>
+
+<ol>
+  <li><code>useRef</code> で DOM コンテナと Vue アプリインスタンスの参照を保持</li>
+  <li><code>useEffect</code> の初回実行で <code>createApp()</code> → <code>mount()</code> により Vue アプリをマウント</li>
+  <li>属性変更時は <code>useEffect</code> の依存配列で検知し、Vue アプリを再マウント</li>
+  <li><code>return</code> のクリーンアップ関数で <code>unmount()</code> を呼びメモリリークを防止</li>
+  <li><code>edit</code> (エディタ側) は Vue で実装し、<code>save</code> (フロント出力) は WordPress 標準の <code>createElement</code> で実装</li>
+</ol>
+
+<h3>ステップ 3: PHP でブロックタイプを登録する</h3>
+
+<p><code>cielos-block.php</code> の <code>$blocks</code> 配列に新しいブロック名を追加します。</p>
+
+<pre><code class="language-php">// cielos-block.php:100
+$blocks = ['uno/my-block', 'uno/theme-heading', 'uno/alert'];</code></pre>
+
+<p>これにより、Vite マニフェストから解決された JS/CSS が自動的にブロックエディタで読み込まれます。</p>
+
+<h3>ステップ 4: フロントエンド用 CSS を追加する</h3>
+
+<p><code>save</code> で出力される HTML に対応する CSS を追加します。<code>src/blocks/</code> ディレクトリに <code>alert-styles.css</code> を作成し、<code>my-block-editor.ts</code> で import します。</p>
+
+<pre><code class="language-css">/* src/blocks/alert-styles.css */
+.alert-block {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+}
+.alert-info    { background: #eff6ff; border-color: var(--c-primary); }
+.alert-warning { background: #fffbeb; border-color: var(--c-warning); }
+.alert-danger  { background: #fef2f2; border-color: var(--c-danger); }
+.alert-success { background: #f0fdf4; border-color: var(--c-success); }</code></pre>
+
+<pre><code class="language-typescript">// src/blocks/my-block-editor.ts に追加
+import './alert-styles.css'</code></pre>
+
+<h3>ステップ 5: 動作確認</h3>
+
+<pre><code class="language-bash">pnpm dev</code></pre>
+
+<ol>
+  <li>ブロックエディタを開く</li>
+  <li>「+」ボタンから「アラートブロック」を検索して挿入</li>
+  <li>右パネルの「アラート設定」からタイプを切り替え</li>
+  <li>テキストを入力して保存</li>
+  <li>フロントエンドで表示を確認</li>
+</ol>
+
+<hr />
+
+<!-- ========================================== -->
+<!-- まとめ -->
+<!-- ========================================== -->
+<h2 id="summary">まとめ</h2>
+
+<h3>テーマの技術構成</h3>
+
+<figure class="wp-block-table">
+<table>
+<thead><tr><th>レイヤー</th><th>技術</th><th>ファイル</th></tr></thead>
+<tbody>
+  <tr><td>ビルド</td><td>Vite</td><td><code>vite.config.ts</code></td></tr>
+  <tr><td>スタイル</td><td>UnoCSS + CSS カスタムプロパティ</td><td><code>uno.config.ts</code>, <code>tokens.css</code></td></tr>
+  <tr><td>UI</td><td>Vue 3 (Composition API)</td><td><code>src/components/</code>, <code>src/blocks/</code></td></tr>
+  <tr><td>型安全</td><td>TypeScript</td><td><code>tsconfig.json</code></td></tr>
+  <tr><td>WP 連携</td><td>theme.json v3 + PHP</td><td><code>theme.json</code>, <code>functions.php</code></td></tr>
+  <tr><td>ブロック</td><td>React-Vue ブリッジ</td><td><code>cielos-block.php</code>, <code>my-block-editor.ts</code></td></tr>
+</tbody>
+</table>
+</figure>
+
+<h3>開発フロー</h3>
+
+<pre><code>1. pnpm dev で開発サーバー起動
+2. Vue/CSS/TS の変更 → HMR で即座に反映
+3. PHP テンプレートの変更 → ブラウザリロード
+4. pnpm build で本番ビルド
+5. pnpm archive で配布用 zip 作成</code></pre>
+
+<h3>カスタマイズのチェックリスト</h3>
+
+<ul>
+  <li><code>theme.json</code> でカラーパレットとフォントを設定</li>
+  <li><code>src/assets/css/tokens.css</code> でデザイントークンを定義</li>
+  <li>テンプレート内ではハードコードではなく CSS カスタムプロパティを使用</li>
+  <li>新しい見出しスタイルは <code>heading-styles.css</code> + <code>STYLE_OPTIONS</code> の 2 箇所を更新</li>
+  <li>新規ブロックは Vue コンポーネント → TS 登録 → PHP 登録 → フロント CSS の 4 ステップ</li>
+  <li>ダークモードは CSS カスタムプロパティの自動切り替えに依存（個別対応は原則不要）</li>
+</ul>
+
+<p>Cielos テーマのモダンなアーキテクチャを活用して、効率的な WordPress テーマ開発をお楽しみください。</p>
