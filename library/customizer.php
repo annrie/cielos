@@ -40,7 +40,7 @@ function cielos_customize_register( $wp_customize ) {
             'centered'    => __( 'Centered (Logo + Nav centered)', 'cielos' ),
             'transparent' => __( 'Transparent (Overlay on hero)', 'cielos' ),
             'minimal'     => __( 'Minimal (Fullscreen nav)', 'cielos' ),
-            'split'       => __( 'Split (Nav split around logo)', 'cielos' ),
+            'split'       => __( 'Split (Primary left + Logo center + Secondary right)', 'cielos' ),
         ),
     ) );
 
