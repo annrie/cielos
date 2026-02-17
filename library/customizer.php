@@ -25,6 +25,25 @@ function cielos_customize_register( $wp_customize ) {
         'priority' => 10,
     ) );
 
+    // Header pattern
+    $wp_customize->add_setting( 'cielos_header_pattern', array(
+        'default'           => 'default',
+        'sanitize_callback' => 'cielos_sanitize_header_pattern',
+    ) );
+    $wp_customize->add_control( 'cielos_header_pattern', array(
+        'label'       => __( 'Header Layout', 'cielos' ),
+        'description' => __( 'Select the header layout pattern', 'cielos' ),
+        'section'     => 'cielos_header_section',
+        'type'        => 'select',
+        'choices'     => array(
+            'default'     => __( 'Default (Logo left + Nav right)', 'cielos' ),
+            'centered'    => __( 'Centered (Logo + Nav centered)', 'cielos' ),
+            'transparent' => __( 'Transparent (Overlay on hero)', 'cielos' ),
+            'minimal'     => __( 'Minimal (Fullscreen nav)', 'cielos' ),
+            'split'       => __( 'Split (Nav split around logo)', 'cielos' ),
+        ),
+    ) );
+
     // Sticky header
     $wp_customize->add_setting( 'cielos_sticky_header', array(
         'default'           => true,
@@ -68,6 +87,25 @@ function cielos_customize_register( $wp_customize ) {
         'title'    => __( 'Footer', 'cielos' ),
         'panel'    => 'cielos_theme_options',
         'priority' => 30,
+    ) );
+
+    // Footer pattern
+    $wp_customize->add_setting( 'cielos_footer_pattern', array(
+        'default'           => 'default',
+        'sanitize_callback' => 'cielos_sanitize_footer_pattern',
+    ) );
+    $wp_customize->add_control( 'cielos_footer_pattern', array(
+        'label'       => __( 'Footer Layout', 'cielos' ),
+        'description' => __( 'Select the footer layout pattern', 'cielos' ),
+        'section'     => 'cielos_footer_section',
+        'type'        => 'select',
+        'choices'     => array(
+            'default'  => __( 'Default (3-column widgets)', 'cielos' ),
+            'minimal'  => __( 'Minimal (Copyright + social)', 'cielos' ),
+            'rich'     => __( 'Rich (Full-featured 5-column)', 'cielos' ),
+            'centered' => __( 'Centered (Logo + nav centered)', 'cielos' ),
+            'band'     => __( 'Band (Two-tier dark bar)', 'cielos' ),
+        ),
     ) );
 
     // Copyright text
@@ -115,6 +153,22 @@ function cielos_customize_register( $wp_customize ) {
     ) );
 }
 add_action( 'customize_register', 'cielos_customize_register' );
+
+/**
+ * Sanitize header pattern selection
+ */
+function cielos_sanitize_header_pattern( $value ) {
+    $valid = array( 'default', 'centered', 'transparent', 'minimal', 'split' );
+    return in_array( $value, $valid, true ) ? $value : 'default';
+}
+
+/**
+ * Sanitize footer pattern selection
+ */
+function cielos_sanitize_footer_pattern( $value ) {
+    $valid = array( 'default', 'minimal', 'rich', 'centered', 'band' );
+    return in_array( $value, $valid, true ) ? $value : 'default';
+}
 
 /**
  * Output custom CSS from customizer settings
