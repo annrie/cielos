@@ -22,8 +22,7 @@ import HeroParallaxLayers from './components/hero/HeroParallaxLayers.vue'
 import HeroScrollReveal from './components/hero/HeroScrollReveal.vue'
 import HeroSplitDiagonal from './components/hero/HeroSplitDiagonal.vue'
 import HeroTypography from './components/hero/HeroTypography.vue'
-// Definitive Edition Hero
-import HeroDefinitive from './components/hero/HeroDefinitive.vue'
+
 import 'virtual:uno.css'
 import 'animate.css'
 import './assets/css/index.css'
@@ -333,14 +332,6 @@ document.querySelectorAll<HTMLElement>('.hero-showcase-mount').forEach((el) => {
   }
 })
 
-// Mount HeroDefinitive (front-page)
-document.querySelectorAll<HTMLElement>('.hero-definitive-mount').forEach((el) => {
-  createApp(HeroDefinitive, {
-    siteName: el.dataset.siteName || '',
-    tagline: el.dataset.tagline || '',
-    themeUri: el.dataset.themeUri || '',
-  }).mount(el)
-})
 
 // マウント
 app.mount('#app')
