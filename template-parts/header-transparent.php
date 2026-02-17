@@ -12,8 +12,8 @@
 $theme_uri = get_template_directory_uri();
 ?>
 <style>
-.header-transparent{position:absolute;top:0;left:0;right:0;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
-.header-transparent.is-scrolled{position:fixed;background:var(--header-bg)!important;box-shadow:0 1px 3px rgba(0,0,0,.1)!important;backdrop-filter:blur(12px)!important}
+#header.header-transparent{position:absolute;top:0;left:0;right:0;background:transparent!important;background-color:transparent!important;box-shadow:none!important;backdrop-filter:none!important}
+#header.header-transparent.is-scrolled{position:fixed;background:var(--header-bg)!important;background-color:var(--header-bg)!important;box-shadow:0 1px 3px rgba(0,0,0,.1)!important;backdrop-filter:blur(12px)!important}
 .site-branding-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;height:2.25rem}
 .site-branding-icon .site-branding-sun{position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;width:2.75rem!important;height:2.75rem!important;max-width:2.75rem!important;max-height:2.75rem!important;object-fit:contain!important;pointer-events:none;transition:opacity .5s ease;filter:none!important}
 .site-branding-icon .site-branding-name{position:relative;z-index:1;font-size:1.25rem;font-weight:400;color:var(--header-fg,#fff);text-shadow:0 1px 2px rgba(0,0,0,.6),0 0 8px rgba(0,0,0,.4),0 0 20px rgba(0,0,0,.2);letter-spacing:.03em}
