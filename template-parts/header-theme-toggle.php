@@ -16,6 +16,7 @@ $extra_class = ($args['id'] ?? '') === 'desktop'
 ?>
 <button id="<?php echo esc_attr($toggle_id); ?>" type="button"
   class="<?php echo esc_attr($extra_class); ?>"
+  data-theme-toggle
   aria-label="<?php esc_attr_e('Toggle theme', 'cielos'); ?>">
   <svg data-icon="sun" width="<?php echo esc_attr($icon_size); ?>" height="<?php echo esc_attr($icon_size); ?>" viewBox="0 0 24 24" aria-hidden="true" style="display:none">
     <path d="M12 4V2m0 20v-2M4 12H2m20 0h-2M5.64 5.64 4.22 4.22m15.56 15.56-1.42-1.42M18.36 5.64l1.42-1.42M4.22 19.78l1.42-1.42" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
