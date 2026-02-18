@@ -14,6 +14,11 @@ export const preflightSections: Preflight = {
 .section {
   position: relative;
   width: 100%;
+  --section-hero-fg: #fff;
+}
+
+.dark .section {
+  --section-hero-fg: #e2e8f0;
 }
 
 /* Section with container */
@@ -36,14 +41,66 @@ export const preflightSections: Preflight = {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  padding-block: 1rem !important;
+  /* ヘッダーの重なりを考慮してパディングを調整 */
+  padding-top: var(--header-h, 60px) !important;
+  padding-bottom: 0 !important;
   background-color: var(--section-hero-bg-color, var(--c-primary));
   color: var(--section-hero-fg, #fff);
   text-align: var(--section-hero-align, left);
   overflow: hidden;
 }
 
-.section-hero .hero-definitive-mount {
+/* Hero background image */
+.section-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-bg-image);
+  background-size: cover;
+  background-position: center 65%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Hero overlay for text readability */
+.section-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay, linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* アドミンバーがある場合のさらなるオフセット */
+body.admin-bar .section-hero {
+  padding-top: calc(var(--header-h, 60px) + 46px) !important;
+}
+
+@media (min-width: 783px) {
+  body.admin-bar .section-hero {
+    padding-top: calc(var(--header-h, 60px) + 32px) !important;
+  }
+}
+
+/* ページ全体をヒーローのみにするための調整 */
+.home #header.header-transparent,
+.page-template-front #header.header-transparent {
+  /* 透明ヘッダーはそのまま維持 */
+}
+
+.home footer,
+.page-template-front footer {
+  display: none !important; /* フロントページやFrontテンプレートではフッターを非表示 */
+}
+
+.home #cielos-back-to-top,
+.page-template-front #cielos-back-to-top {
+  display: none !important;
+}
+
+.section-hero .hero-showcase-mount {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -497,80 +554,15 @@ export const preflightSections: Preflight = {
   }
 }
 
-@media (min-width: 768px) {
-  .section-hero {
-    padding-block: 1.5rem !important;
-  }
-}
-
-/* Hero background image */
-.section-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: var(--hero-bg-image);
-  background-size: cover;
-  background-position: center 65%;
-  background-repeat: no-repeat;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Hero overlay for text readability */
-.section-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--hero-overlay);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Hero content wrapper */
-.section-hero .marketing {
+/* Title text - on top of icon */
+.hero-title__text {
   position: relative;
-  z-index: 10;
-  max-width: var(--container-w, min(1280px, 92vw));
-  margin-inline: auto;
-  padding-inline: 1rem;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .section-hero .marketing {
-    padding-inline: 1.5rem;
-  }
-}
-
-/* Hero tagline - slightly shifted right */
-.section-hero .tagline {
-  padding-left: 2rem;
-}
-
-@media (min-width: 768px) {
-  .section-hero .tagline {
-    padding-left: 4rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-hero .tagline {
-    padding-left: 8rem;
-  }
-}
-
-/* Hero title with sun icon */
-.hero-title {
-  position: relative;
-  display: inline-block;
-  font-family: "Lobster", cursive;
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  font-weight: 400;
-  line-height: 1.1;
-  margin-bottom: 1rem;
+  z-index: 1;
+  text-shadow:
+    0 2px 15px rgba(0,0,0,0.5),
+    0 0 40px rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.05em;
+  color: var(--section-hero-fg, #fff);
 }
 
 /* Sun image container - background decoration */
@@ -616,71 +608,6 @@ export const preflightSections: Preflight = {
   filter: drop-shadow(0 0 30px rgba(255, 100, 0, 0.5));
 }
 
-/* Title text - on top of icon */
-.hero-title__text {
-  position: relative;
-  z-index: 1;
-  text-shadow:
-    0 2px 15px rgba(0,0,0,0.5),
-    0 0 40px rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.05em;
-}
-
-
-/* Hero subheader */
-.section-hero .tagline .subheader {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  font-weight: 300;
-  line-height: 1.6;
-  opacity: 0.95;
-  margin-bottom: 1.5rem;
-}
-
-/* CTA positioned - aligned with tagline */
-.section-hero .section-cta {
-  position: absolute;
-  top: 13rem;
-  left: 3rem;
-  margin-top: 0;
-}
-
-@media (min-width: 768px) {
-  .section-hero .section-cta {
-    left: 5.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-hero .section-cta {
-    left: 9.5rem;
-  }
-}
-
-/* Hero CTA button styling */
-.section-hero .section-cta .btn {
-  background: rgba(255, 255, 255, 0.95);
-  color: var(--c-primary-dark, #0369a1);
-  border: none;
-  backdrop-filter: blur(4px);
-  font-weight: 600;
-}
-
-.section-hero .section-cta .btn:hover {
-  background: #fff;
-  color: var(--c-primary, #0ea5e9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Dark mode hero button */
-.dark .section-hero .section-cta .btn {
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--c-primary-dark, #0c4a6e);
-}
-
-.dark .section-hero .section-cta .btn:hover {
-  background: #fff;
-  color: var(--c-primary, #0284c7);
-}
 
 /* ===== Intro Section ===== */
 .section-intro {

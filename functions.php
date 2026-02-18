@@ -265,7 +265,8 @@ add_action('wp_head', function () {
   :root {
     --hero-bg-image: url('<?php echo esc_url($light_hero); ?>');
   }
-  .dark {
+  html.dark :root,
+  html.dark {
     --hero-bg-image: url('<?php echo esc_url($dark_hero); ?>');
   }
   </style>

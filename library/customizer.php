@@ -151,6 +151,38 @@ function cielos_customize_register( $wp_customize ) {
         'section'     => 'cielos_analytics_section',
         'type'        => 'text',
     ) );
+
+    // ========== Hero Section ==========
+    $wp_customize->add_section( 'cielos_hero_section', array(
+        'title'    => __( 'Hero', 'cielos' ),
+        'panel'    => 'cielos_theme_options',
+        'priority' => 35,
+    ) );
+
+    $wp_customize->add_setting( 'cielos_hero_type', array(
+        'default'           => 'definitive',
+        'sanitize_callback' => 'cielos_sanitize_hero_type',
+    ) );
+    $wp_customize->add_control( 'cielos_hero_type', array(
+        'label'       => __( 'Hero Component', 'cielos' ),
+        'description' => __( 'Select which hero component to display on the front page.', 'cielos' ),
+        'section'     => 'cielos_hero_section',
+        'type'        => 'select',
+        'choices'     => array(
+            'definitive'        => __( 'Definitive (Week-based Effect)', 'cielos' ),
+            'gradient-mesh'     => __( 'Gradient Mesh', 'cielos' ),
+            'split-diagonal'    => __( 'Split Diagonal', 'cielos' ),
+            'glassmorphism'     => __( 'Glassmorphism', 'cielos' ),
+            'typography'        => __( 'Typography Bold', 'cielos' ),
+            'parallax-layers'   => __( 'Parallax Layers', 'cielos' ),
+            'minimal-zen'       => __( 'Minimal Zen', 'cielos' ),
+            'interactive-cards' => __( 'Interactive Cards', 'cielos' ),
+            'cinematic'         => __( 'Cinematic Video/Image', 'cielos' ),
+            'geometric'         => __( 'Geometric Shapes', 'cielos' ),
+            'scroll-reveal'     => __( 'Scroll Reveal', 'cielos' ),
+            'aurora-wave'       => __( 'Aurora Wave', 'cielos' ),
+        ),
+    ) );
 }
 add_action( 'customize_register', 'cielos_customize_register' );
 
@@ -168,6 +200,18 @@ function cielos_sanitize_header_pattern( $value ) {
 function cielos_sanitize_footer_pattern( $value ) {
     $valid = array( 'default', 'minimal', 'rich', 'centered', 'band' );
     return in_array( $value, $valid, true ) ? $value : 'default';
+}
+
+/**
+ * Sanitize hero type selection
+ */
+function cielos_sanitize_hero_type( $value ) {
+    $valid = array(
+        'definitive', 'gradient-mesh', 'split-diagonal', 'glassmorphism',
+        'typography', 'parallax-layers', 'minimal-zen', 'interactive-cards',
+        'cinematic', 'geometric', 'scroll-reveal', 'aurora-wave'
+    );
+    return in_array( $value, $valid, true ) ? $value : 'definitive';
 }
 
 /**
