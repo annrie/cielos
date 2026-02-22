@@ -27,6 +27,11 @@
     "animejs": "^4.3.6",
     "axios": "^1.13.5"
   },
+  "pnpm": {
+    "overrides": {
+      "@wordpress/vips": "1.0.1-next.v.202602200903.0"
+    }
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^7.4.3",
     "@csstools/postcss-sass": "^5.1.1",
@@ -35,15 +40,15 @@
     "@iconify-json/ic": "^1.2.4",
     "@iconify-json/line-md": "^1.2.14",
     "@iconify-json/logos": "^1.2.10",
-    "@iconify-json/material-symbols": "^1.2.55",
+    "@iconify-json/material-symbols": "^1.2.56",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/prime": "^1.2.4",
     "@iconify-json/streamline": "^1.2.5",
     "@iconify-json/twemoji": "^1.2.5",
-    "@iconify/json": "^2.2.440",
+    "@iconify/json": "^2.2.441",
     "@iconify/vue": "^5.0.0",
     "@julr/unocss-preset-heropatterns": "^2.0.0",
-    "@rushstack/eslint-patch": "^1.16.0",
+    "@rushstack/eslint-patch": "^1.16.1",
     "@unocss/eslint-plugin": "66.6.0",
     "@unocss/preset-attributify": "66.6.0",
     "@unocss/preset-icons": "66.6.0",
@@ -81,6 +86,6 @@
     "vite-plugin-vue-layouts": "^0.11.0",
     "vue": "^3.5.28",
     "vue-eslint-parser": "^10.4.0",
-    "vue-tsc": "^3.2.4"
+    "vue-tsc": "^3.2.5"
   }
 }
