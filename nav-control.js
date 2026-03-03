@@ -21,11 +21,9 @@
     const current = () => localStorage.getItem(KEY) || 'system';
 
     // アイコン同期（3状態: light/dark/system）
+    // data-theme-toggle 属性を持つ全ボタンを対象
     const syncIcons = (mode) => {
-      const updateButton = (btnId) => {
-        const btn = document.getElementById(btnId);
-        if (!btn) return;
-
+      document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
         const sun = btn.querySelector('[data-icon="sun"]');
         const moon = btn.querySelector('[data-icon="moon"]');
         const system = btn.querySelector('[data-icon="system"]');
@@ -59,10 +57,7 @@
           activeIcon.style.visibility = 'visible';
           activeIcon.style.opacity = '1';
         }
-      };
-
-      updateButton('theme-toggle-desktop');
-      updateButton('theme-toggle-mobile');
+      });
     };
 
     // 初期適用
@@ -84,28 +79,28 @@
       }
     };
 
-    // ボタン機能付与
-    const wireButton = (btnId) => {
-      const btn = document.getElementById(btnId);
-      if (!btn || btn.dataset.wired) return;
+    // ボタン機能付与 - data-theme-toggle 属性を持つ全ボタンを対象
+    const wireButtons = () => {
+      document.querySelectorAll('[data-theme-toggle]').forEach(btn => {
+        if (btn.dataset.wired) return;
 
-      btn.dataset.wired = '1';
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
+        btn.dataset.wired = '1';
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
 
-        const newTheme = nextTheme(current());
-        localStorage.setItem(KEY, newTheme);
+          const newTheme = nextTheme(current());
+          localStorage.setItem(KEY, newTheme);
 
-        const newDark = isDarkResolved(newTheme);
-        root.classList.toggle('dark', newDark);
-        root.style.colorScheme = newDark ? 'dark' : 'light';
+          const newDark = isDarkResolved(newTheme);
+          root.classList.toggle('dark', newDark);
+          root.style.colorScheme = newDark ? 'dark' : 'light';
 
-        syncIcons(newTheme);
+          syncIcons(newTheme);
+        });
       });
     };
 
-    wireButton('theme-toggle-desktop');
-    wireButton('theme-toggle-mobile');
+    wireButtons();
 
     // システム変更監視
     sys.addEventListener('change', () => {

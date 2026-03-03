@@ -16,17 +16,17 @@ export const preflightWpAdmin: Preflight = {
 
 /* 固定ヘッダーのtop位置制御 */
 /* 通常時（管理バーなし） */
-header#header.sticky {
+#header {
   top: 0;
 }
 
 /* 管理バー表示時 */
-body.admin-bar header#header.sticky {
+body.admin-bar #header {
   top: 46px;
 }
 
 @media (min-width: 783px) {
-  body.admin-bar header#header.sticky {
+  body.admin-bar #header {
     top: 32px;
   }
 }

@@ -13,6 +13,7 @@ import SvgImage from './components/SvgImage.vue'
 // Hero Showcase Components
 import HeroAuroraWave from './components/hero/HeroAuroraWave.vue'
 import HeroCinematic from './components/hero/HeroCinematic.vue'
+import HeroDefinitive from './components/hero/HeroDefinitive.vue'
 import HeroGeometric from './components/hero/HeroGeometric.vue'
 import HeroGlassmorphism from './components/hero/HeroGlassmorphism.vue'
 import HeroGradientMesh from './components/hero/HeroGradientMesh.vue'
@@ -22,10 +23,9 @@ import HeroParallaxLayers from './components/hero/HeroParallaxLayers.vue'
 import HeroScrollReveal from './components/hero/HeroScrollReveal.vue'
 import HeroSplitDiagonal from './components/hero/HeroSplitDiagonal.vue'
 import HeroTypography from './components/hero/HeroTypography.vue'
-// Definitive Edition Hero
-import HeroDefinitive from './components/hero/HeroDefinitive.vue'
-import 'virtual:uno.css'
+
 import 'animate.css'
+import 'virtual:uno.css'
 import './assets/css/index.css'
 // Vanilla JS utilities (side-effect imports)
 import './assets/js/lang-tabs.js'
@@ -319,6 +319,7 @@ const heroComponentMap: Record<string, any> = {
   'geometric': HeroGeometric,
   'scroll-reveal': HeroScrollReveal,
   'aurora-wave': HeroAuroraWave,
+  'definitive': HeroDefinitive,
 }
 
 document.querySelectorAll<HTMLElement>('.hero-showcase-mount').forEach((el) => {
@@ -333,14 +334,6 @@ document.querySelectorAll<HTMLElement>('.hero-showcase-mount').forEach((el) => {
   }
 })
 
-// Mount HeroDefinitive (front-page)
-document.querySelectorAll<HTMLElement>('.hero-definitive-mount').forEach((el) => {
-  createApp(HeroDefinitive, {
-    siteName: el.dataset.siteName || '',
-    tagline: el.dataset.tagline || '',
-    themeUri: el.dataset.themeUri || '',
-  }).mount(el)
-})
 
 // マウント
 app.mount('#app')
