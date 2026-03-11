@@ -1,4 +1,6 @@
+import { readFileSync } from 'node:fs'
 import { presetHeroPatterns } from '@julr/unocss-preset-heropatterns'
+import { presetLiftKit } from '@liftkit-vue/preset-unocss'
 import presetTagify from '@unocss/preset-tagify'
 import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
 import { createRemToPxProcessor } from '@unocss/preset-wind4/utils'
@@ -27,6 +29,35 @@ import { headingShortcuts } from './shortcuts/headings'
 
 const require = createRequire(import.meta.url)
 
+// LiftKit CSS変数のみを注入（リセットスタイルは除外）
+// PostCSS パーサーが CSS Level 4 の pow()/round() を解析できないため、事前計算して置換する
+const liftkitCoreCSS = (() => {
+  let css = readFileSync(
+    new URL('./node_modules/@liftkit-vue/theme-css/css/liftkit-core.css', import.meta.url),
+    'utf-8',
+  )
+
+  // リセットスタイル（html,body / * / a）は除外し、button スタイルのみ追加
+  const cutoff = css.indexOf('/* Everything from here')
+  if (cutoff !== -1) {
+    const buttonMatch = css.match(/\/\* Make Buttons into Inline Elements \*\/[\s\S]*$/)
+    css = css.slice(0, cutoff) + (buttonMatch ? '\n' + buttonMatch[0] : '')
+  }
+
+  // round(pow(var(--lk-scalefactor), N), 0.001) → 事前計算値に置換
+  const sf = 1.618
+  const roundTo = (v: number, p: number) => Math.round(v / p) * p
+  css = css.replace(/round\(pow\(var\(--lk-scalefactor\),\s*([-\d.]+)\),\s*[\d.]+\)/g, (_m, exp) => {
+    return String(roundTo(Math.pow(sf, Number(exp)), 0.001))
+  })
+  css = css.replace(/calc\(round\(pow\(var\(--lk-scalefactor\),\s*([-\d.]+)\),\s*[\d.]+\)\)/g, (_m, exp) => {
+    return String(roundTo(Math.pow(sf, Number(exp)), 0.001))
+  })
+  css = css.replace(/calc\(1em \* round\(pow\(var\(--lk-scalefactor\),\s*([-\d.]+)\),\s*[\d.]+\)\)/g, (_m, exp) => {
+    return `calc(1em * ${roundTo(Math.pow(sf, Number(exp)), 0.001)})`
+  })
+  return css
+})()
 
 // preflights are configured explicitly below; helper list removed
 
@@ -537,6 +568,7 @@ export default defineConfig({
     presetTypography(),
     presetHeroPatterns(),
     presetExtra(),
+    presetLiftKit({ injectVars: false }),
     animatedUno(),
     presetWebFonts({
       themeKey: 'fontFamily',
@@ -584,6 +616,8 @@ export default defineConfig({
     },
   ],
 preflights: [
+  // LiftKit MD3 デザイントークン
+  { getCSS: () => liftkitCoreCSS, layer: 'base' },
   // 変数・土台
   tokensPreflight(),
   preflightBase,

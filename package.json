@@ -48,6 +48,8 @@
     "@iconify/json": "^2.2.448",
     "@iconify/vue": "^5.0.0",
     "@julr/unocss-preset-heropatterns": "^2.0.0",
+    "@liftkit-vue/preset-unocss": "^0.1.0",
+    "@liftkit-vue/theme-css": "^0.1.0",
     "@rushstack/eslint-patch": "^1.16.1",
     "@unocss/eslint-plugin": "66.6.6",
     "@unocss/preset-attributify": "66.6.6",

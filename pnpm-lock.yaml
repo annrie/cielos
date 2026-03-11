@@ -69,6 +69,12 @@ importers:
       '@julr/unocss-preset-heropatterns':
         specifier: ^2.0.0
         version: 2.0.0(unocss@66.6.6(vite@7.3.1(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(terser@5.43.1)(yaml@2.8.2)))
+      '@liftkit-vue/preset-unocss':
+        specifier: ^0.1.0
+        version: 0.1.0
+      '@liftkit-vue/theme-css':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@rushstack/eslint-patch':
         specifier: ^1.16.1
         version: 1.16.1
@@ -1306,6 +1312,12 @@ packages:
     engines: {node: '>=20'}
     peerDependencies:
       unocss: '>= 0.31.13'
+
+  '@liftkit-vue/preset-unocss@0.1.0':
+    resolution: {integrity: sha512-tRvVm2eFGu9Qckke++gd4q77/0Djw4NhNX+e6K2u/GtvL3qJVUtOw1NfQYQt7ppWkWMmIS3k+bmJjpfW6CBx/w==}
+
+  '@liftkit-vue/theme-css@0.1.0':
+    resolution: {integrity: sha512-ODPzxz65RwV/j1ceH5TeuZoKT22vhgRgBpHvqKi9IzIFLIfkmTTt+l5mcq2gQselo+f9HLPwyjKirXAcQoFAqQ==}
 
   '@napi-rs/wasm-runtime@1.1.1':
     resolution: {integrity: sha512-p64ah1M1ld8xjWv3qbvFwHiFVWrq1yFvV4f7w+mzaqiR4IlSgkqhcRdHwsGgomwzBH51sRY4NEowLxnaBjcW/A==}
@@ -6678,6 +6690,12 @@ snapshots:
     dependencies:
       '@unocss/preset-mini': 65.5.0
       unocss: 66.6.6(vite@7.3.1(jiti@2.6.1)(sass-embedded@1.98.0)(sass@1.98.0)(terser@5.43.1)(yaml@2.8.2))
+
+  '@liftkit-vue/preset-unocss@0.1.0':
+    dependencies:
+      '@unocss/core': 66.6.6
+
+  '@liftkit-vue/theme-css@0.1.0': {}
 
   '@napi-rs/wasm-runtime@1.1.1':
     dependencies:
