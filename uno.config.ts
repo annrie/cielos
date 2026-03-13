@@ -28,6 +28,10 @@ import { extrasShortcuts } from './shortcuts/extras'
 import { headingShortcuts } from './shortcuts/headings'
 
 const require = createRequire(import.meta.url)
+const componentShortcutNames = namesFromComponentShortcuts()
+const reservedButtonShortcuts = new Set(
+  componentShortcutNames.filter(name => name.startsWith('btn-')),
+)
 
 // LiftKit CSS変数のみを注入（リセットスタイルは除外）
 // PostCSS パーサーが CSS Level 4 の pow()/round() を解析できないため、事前計算して置換する
@@ -247,7 +251,7 @@ export default defineConfig({
 				'!mb-20','!mt-20',
     ...namesFromShortcuts(headingShortcuts),
 				...namesFromShortcuts(extrasShortcuts),
-    ...namesFromComponentShortcuts(),
+    ...componentShortcutNames,
 
     // compat は selector/regex が多いので基本は不要。文字名だけ拾うなら↓
     // ...namesFromShortcuts(compatShortcuts),
@@ -479,6 +483,9 @@ export default defineConfig({
       'inline-block cursor-pointer select-none opacity-75 transition duration-200 ease-in-out hover:opacity-100 hover:text-teal-600 no-underline w-fit',
     ],
     [/^btn-(.*)$/, ([, c], { theme }) => {
+      const className = `btn-${c}`
+      if (reservedButtonShortcuts.has(className))
+        return
       if (Object.keys(theme.colors).includes(c))
         return `bg-${c}4:10 text-${c}5 rounded`
     }],

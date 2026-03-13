@@ -25,7 +25,7 @@ import HeroSplitDiagonal from './components/hero/HeroSplitDiagonal.vue'
 import HeroTypography from './components/hero/HeroTypography.vue'
 
 import 'animate.css'
-import 'virtual:uno.css'
+import '~/uno-entry'
 import './assets/css/index.css'
 // Vanilla JS utilities (side-effect imports)
 import './assets/js/lang-tabs.js'
