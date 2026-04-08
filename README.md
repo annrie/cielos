@@ -121,7 +121,7 @@ cielos/
 
 ## ライセンス
 
-[GNU General Public License v2.0](LICENSE)
+[MIT License](LICENSE)
 
 ## 作者
 
@@ -206,7 +206,7 @@ cielos/
 
 ## License
 
-[GNU General Public License v2.0](LICENSE)
+[MIT License](LICENSE)
 
 ## Author
 
