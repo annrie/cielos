@@ -5,7 +5,7 @@ set -e
 
 # 変数設定
 THEME_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-THEME_NAME="unomoon"
+THEME_NAME="cielos"
 DATE=$(date +%Y%m%d)
 ARCHIVE_DIR="${THEME_DIR}/packaged"
 ARCHIVE_NAME="${THEME_NAME}-${DATE}.zip"
