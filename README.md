@@ -1,5 +1,7 @@
 # Cielos
 
+Modern WordPress theme built with Vite, Vue 3, UnoCSS, and TypeScript.
+
 モダンなフロントエンド技術を活用した WordPress テーマです。Vite、UnoCSS（liftkitでラップ）、Vue 3、TypeScript を組み合わせ、高速な開発体験と優れたパフォーマンスを実現します。
 
 > [English](#english) is available below.
