@@ -6,9 +6,9 @@
 
 ## プロジェクト概要
 
-**unomoon** は、従来の SCSS から最新の Vite + Vue + UnoCSS アーキテクチャへ移行中の WordPress テーマです。WordPress テンプレートの互換性を維持しながら、段階的にコンポーネントベース開発を採用しています。
+**cielos** は、従来の SCSS から最新の Vite + Vue + UnoCSS（liftkitでラップ）アーキテクチャ製の WordPress テーマです。WordPress テンプレートの互換性を維持しながら、段階的にコンポーネントベース開発を採用しています。
 
-**アーキテクチャ**: WordPress (PHP) + Vite + Vue 3 + UnoCSS + TypeScript
+**アーキテクチャ**: WordPress (PHP) + Vite + Vue 3 + UnoCSS（wrapped by liftkit）+ TypeScript
 
 ## 開発コマンド
 
@@ -47,11 +47,8 @@ pnpm release:major
 
 ### Git コミットツール
 ```bash
-# AI アシストコミットメッセージ（OpenAI）
-pnpm oco
-
 # AI アシストコミットメッセージ（Ollama ローカル）
-pnpm lloco
+pnpm oco
 ```
 
 ## アーキテクチャ概要
@@ -72,7 +69,7 @@ pnpm lloco
 - `src/assets/css/tokens.css` - 主要デザイントークン（色、余白、タイポグラフィ、見出しスタイル）
 - `src/assets/css/tokens.compat.css` - レガシー SCSS 値の互換トークン
 
-### UnoCSS アーキテクチャ
+### UnoCSS（liftkitラップ）アーキテクチャ
 
 **責務分離**:
 - **Preflights**（`preflight.*.ts`）: ページレベルの構造、レイアウト基盤、レスポンシブ基本スタイル、初期化
@@ -98,7 +95,7 @@ pnpm lloco
 **開発モード**（HMR 有効）:
 - `WP_ENVIRONMENT_TYPE=development` + localhost:5173 の可用性を検出
 - `@vite/client` と `src/main.ts` を `type="module"` で注入
-- `functions.php:unomoon_is_vite_dev()` と `unomoon_enqueue_scripts()` を参照
+- `functions.php:cielos_is_vite_dev()` と `cielos_enqueue_scripts()` を参照
 
 **プロダクションモード**:
 - `dist/.vite/manifest.json` を読み込み（子テーマ優先、次に親テーマ）
@@ -107,24 +104,24 @@ pnpm lloco
 
 **ビルド設定**（`vite.config.ts`）:
 - 出力先: `dist/` ディレクトリ
-- エントリーポイント: `src/main.ts`, `src/blocks/my-block-editor.ts`, `src/assets/js/theme-watcher.unomoon.js`
-- ベースパス: `/wp-content/themes/unomoon/dist/`（プロダクション）
+- エントリーポイント: `src/main.ts`, `src/blocks/my-block-editor.ts`, `src/assets/js/theme-watcher.cielos.js`
+- ベースパス: `/wp-content/themes/cielos/dist/`（プロダクション）
 - ターゲット: `es2018`（モダンブラウザ）
 
 ### WordPress 統合
 
 **テーマ構造**:
 - PHP テンプレート: ルートの `*.php` ファイル（WordPress テンプレート階層）
-- カスタム Walker: `library/class-unomoon-*-walker.php`（メニューレンダリング）
+- カスタム Walker: `library/class-cielos-*-walker.php`（メニューレンダリング）
 - テーマ機能: `library/*.php`（モジュール化された機能）
-- ブロックエディタ: `unomoon-block.php`, `src/blocks/`
+- ブロックエディタ: `cielos-block.php`, `src/blocks/`
 
 **主要 WordPress ファイル**:
 - `functions.php` - メインテーマセットアップ、Vite 統合、スクリプトエンキュー
 - `header.php` - デスクトップ/モバイルナビゲーションの基盤（`#menu`, `#mobile-menu`）
 - `footer.php` - スクリプト読み込み（`nav-control.js` を含む）
-- `library/class-unomoon-mobile-walker.php` - モバイルメニュー Walker（ラベル + トグルボタン構造）
-- `library/class-unomoon-primary-menu-walker.php` - デスクトップメニュー Walker
+- `library/class-cielos-mobile-walker.php` - モバイルメニュー Walker（ラベル + トグルボタン構造）
+- `library/class-cielos-primary-menu-walker.php` - デスクトップメニュー Walker
 
 **ナビゲーションシステム**:
 - デスクトップ: 右寄せナビゲーション、ホバーベースのサブメニュー（`preflight.header-desktop-row.ts` で制御）
@@ -147,7 +144,7 @@ pnpm lloco
 
 **統合**:
 - `src/main.ts` - Vue アプリ初期化
-- `front-page.php` - Vue コンポーネント使用（移行進行中）
+- `home.php` - Vue コンポーネント使用（移行進行中）
 
 ## UnoCSS 使用パターン
 
@@ -401,18 +398,19 @@ pnpm dev
 pnpm build
 ```
 
-2. **dist/manifest.json をコミット**:
-- ハッシュ付きビルドアセットは `dist/` ディレクトリへ
-- `functions.php` が `dist/.vite/manifest.json` を読み込んで正しいファイルをエンキュー
+2. **公開用アーカイブを作成**:
+```bash
+pnpm archive
+```
+- ローカルで調整した内容から、公開に必要なファイルのみをまとめたアーカイブを作成
 
 3. **デプロイ**:
-- テーマフォルダを WordPress の `wp-content/themes/` にアップロード
-- WordPress 管理画面でテーマを有効化
+- `pnpm archive` で作成したアーカイブを公開サーバーにアップロードする
 
 ## ファイル構成
 
 ```
-unomoon/
+cielos/
 ├── src/
 │   ├── components/        # Vue コンポーネント
 │   ├── blocks/           # WordPress ブロックエディタ
@@ -428,7 +426,7 @@ unomoon/
 ├── vite.config.ts        # Vite ビルド設定
 ├── functions.php         # WordPress テーマ関数
 ├── *.php                 # WordPress テンプレート
-└── CLAUDE.md            # このファイル
+└── AGENTS.md            # このファイル
 ```
 
 ## 重要な原則
@@ -438,4 +436,4 @@ unomoon/
 3. **厳格なユーティリティ**: UnoCSS は複雑な値に正確な構文を要求（ブラケット、エスケープ）
 4. **WordPress 互換性**: Vue を段階的に採用しながらテンプレート階層を維持
 5. **HMR 開発**: 開発中は Vite 開発サーバーを使用して即座のフィードバックを得る
-6. **段階的移行**: SCSS → UnoCSS 移行は段階的であり、一度にすべてではない
+6. **段階的移行**: UnoCSS → UnoCSS（liftkitラップ）移行は段階的であり、一度にすべてではない

@@ -1567,7 +1567,7 @@
   --hero-title-fs: clamp(2rem, 1.2rem + 2.5vw, 3.25rem);
   --hero-title-lh: 1.1;
   --hero-title-fg: rgba(255,255,255,.9);
-  --hero-title-shadow: 0 2px 12px rgba(0,0,0,.6), 0 0 1px rgba(0,0,0,.6);
+  --hero-title-shadow: 0 2px 10px rgba(0,0,0,.42), 0 0 1px rgba(0,0,0,.35);
 
   /* サブタイトル */
   --hero-subtitle-fs: 0.9rem;
@@ -1583,10 +1583,10 @@
   /* オーバーレイ（中央は少し明るく周辺を暗く＝ビネット） */
   --hero-overlay:
     radial-gradient(110% 80% at 50% 45%,
-      rgba(0,0,0,.05) 0%,
-      rgba(0,0,0,.25) 40%,
-      rgba(0,0,0,.55) 100%),
-    rgba(0,0,0,.35);
+      rgba(0,0,0,.03) 0%,
+      rgba(0,0,0,.18) 40%,
+      rgba(0,0,0,.42) 100%),
+    rgba(0,0,0,.24);
 }
 
 @media (min-width:1024px){

@@ -569,6 +569,30 @@ add_action('wp_head', function () {
 }, 2);
 
 /* -------------------------------------------------------------------------- */
+/* Favicon bundle (theme-local files)                                         */
+/* -------------------------------------------------------------------------- */
+function cielos_output_favicons(): void {
+  // Use WordPress Site Icon when configured in Customizer.
+  if (function_exists('has_site_icon') && has_site_icon()) {
+    return;
+  }
+
+  $base_uri = '/wp-content/themes/' . get_template() . '/public/favicons';
+  $base_dir = trailingslashit(get_template_directory()) . 'public/favicons';
+  $asset = static function (string $name) use ($base_uri, $base_dir): string {
+    $path = $base_dir . '/' . $name;
+    $ver = file_exists($path) ? (string)filemtime($path) : (string)time();
+    return $base_uri . '/' . $name . '?v=' . rawurlencode($ver);
+  };
+
+  // Keep tab favicon deterministic: single URL only (avoid post-load swaps).
+  $icon = esc_url($asset('favicon-32x32.png'));
+  echo '<link rel="icon" type="image/png" sizes="32x32" href="' . $icon . '">' . "\n";
+  echo '<meta name="theme-color" content="#0b1220">' . "\n";
+}
+add_action('wp_head', 'cielos_output_favicons', 1);
+
+/* -------------------------------------------------------------------------- */
 /* Child Pagesショートコードで大きな画像サイズを使用 */
 /* -------------------------------------------------------------------------- */
 add_action('init', function() {

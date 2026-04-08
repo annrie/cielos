@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps<{
   siteName?: string
@@ -8,20 +8,43 @@ const props = defineProps<{
 }>()
 
 const isVisible = ref(false)
-const sunDarkImage = ref('')
+const isDark = ref(false)
+let themeObserver: MutationObserver | null = null
+
+const sunImage = computed(() => {
+  if (!props.themeUri) {
+    return ''
+  }
+
+  const file = isDark.value ? 'hero-sun-dark.png' : 'hero-sun-light.png'
+  return `${props.themeUri}/src/assets/images/${file}`
+})
 
 onMounted(() => {
-  sunDarkImage.value = props.themeUri
-    ? `${props.themeUri}/src/assets/images/hero-sun-dark.png`
-    : ''
+  const root = document.documentElement
+  const syncTheme = () => {
+    isDark.value = root.classList.contains('dark')
+  }
+
+  syncTheme()
+  themeObserver = new MutationObserver(syncTheme)
+  themeObserver.observe(root, { attributes: true, attributeFilter: ['class'] })
+
   requestAnimationFrame(() => {
     isVisible.value = true
   })
 })
+
+onUnmounted(() => {
+  if (themeObserver) {
+    themeObserver.disconnect()
+    themeObserver = null
+  }
+})
 </script>
 
 <template>
-  <section class="relative min-h-[100vh] bg-[#0f172a] overflow-hidden flex items-center justify-center">
+  <section class="hero-surface-soft relative min-h-[100vh] bg-[#ecf7ff] dark:bg-[#2a425e] overflow-hidden flex items-center justify-center" aria-label="Aurora Wave Hero">
     <!-- Aurora Waves -->
     <div class="absolute inset-0">
       <div class="hero-aurora hero-aurora-1" />
@@ -31,12 +54,12 @@ onMounted(() => {
 
     <!-- Sun Image -->
     <div
-      class="absolute top-[10%] right-[10%] w-40 h-40 md:w-56 md:h-56 transition-all duration-2000 ease-out"
+      class="hero-aurora-sun absolute left-1/2 top-[22%] -translate-x-1/2 w-[72vw] max-w-[44rem] h-[72vw] max-h-[44rem] transition-all duration-2000 ease-out"
       :class="isVisible ? 'opacity-50 scale-100' : 'opacity-0 scale-80'"
     >
       <img
-        v-if="sunDarkImage"
-        :src="sunDarkImage"
+        v-if="sunImage"
+        :src="sunImage"
         alt=""
         class="w-full h-full object-contain hero-glow"
       >
@@ -53,25 +76,25 @@ onMounted(() => {
           <span class="text-3xl font-900 text-white">C</span>
         </div>
 
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-800 leading-none mb-6">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-300 to-blue-400">
+        <h1 class="text-6xl sm:text-7xl md:text-9xl lg:text-[10rem] font-800 leading-none mb-6">
+          <span class="hero-aurora-site-logo">
             {{ siteName || 'Cielos' }}
           </span>
         </h1>
 
-        <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p class="text-lg md:text-xl text-slate-700 dark:text-slate-100 max-w-2xl mx-auto mb-10 leading-relaxed hero-aurora-readability">
           {{ tagline || 'オーロラのように美しく、波のように流れるデザイン。自然の神秘をウェブに閉じ込めた。' }}
         </p>
 
         <!-- Feature Pills -->
         <div class="flex flex-wrap justify-center gap-3 mb-10">
-          <span class="px-4 py-2 rounded-full text-sm font-500 bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+          <span class="px-4 py-2 rounded-full text-sm font-500 bg-emerald-500/12 text-emerald-700 dark:text-emerald-100 border border-emerald-500/25">
             Vue 3 Composition API
           </span>
-          <span class="px-4 py-2 rounded-full text-sm font-500 bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
+          <span class="px-4 py-2 rounded-full text-sm font-500 bg-cyan-500/12 text-cyan-700 dark:text-cyan-100 border border-cyan-500/25">
             TypeScript
           </span>
-          <span class="px-4 py-2 rounded-full text-sm font-500 bg-blue-500/10 text-blue-300 border border-blue-500/20">
+          <span class="px-4 py-2 rounded-full text-sm font-500 bg-blue-500/12 text-blue-700 dark:text-blue-100 border border-blue-500/25">
             WordPress REST API
           </span>
         </div>
@@ -79,18 +102,20 @@ onMounted(() => {
         <!-- CTA -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="#"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white rounded-xl font-600 text-lg hover:opacity-90 transition-all duration-300 shadow-lg shadow-emerald-500/20"
+            href="https://github.com/annrie/cielos"
+            target="_blank"
+            rel="noopener"
+            class="hero-cta-primary"
           >
             <span class="i-carbon-download" aria-hidden="true" />
             ダウンロード
           </a>
           <a
-            href="#"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-white/5 border border-white/10 text-white/80 rounded-xl font-600 text-lg hover:bg-white/10 transition-all duration-300"
+            href="/hero-showcase/"
+            class="hero-cta-secondary hero-cta-secondary--inverse"
           >
-            <span class="i-carbon-logo-github" aria-hidden="true" />
-            GitHub
+            デモを見る
+            <span class="i-carbon-arrow-right" aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -155,5 +180,46 @@ onMounted(() => {
 
 .hero-glow {
   filter: drop-shadow(0 0 40px rgba(6, 182, 212, 0.3));
+}
+
+.hero-aurora-sun {
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-aurora-sun img {
+  opacity: 0.28;
+}
+
+.hero-aurora-sun :deep(img) {
+  opacity: 0.28;
+}
+
+.hero-aurora-site-logo {
+  font-family: 'Lobster', cursive;
+  color: #f8fafc;
+  text-shadow:
+    0 2px 12px rgba(6, 182, 212, 0.28),
+    0 0 18px rgba(59, 130, 246, 0.22);
+}
+
+:global(html.dark) .hero-aurora-site-logo {
+  color: #f8fafc;
+  text-shadow:
+    0 2px 14px rgba(2, 6, 23, 0.35),
+    0 0 20px rgba(56, 189, 248, 0.34),
+    0 0 28px rgba(59, 130, 246, 0.22);
+}
+
+.hero-aurora-readability {
+  text-shadow: 0 2px 9px rgba(2, 6, 23, 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-aurora-1,
+  .hero-aurora-2,
+  .hero-aurora-3 {
+    animation: none !important;
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps<{
   siteName?: string
@@ -8,20 +8,43 @@ const props = defineProps<{
 }>()
 
 const isVisible = ref(false)
-const sunImage = ref('')
+const isDark = ref(false)
+let themeObserver: MutationObserver | null = null
+
+const sunImage = computed(() => {
+  if (!props.themeUri) {
+    return ''
+  }
+
+  const file = isDark.value ? 'hero-sun-dark.png' : 'hero-sun-light.png'
+  return `${props.themeUri}/src/assets/images/${file}`
+})
 
 onMounted(() => {
-  sunImage.value = props.themeUri
-    ? `${props.themeUri}/src/assets/images/hero-sun-light.png`
-    : ''
-  setTimeout(() => {
+  const root = document.documentElement
+  const syncTheme = () => {
+    isDark.value = root.classList.contains('dark')
+  }
+
+  syncTheme()
+  themeObserver = new MutationObserver(syncTheme)
+  themeObserver.observe(root, { attributes: true, attributeFilter: ['class'] })
+
+  requestAnimationFrame(() => {
     isVisible.value = true
-  }, 100)
+  })
+})
+
+onUnmounted(() => {
+  if (themeObserver) {
+    themeObserver.disconnect()
+    themeObserver = null
+  }
 })
 </script>
 
 <template>
-  <section class="relative min-h-[100vh] bg-[#faf9f6] dark:bg-[#1a1a1a] overflow-hidden flex items-center">
+  <section class="hero-surface-soft relative min-h-[100vh] bg-[#faf9f6] dark:bg-[#23364d] overflow-hidden flex items-center" aria-label="Minimal Zen Hero">
     <!-- Subtle Texture -->
     <div class="absolute inset-0 opacity-[0.015] hero-noise" />
 
@@ -55,33 +78,36 @@ onMounted(() => {
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'"
       >
         <!-- Japanese Vertical Accent -->
-        <p class="text-sm tracking-[0.5em] text-gray-400 dark:text-gray-600 mb-12 font-300">
+        <p class="text-sm tracking-[0.5em] text-gray-400 dark:text-gray-300 mb-12 font-300">
           空 の テ ー マ
         </p>
 
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-200 text-gray-800 dark:text-gray-200 leading-none mb-8 tracking-tight">
+        <h1 class="hero-minimal-zen-title text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-200 text-gray-800 dark:text-gray-200 leading-none mb-8 tracking-tight">
           {{ siteName || 'Cielos' }}
         </h1>
 
         <div class="w-16 h-px bg-gray-300 dark:bg-gray-700 mx-auto mb-8" />
 
-        <p class="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-lg mx-auto mb-12 leading-relaxed font-300">
+        <p class="hero-minimal-zen-tagline text-lg md:text-xl text-gray-500 dark:text-gray-200 max-w-lg mx-auto mb-12 leading-relaxed font-300">
           {{ tagline || '余白が語る、静寂のデザイン。必要なものだけを、美しく配置する。' }}
         </p>
 
-        <div class="flex justify-center gap-8">
+        <div class="hero-cta-row justify-center">
           <a
-            href="#"
-            class="group text-gray-800 dark:text-gray-200 font-500 flex items-center gap-2 hover:gap-3 transition-all duration-300"
+            href="https://github.com/annrie/cielos"
+            target="_blank"
+            rel="noopener"
+            class="hero-cta-primary"
           >
             ダウンロード
-            <span class="i-carbon-arrow-right text-sm" aria-hidden="true" />
+            <span class="i-carbon-download" aria-hidden="true" />
           </a>
           <a
-            href="#"
-            class="text-gray-400 dark:text-gray-500 font-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            href="/hero-showcase/"
+            class="hero-cta-secondary"
           >
-            詳細
+            デモを見る
+            <span class="i-carbon-arrow-right" aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -99,5 +125,15 @@ onMounted(() => {
 <style scoped>
 .hero-noise {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-minimal-zen-title {
+  font-family: 'Lobster', cursive;
+}
+
+@media (max-width: 639.98px) {
+  .hero-minimal-zen-tagline {
+    margin-top: 4rem;
+  }
 }
 </style>

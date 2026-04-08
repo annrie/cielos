@@ -1,13 +1,13 @@
 # Cielos
 
-モダンなフロントエンド技術を活用した WordPress テーマです。Vite、UnoCSS、Vue 3、TypeScript を組み合わせ、高速な開発体験と優れたパフォーマンスを実現します。
+モダンなフロントエンド技術を活用した WordPress テーマです。Vite、UnoCSS（liftkitでラップ）、Vue 3、TypeScript を組み合わせ、高速な開発体験と優れたパフォーマンスを実現します。
 
 > [English](#english) is available below.
 
 ## 特徴
 
 - **Vite** によるHMR対応の高速開発環境
-- **UnoCSS** (Wind4 プリセット) によるユーティリティファーストCSS
+- **UnoCSS** (Wind4 プリセット) を **liftkit** でラップしたスタイリング基盤
 - **Vue 3** (Composition API) によるインタラクティブなUIコンポーネント
 - **TypeScript** による型安全な開発
 - **WordPress Block Editor** 対応のカスタムブロック
@@ -16,6 +16,8 @@
 - **レスポンシブデザイン** & **アクセシビリティ対応**
 - **Anime.js** & **Animate.css** によるアニメーション
 - **Iconify** による豊富なアイコンセット
+
+ウィジェット機能は、[cocoon](https://wp-cocoon.com)を利用しています。
 
 ## 必要環境
 
@@ -131,12 +133,12 @@ cielos/
 
 # Cielos (English)
 
-A modern WordPress theme powered by Vite, UnoCSS, Vue 3, and TypeScript. Combines cutting-edge frontend tooling with WordPress for fast development and excellent performance.
+A modern WordPress theme powered by Vite, UnoCSS wrapped by liftkit, Vue 3, and TypeScript. Combines cutting-edge frontend tooling with WordPress for fast development and excellent performance.
 
 ## Features
 
 - **Vite** - Lightning-fast HMR development server
-- **UnoCSS** (Wind4 preset) - Utility-first CSS engine
+- **UnoCSS** (Wind4 preset) wrapped by **liftkit** - Utility-first styling foundation
 - **Vue 3** (Composition API) - Interactive UI components
 - **TypeScript** - Type-safe development
 - **WordPress Block Editor** - Custom block support

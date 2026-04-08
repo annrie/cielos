@@ -12,9 +12,12 @@
 $theme_uri = get_template_directory_uri();
 ?>
 <style>
-.site-branding-icon{position:relative;display:inline-flex;align-items:center;justify-content:center;height:2.25rem}
-.site-branding-icon .site-branding-sun{position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;width:2.75rem!important;height:2.75rem!important;max-width:2.75rem!important;max-height:2.75rem!important;object-fit:contain!important;pointer-events:none;transition:opacity .5s ease;filter:none!important}
-.site-branding-icon .site-branding-name{position:relative;z-index:1;font-size:1.25rem;font-weight:400;color:var(--header-fg,#fff);text-shadow:0 1px 2px rgba(0,0,0,.6),0 0 8px rgba(0,0,0,.4),0 0 20px rgba(0,0,0,.2);letter-spacing:.03em}
+.site-branding-icon{display:inline-flex;align-items:center;line-height:1}
+.site-branding-icon .site-logo-light,.site-branding-icon .site-logo-dark{height:calc(var(--logo-h,40px) + 16px);width:auto;max-width:none;display:block}
+.site-branding-icon .site-logo-dark{display:none}
+html.dark .site-branding-icon .site-logo-light{display:none}
+html.dark .site-branding-icon .site-logo-dark{display:block}
+@media (max-width:1023.98px){.site-branding-icon .site-logo-light,.site-branding-icon .site-logo-dark{height:calc(var(--logo-h,48px) + 14px)}}
 .fullscreen-nav{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--header-bg);opacity:0;pointer-events:none;transition:opacity .3s ease}
 .fullscreen-nav.is-open{opacity:1;pointer-events:auto}
 .fullscreen-nav .menu{display:flex;flex-direction:column;align-items:center;gap:1.5rem;list-style:none;padding:0}
@@ -26,11 +29,10 @@ $theme_uri = get_template_directory_uri();
   <div class="flex items-center justify-between px-4 py-2">
     <a rel="home" href="<?php echo esc_url(home_url('/')); ?>" class="flex items-center">
       <span class="site-branding-icon">
-        <img src="<?php echo esc_url($theme_uri); ?>/src/assets/images/hero-sun-light.png"
-             alt="" class="hero-sun-light site-branding-sun" aria-hidden="true">
-        <img src="<?php echo esc_url($theme_uri); ?>/src/assets/images/hero-sun-dark.png"
-             alt="" class="hero-sun-dark site-branding-sun" aria-hidden="true">
-        <span class="site-branding-name font-lobster"><?php bloginfo('name'); ?></span>
+        <img src="<?php echo esc_url($theme_uri); ?>/src/assets/images/site-logo-light.png"
+             alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="site-logo-light">
+        <img src="<?php echo esc_url($theme_uri); ?>/src/assets/images/site-logo-dark.png"
+             alt="" class="site-logo-dark" aria-hidden="true">
       </span>
     </a>
     <div class="flex items-center gap-x-2">

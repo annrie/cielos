@@ -30,6 +30,18 @@
 })();
 </script>
 
+  <style id="cielos-adminbar-critical">
+/* 初期描画で admin-bar に潜り込まないよう、外部CSS前に top を確定 */
+body.admin-bar #header{
+  top: 46px !important;
+}
+@media (min-width: 783px){
+  body.admin-bar #header{
+    top: 32px !important;
+  }
+}
+</style>
+
   <?php wp_head(); ?>
 </head>
 
