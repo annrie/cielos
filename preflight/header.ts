@@ -220,6 +220,13 @@ html.dark #theme-toggle-desktop svg[data-icon="moon"] { display:block !important
   backdrop-filter: saturate(180%) blur(8px);
 }
 
+/* 子要素のヘッダー行は sticky/fixed にしない（重なり防止） */
+#header-desktop,
+#header-mobile{
+  position: relative !important;
+  top: auto !important;
+}
+
 /* ==== A) モバイルは nav#menu を確実に隠す（二重表示停止） ==== */
 @media (max-width:1023.98px){
   /* header 直下の nav に強く効かせる（既存の“全部 nav を flex”を無効化） */
@@ -260,6 +267,35 @@ html.dark #theme-toggle-desktop svg[data-icon="moon"] { display:block !important
   /* モバイル用は消す（保険） */
   #mobile-menu,
   #header-mobile{ display:none !important; }
+}
+
+/* ==== D) Desktop: ロゴとメニューの重なり防止（2カラム固定） ==== */
+@media (min-width:1024px){
+  #header-desktop{
+    display:grid !important;
+    grid-template-columns:max-content minmax(0,1fr) !important;
+    align-items:center !important;
+    column-gap:1rem !important;
+  }
+
+  #header-desktop > a{
+    grid-column:1;
+    margin-right:0 !important;
+    z-index:2;
+  }
+
+  #header-desktop > nav#menu{
+    grid-column:2;
+    min-width:0;
+    width:100%;
+    justify-content:flex-end !important;
+  }
+
+  #header-desktop > nav#menu > ul,
+  #header-desktop > nav#menu > div > ul{
+    max-width:100%;
+    flex-wrap:nowrap;
+  }
 }
 
 /* ==== C) モバイルのサブメニュー表示制御（孫まで閉じる土台） ==== */

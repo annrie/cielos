@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 
 const props = defineProps<{
   siteName?: string
@@ -10,9 +10,22 @@ const props = defineProps<{
 const isVisible = ref(false)
 const scrollY = ref(0)
 const sectionRef = ref<HTMLElement | null>(null)
+const reduceMotion = ref(false)
+const isDark = ref(false)
+let themeObserver: MutationObserver | null = null
+
+const sunImage = computed(() => {
+  if (!props.themeUri) {
+    return ''
+  }
+
+  const file = isDark.value ? 'hero-sun-dark.png' : 'hero-sun-light.png'
+  return `${props.themeUri}/src/assets/images/${file}`
+})
 
 function handleScroll() {
-  if (!sectionRef.value) return
+  if (!sectionRef.value)
+    return
   const rect = sectionRef.value.getBoundingClientRect()
   if (rect.bottom > 0 && rect.top < window.innerHeight) {
     scrollY.value = -rect.top
@@ -20,28 +33,47 @@ function handleScroll() {
 }
 
 onMounted(() => {
+  const root = document.documentElement
+  const syncTheme = () => {
+    isDark.value = root.classList.contains('dark')
+  }
+
+  syncTheme()
+  themeObserver = new MutationObserver(syncTheme)
+  themeObserver.observe(root, { attributes: true, attributeFilter: ['class'] })
+
+  reduceMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   requestAnimationFrame(() => {
     isVisible.value = true
   })
-  window.addEventListener('scroll', handleScroll, { passive: true })
+  if (!reduceMotion.value) {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+  }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
+  if (!reduceMotion.value) {
+    window.removeEventListener('scroll', handleScroll)
+  }
+  if (themeObserver) {
+    themeObserver.disconnect()
+    themeObserver = null
+  }
 })
 </script>
 
 <template>
   <section
     ref="sectionRef"
-    class="relative min-h-[100vh] overflow-hidden bg-indigo-950"
+    class="hero-surface-soft relative min-h-[100vh] overflow-hidden bg-sky-50 dark:bg-slate-900"
+    aria-label="Parallax Layers Hero"
   >
     <!-- Layer 1: Far Background -->
     <div
       class="absolute inset-0"
       :style="{ transform: `translateY(${scrollY * 0.1}px)` }"
     >
-      <div class="absolute inset-0 bg-gradient-to-b from-indigo-950 via-purple-900/50 to-indigo-950" />
+      <div class="absolute inset-0 bg-gradient-to-b from-sky-100 via-blue-100/55 to-sky-50 dark:from-slate-900 dark:via-slate-800/55 dark:to-slate-900" />
       <!-- Stars -->
       <div class="hero-stars" />
     </div>
@@ -72,8 +104,8 @@ onUnmounted(() => {
       :style="{ transform: `translateY(${scrollY * 0.05}px)` }"
     >
       <img
-        v-if="themeUri"
-        :src="`${themeUri}/src/assets/images/hero-sun-light.png`"
+        v-if="sunImage"
+        :src="sunImage"
         alt=""
         class="w-full h-full object-contain opacity-80"
       >
@@ -85,32 +117,38 @@ onUnmounted(() => {
         class="transition-all duration-1200 ease-out"
         :class="isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'"
       >
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-800 text-white mb-6 drop-shadow-2xl">
-          {{ siteName || 'Cielos' }}
+        <h1 class="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-800 text-slate-900 dark:text-white mb-6 drop-shadow-2xl">
+          <span class="hero-parallax-site-row">
+            <span class="hero-parallax-site-row__logo">
+              {{ siteName || 'Cielos' }}
+            </span>
+          </span>
         </h1>
-        <p class="text-xl md:text-2xl text-indigo-200/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p class="text-xl md:text-2xl text-slate-600 dark:text-indigo-200/80 max-w-2xl mx-auto mb-10 leading-relaxed">
           {{ tagline || '奥行きのある世界観を、スクロールで体験する。パララックスが生み出す没入感。' }}
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <div class="hero-cta-row justify-center">
           <a
-            href="#"
-            class="inline-flex items-center gap-2 px-8 py-4 bg-indigo-500 text-white rounded-xl font-600 text-lg hover:bg-indigo-400 transition-all duration-300 shadow-lg shadow-indigo-500/30"
+            href="https://github.com/annrie/cielos"
+            target="_blank"
+            rel="noopener"
+            class="hero-cta-primary"
           >
-            <span class="i-carbon-rocket" aria-hidden="true" />
-            体験する
+            <span class="i-carbon-download" aria-hidden="true" />
+            ダウンロード
           </a>
           <a
-            href="#"
-            class="inline-flex items-center gap-2 px-8 py-4 border border-indigo-400/30 text-indigo-200 rounded-xl font-600 text-lg hover:bg-indigo-500/10 transition-all duration-300"
+            href="/hero-showcase/"
+            class="hero-cta-secondary hero-cta-secondary--inverse"
           >
-            ソースコード
-            <span class="i-carbon-logo-github" aria-hidden="true" />
+            デモを見る
+            <span class="i-carbon-arrow-right" aria-hidden="true" />
           </a>
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="mt-16 animate-bounce">
-          <span class="i-carbon-chevron-down text-2xl text-indigo-300/50" aria-hidden="true" />
+        <div class="mt-16" :class="reduceMotion ? '' : 'animate-bounce'">
+          <span class="i-carbon-chevron-down text-2xl text-slate-400 dark:text-indigo-300/50" aria-hidden="true" />
         </div>
       </div>
     </div>
@@ -143,8 +181,36 @@ onUnmounted(() => {
   animation: twinkle 4s ease-in-out infinite alternate;
 }
 
+.hero-parallax-site-row {
+  display: inline-block;
+}
+
+.hero-parallax-site-row__logo {
+  display: inline-block;
+  font-family: 'Lobster', cursive;
+  font-size: 1.05em;
+  letter-spacing: 0.02em;
+  color: #f8fafc;
+  text-shadow:
+    0 2px 12px rgba(56, 189, 248, 0.32),
+    0 0 18px rgba(59, 130, 246, 0.24);
+}
+
+:global(html.dark) .hero-parallax-site-row__logo {
+  color: #f8fafc;
+  text-shadow:
+    0 2px 14px rgba(2, 6, 23, 0.35),
+    0 0 20px rgba(56, 189, 248, 0.3);
+}
+
 @keyframes twinkle {
   0% { opacity: 0.6; }
   100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-stars {
+    animation: none !important;
+  }
 }
 </style>

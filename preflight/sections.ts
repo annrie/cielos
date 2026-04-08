@@ -63,6 +63,12 @@ export const preflightSections: Preflight = {
   z-index: -1;
 }
 
+/* Front page hero: show people by moving focus to the right side of the image */
+.home .section-hero::before,
+.page-template-front .section-hero::before {
+  background-position: 72% 58%;
+}
+
 /* Hero overlay for text readability */
 .section-hero::after {
   content: '';

@@ -209,9 +209,9 @@ const features = [
             <span class="i-carbon-download" aria-hidden="true" />
             ダウンロード
           </a>
-          <a href="https://github.com/annrie/cielos" class="hero-definitive__btn hero-definitive__btn--secondary" target="_blank" rel="noopener">
-            <span class="i-carbon-logo-github" aria-hidden="true" />
-            GitHub
+          <a href="/hero-showcase/" class="hero-definitive__btn hero-definitive__btn--secondary">
+            <span class="i-carbon-arrow-right" aria-hidden="true" />
+            デモを見る
           </a>
         </div>
       </div>

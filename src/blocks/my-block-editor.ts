@@ -5,8 +5,8 @@ import { PanelBody, SelectControl, ToolbarGroup, ToolbarDropdownMenu, FontSizePi
 import { createApp, h } from 'vue'
 import HeadingBlock from './HeadingBlock.vue'
 
-// UnoCSS スタイル（ブロックエディタ用）
-import 'virtual:uno.css'
+// UnoCSS スタイル（ブロック/テーマ共通）
+import '~/uno-entry'
 // トークン（CSS カスタムプロパティ）
 import '../assets/css/tokens.css'
 // 見出しスタイル参照（UnoCSS にクラスを含めるため）

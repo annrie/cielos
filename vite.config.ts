@@ -58,6 +58,9 @@ export default defineConfig(({ mode }) => {
       brotliSize: false,
       assetsInlineMaxSize: 4 * 1024,
       rollupOptions: {
+        checks: {
+          pluginTimings: false,
+        },
         input: {
           main: 'src/main.ts',
           block: 'src/blocks/my-block-editor.ts',

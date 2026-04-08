@@ -4,42 +4,37 @@ export const preflightWpAdmin: Preflight = {
   layer: 'preflights',
   getCSS: () => String.raw`
 /* ===== WordPress Admin Bar ===== */
-/* WordPress管理バーがコンテンツに被らないようにする */
-
-/* 管理バーを固定位置に */
-#wpadminbar {
-  position: fixed !important;
+/* 管理バー高をCSS変数化して、固定ヘッダーの競合を抑える */
+:root{ --wp-admin-bar-h: 0px; }
+body.admin-bar{ --wp-admin-bar-h: 46px; }
+@media (min-width: 783px){
+  body.admin-bar{ --wp-admin-bar-h: 32px; }
 }
 
-/* body.admin-bar の時の調整 */
-/* デスクトップ: 32px、モバイル(783px未満): 46px */
+/* 管理バーは固定表示 */
+#wpadminbar{ position: fixed !important; }
 
-/* 固定ヘッダーのtop位置制御 */
-/* 通常時（管理バーなし） */
-#header {
-  top: 0;
+/* ヘッダーが管理バーに被らないように常時オフセット */
+#header,
+body.admin-bar #header,
+body.admin-bar #header.header-transparent,
+body.admin-bar #header.header-transparent.is-scrolled{
+  top: var(--wp-admin-bar-h) !important;
 }
 
-/* 管理バー表示時 */
-body.admin-bar #header {
-  top: 46px;
+/* 固定要素の補助クラス */
+body.admin-bar .fixed-top{
+  top: var(--wp-admin-bar-h) !important;
 }
 
-@media (min-width: 783px) {
-  body.admin-bar #header {
-    top: 32px;
-  }
+/* 管理バー表示時は top をアニメーションさせない（潜り込み防止） */
+body.admin-bar #header{
+  transition-property: background-color, color, box-shadow, backdrop-filter, opacity, transform !important;
 }
 
-/* その他の固定位置要素（必要に応じて追加） */
-body.admin-bar .fixed-top {
-  top: 46px;
-}
-
-@media (min-width: 783px) {
-  body.admin-bar .fixed-top {
-    top: 32px;
-  }
+/* アンカー位置補正（任意だが実害を減らす） */
+html{
+  scroll-padding-top: calc(var(--header-h, 64px) + var(--wp-admin-bar-h));
 }
 `,
 }

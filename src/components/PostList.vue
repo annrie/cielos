@@ -223,7 +223,7 @@ watch(() => props.page, (newPage) => {
             </div>
 
             <div class="flex justify-end">
-              <a :href="post.link" class="inline-flex items-center gap-2 px-4 py-2 bg-sky-700 text-white! rounded hover:bg-sky-800 hover:text-white! transition-colors text-sm font-medium">
+              <a :href="post.link" class="inline-flex items-center gap-2 px-4 py-2 bg-sky-700 !text-white rounded hover:bg-sky-800 hover:!text-white transition-colors text-sm font-medium">
                 続きを読む
                 <i class="fas fa-arrow-right" aria-hidden="true" />
               </a>

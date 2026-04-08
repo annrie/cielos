@@ -16,3 +16,126 @@
   background: rgba(0,0,0,.2);
   color: #fff;
 }
+
+/* Hero showcase shared layer:
+   Light = soft product gradient
+   Dark  = premium glass + motion-friendly depth */
+.hero-surface-soft {
+  position: relative;
+  background:
+    radial-gradient(1200px 600px at 20% 5%, rgba(125, 211, 252, 0.28), transparent 56%),
+    radial-gradient(1000px 520px at 82% 14%, rgba(56, 189, 248, 0.2), transparent 60%),
+    linear-gradient(160deg, #f5fbff 0%, #ecf7ff 45%, #e5f2ff 100%);
+}
+
+html.dark .hero-surface-soft {
+  background:
+    radial-gradient(1100px 560px at 16% 10%, rgba(34, 211, 238, 0.24), transparent 58%),
+    radial-gradient(1000px 520px at 82% 20%, rgba(59, 130, 246, 0.2), transparent 62%),
+    linear-gradient(160deg, #1c2d43 0%, #22354d 52%, #2a3f59 100%);
+}
+
+.hero-glass-panel {
+  background: color-mix(in srgb, #ffffff 88%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 20px 45px rgba(14, 48, 95, 0.12);
+  backdrop-filter: blur(14px) saturate(115%);
+}
+
+html.dark .hero-glass-panel {
+  background: rgba(15, 23, 42, 0.52);
+  border-color: rgba(148, 163, 184, 0.25);
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.hero-cta-primary,
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 48px;
+  padding: 0.75rem 1.35rem;
+  border-radius: 12px;
+  font-weight: 650;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform 180ms ease, filter 180ms ease, background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.hero-cta-primary {
+  color: #fff;
+  background: linear-gradient(90deg, var(--c-primary) 0%, color-mix(in srgb, var(--c-primary) 72%, #2563eb 28%) 100%);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--c-primary) 32%, transparent);
+}
+
+.hero-cta-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.hero-cta-secondary {
+  color: color-mix(in srgb, var(--c-fg) 85%, #1f2937 15%);
+  background: color-mix(in srgb, #fff 74%, transparent);
+  border: 1px solid color-mix(in srgb, var(--c-primary) 24%, #cbd5e1 76%);
+}
+
+.hero-cta-secondary:hover {
+  transform: translateY(-1px);
+  background: color-mix(in srgb, #fff 88%, transparent);
+}
+
+html.dark .hero-cta-secondary {
+  color: #f8fafc;
+  background: rgba(30, 41, 59, 0.58);
+  border-color: rgba(203, 213, 225, 0.45);
+}
+
+html.dark .hero-cta-secondary:hover {
+  background: rgba(30, 41, 59, 0.72);
+}
+
+.hero-cta-secondary--inverse {
+  color: #f8fafc;
+  background: rgba(30, 41, 59, 0.5);
+  border-color: rgba(255, 255, 255, 0.62);
+}
+
+.hero-cta-secondary--inverse:hover {
+  background: rgba(30, 41, 59, 0.68);
+}
+
+@media (max-width: 639.98px) {
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    width: 100%;
+  }
+}
+
+/* Hero Showcase dark readability boost:
+   keep each hero concept, only lift text luminance in dark mode */
+html.dark .hero-showcase-mount :where(h1, h2, h3, h4) {
+  color: #f8fafc;
+}
+
+html.dark .hero-showcase-mount :where(p, li) {
+  color: #e2e8f0;
+}
+
+html.dark .hero-showcase-mount [class*="text-gray-"],
+html.dark .hero-showcase-mount [class*="text-slate-"],
+html.dark .hero-showcase-mount [class*="text-indigo-"] {
+  color: #e2e8f0;
+}
+
+html.dark .hero-showcase-mount [class*="text-white/"],
+html.dark .hero-showcase-mount [class*="text-white\\/"] {
+  color: rgba(248, 250, 252, 0.92);
+}
