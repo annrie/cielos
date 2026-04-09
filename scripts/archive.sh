@@ -69,6 +69,12 @@ if [ -d "${THEME_DIR}/page-templates" ]; then
   log_info "  - page-templates/ をコピー"
 fi
 
+# src/（ソースファイル）
+if [ -d "${THEME_DIR}/src" ]; then
+  cp -R "${THEME_DIR}/src" "${TEMP_DIR}/${THEME_NAME}/"
+  log_info "  - src/ をコピー"
+fi
+
 # public/（静的アセット）
 if [ -d "${THEME_DIR}/public" ]; then
   cp -R "${THEME_DIR}/public" "${TEMP_DIR}/${THEME_NAME}/"
