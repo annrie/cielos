@@ -36,7 +36,8 @@
       "mcp__playwright__browser_wait_for",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(npm view:*)"
     ],
     "deny": []
   }
