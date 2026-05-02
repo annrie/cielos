@@ -18,7 +18,10 @@ class Cielos_Mobile_Walker extends Walker_Nav_Menu {
 
     // 行本体（ラベル＋トグル）
     $output .= '<div class="flex items-center justify-between w-full">';
-    $output .= '<a class="submenu-label flex-1" href="' . esc_url($item->url) . '">' . esc_html($item->title) . '</a>';
+    $url = function_exists('cielos_resolve_multibyte_internal_url')
+      ? cielos_resolve_multibyte_internal_url((string) $item->url)
+      : (string) $item->url;
+    $output .= '<a class="submenu-label flex-1" href="' . esc_url($url) . '">' . esc_html($item->title) . '</a>';
     if ($has_children) {
       $output .= '<button type="button" class="submenu-toggle-icon" aria-label="' . esc_attr__('サブメニューを開く','cielos') . '">'
                .   '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
