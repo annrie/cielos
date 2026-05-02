@@ -204,6 +204,14 @@ function cielos_filter_safe_term_link(string $termlink, $term, string $taxonomy)
 }
 add_filter('term_link', 'cielos_filter_safe_term_link', 10, 3);
 
+add_filter('query_vars', function (array $vars): array {
+    if (!in_array('tag_id', $vars, true)) {
+        $vars[] = 'tag_id';
+    }
+
+    return $vars;
+});
+
 function cielos_ascii_slug_from_title(string $title, int $post_id, string $post_type): string {
     $title = wp_strip_all_tags(html_entity_decode($title, ENT_QUOTES, get_bloginfo('charset') ?: 'UTF-8'));
     if (function_exists('mb_convert_kana')) {
