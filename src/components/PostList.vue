@@ -33,28 +33,6 @@ interface Post {
 const posts = ref<Post[]>([])
 const blogCategoryLink = ref('/archives/category/blog/') // Set a static link
 
-function hasNonAscii(value: string) {
-  return Array.from(value).some(char => char.charCodeAt(0) > 0x7F)
-}
-
-function hasMultibytePath(url: string) {
-  try {
-    const parsed = new URL(url, window.location.origin)
-    return hasNonAscii(decodeURIComponent(parsed.pathname))
-  }
-  catch {
-    return false
-  }
-}
-
-function safePostLink(post: Pick<Post, 'id' | 'link'>) {
-  if (!post.link || !hasMultibytePath(post.link)) {
-    return post.link
-  }
-
-  return `/?p=${post.id}`
-}
-
 async function fetchPosts(page: number = 1) {
   try {
     // APIパラメータを構築
@@ -102,7 +80,7 @@ async function fetchPosts(page: number = 1) {
 
       return {
         id: post.id,
-        link: safePostLink(post),
+        link: post.link,
         title: post.title,
         date: post.date,
         modified: (post as any).modified,
