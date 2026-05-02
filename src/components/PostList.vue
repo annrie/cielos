@@ -26,12 +26,34 @@ interface Post {
   featured_media_url?: string
   formatted_date?: string
   formatted_modified?: string
-  categories?: Array<{ name: string; link: string }>
-  tags?: Array<{ name: string; link: string }>
+  categories?: Array<{ name: string, link: string }>
+  tags?: Array<{ name: string, link: string }>
 }
 
 const posts = ref<Post[]>([])
 const blogCategoryLink = ref('/archives/category/blog/') // Set a static link
+
+function hasNonAscii(value: string) {
+  return Array.from(value).some(char => char.charCodeAt(0) > 0x7F)
+}
+
+function hasMultibytePath(url: string) {
+  try {
+    const parsed = new URL(url, window.location.origin)
+    return hasNonAscii(decodeURIComponent(parsed.pathname))
+  }
+  catch {
+    return false
+  }
+}
+
+function safePostLink(post: Pick<Post, 'id' | 'link'>) {
+  if (!post.link || !hasMultibytePath(post.link)) {
+    return post.link
+  }
+
+  return `/?p=${post.id}`
+}
 
 async function fetchPosts(page: number = 1) {
   try {
@@ -46,11 +68,13 @@ async function fetchPosts(page: number = 1) {
     if (props.termId && props.termType) {
       if (props.termType === 'category') {
         params.categories = props.termId
-      } else if (props.termType === 'tag') {
+      }
+      else if (props.termType === 'tag') {
         params.tags = props.termId
       }
       // 他のカスタムタクソノミーは別途対応が必要
-    } else {
+    }
+    else {
       // デフォルト: フロントページ用（コラム、備忘録）
       params.categories = '3,5'
     }
@@ -78,7 +102,7 @@ async function fetchPosts(page: number = 1) {
 
       return {
         id: post.id,
-        link: post.link,
+        link: safePostLink(post),
         title: post.title,
         date: post.date,
         modified: (post as any).modified,

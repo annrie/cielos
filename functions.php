@@ -33,6 +33,7 @@ require_once 'library/acf-options.php';
 require_once 'library/attachment-functions.php';
 require_once 'library/rest-api-endpoints.php';
 require_once 'library/string-to-slug.php';
+require_once 'library/ascii-permalinks.php';
 require_once 'library/phone-format.php';
 require_once 'library/woocommerce-support.php';
 require_once 'library/woocommerce-image-sizes.php';
