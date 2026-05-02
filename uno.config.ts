@@ -234,6 +234,7 @@ export default defineConfig({
         /vendor/,
         /uploads/,   // WP
         /cache/,
+        /library\/ascii-permalinks\.php/,
       ],
     },
     filesystem: [
