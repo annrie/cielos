@@ -3,8 +3,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
 
-const COMPAT_CSS_RE = /compat\.css$/
-
 // preflight index
 export function tokensPreflight(tokensPath: string = path.resolve(process.cwd(), 'tokens.css')): Preflight {
   return {
@@ -13,12 +11,9 @@ export function tokensPreflight(tokensPath: string = path.resolve(process.cwd(),
       try {
         const files = [
           tokensPath,
-          path.resolve(process.cwd(), 'tokens.compat.css'),
-          path.resolve(process.cwd(), 'src/assets/css/tokens.compat.css'),
-          COMPAT_CSS_RE.test(tokensPath || '') ? tokensPath : undefined,
           path.resolve(process.cwd(), 'tokens.css'),
           path.resolve(process.cwd(), 'src/assets/css/tokens.css'),
-          tokensPath && !COMPAT_CSS_RE.test(tokensPath)
+          tokensPath
             ? tokensPath
             : undefined,
         ].filter(Boolean)
