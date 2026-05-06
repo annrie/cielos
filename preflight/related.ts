@@ -1,4 +1,5 @@
 import type { Preflight } from 'unocss'
+
 export const preflightRelated: Preflight = {
   layer: 'preflights',
   getCSS: () => String.raw`

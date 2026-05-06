@@ -1,22 +1,20 @@
-import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { presetHeroPatterns } from '@julr/unocss-preset-heropatterns'
-import { presetLiftKit } from '@liftkit-vue/preset-unocss'
 import presetTagify from '@unocss/preset-tagify'
 import { createLocalFontProcessor } from '@unocss/preset-web-fonts/local'
 import { createRemToPxProcessor } from '@unocss/preset-wind4/utils'
 import transformerAttributifyJsx from '@unocss/transformer-attributify-jsx'
 import transformerCompileClass from '@unocss/transformer-compile-class'
 import { animatedUno } from 'animated-unocss'
-import { createRequire } from 'node:module'
 import {
-    defineConfig,
-    presetAttributify,
-    presetIcons,
-    presetTypography,
-    presetWebFonts,
-    presetWind4,
-    transformerDirectives,
-    transformerVariantGroup,
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetTypography,
+  presetWebFonts,
+  presetWind4,
+  transformerDirectives,
+  transformerVariantGroup,
 } from 'unocss'
 import { presetExtra } from 'unocss-preset-extra'
 import transformerAlias from 'unocss-transformer-alias'
@@ -33,87 +31,65 @@ const reservedButtonShortcuts = new Set(
   componentShortcutNames.filter(name => name.startsWith('btn-')),
 )
 
-// LiftKit CSS変数のみを注入（リセットスタイルは除外）
-// PostCSS パーサーが CSS Level 4 の pow()/round() を解析できないため、事前計算して置換する
-const liftkitCoreCSS = (() => {
-  let css = readFileSync(
-    new URL('./node_modules/@liftkit-vue/theme-css/css/liftkit-core.css', import.meta.url),
-    'utf-8',
-  )
-
-  // リセットスタイル（html,body / * / a）は除外し、button スタイルのみ追加
-  const cutoff = css.indexOf('/* Everything from here')
-  if (cutoff !== -1) {
-    const buttonMatch = css.match(/\/\* Make Buttons into Inline Elements \*\/[\s\S]*$/)
-    css = css.slice(0, cutoff) + (buttonMatch ? '\n' + buttonMatch[0] : '')
-  }
-
-  // round(pow(var(--lk-scalefactor), N), 0.001) → 事前計算値に置換
-  const sf = 1.618
-  const roundTo = (v: number, p: number) => Math.round(v / p) * p
-  css = css.replace(/round\(pow\(var\(--lk-scalefactor\),\s*([-\d.]+)\),\s*[\d.]+\)/g, (_m, exp) => {
-    return String(roundTo(Math.pow(sf, Number(exp)), 0.001))
-  })
-  css = css.replace(/calc\(round\(pow\(var\(--lk-scalefactor\),\s*([-\d.]+)\),\s*[\d.]+\)\)/g, (_m, exp) => {
-    return String(roundTo(Math.pow(sf, Number(exp)), 0.001))
-  })
-  css = css.replace(/calc\(1em \* round\(pow\(var\(--lk-scalefactor\),\s*([-\d.]+)\),\s*[\d.]+\)\)/g, (_m, exp) => {
-    return `calc(1em * ${roundTo(Math.pow(sf, Number(exp)), 0.001)})`
-  })
-  return css
-})()
-
 // preflights are configured explicitly below; helper list removed
 
 // ヘルパー：defineConfig の前あたりに1回だけ
-const __resolveColor = (theme: any, key: any) => {
-  const colors = theme?.colors;
-  if (!colors || key == null) return String(key ?? '');
-  const v = colors[key];
-  if (!v) return String(key);
-  if (typeof v === 'string') return v;
-  if (typeof v === 'object') return v.DEFAULT ?? v[500] ?? v[600] ?? v[400] ?? Object.values(v)[0] ?? String(key);
-  return String(key);
-};
+function __resolveColor(theme: any, key: any) {
+  const colors = theme?.colors
+  if (!colors || key == null)
+    return String(key ?? '')
+  const v = colors[key]
+  if (!v)
+    return String(key)
+  if (typeof v === 'string')
+    return v
+  if (typeof v === 'object')
+    return v.DEFAULT ?? v[500] ?? v[600] ?? v[400] ?? Object.values(v)[0] ?? String(key)
+  return String(key)
+}
 
 function namesFromShortcuts(sc: any[]): string[] {
   return sc.flatMap((s) => {
     // ["name", "..."] or ["name","...",{selector:...}]
-    if (Array.isArray(s) && typeof s[0] === 'string') return [s[0]]
+    if (Array.isArray(s) && typeof s[0] === 'string')
+      return [s[0]]
     return []
   })
 }
 
 const SAFE_FIXED = [
   // 動的付与されがちなものがあればここに（例）
-   'dark','light',
+  'dark',
+  'light',
 ]
 
-function convert(c: string) { return c; }
+function convert(c: string) {
+  return c
+}
 
 function makeColorPalette(color: string) {
   return {
-      DEFAULT: color,
-      50:  `color-mix(in srgb, ${color} 5%,  white)`,
-      100: `color-mix(in srgb, ${color} 10%, white)`,
-      200: `color-mix(in srgb, ${color} 30%, white)`,
-      300: `color-mix(in srgb, ${color} 50%, white)`,
-      400: `color-mix(in srgb, ${color} 70%, white)`,
-      500: color,
-      600: `color-mix(in srgb, ${color} 70%, black)`,
-      700: `color-mix(in srgb, ${color} 50%, black)`,
-      800: `color-mix(in srgb, ${color} 30%, black)`,
-      900: `color-mix(in srgb, ${color} 15%, black)`,
-      950: `color-mix(in srgb, ${color} 8%,  black)`,
-  };
+    DEFAULT: color,
+    50: `color-mix(in srgb, ${color} 5%,  white)`,
+    100: `color-mix(in srgb, ${color} 10%, white)`,
+    200: `color-mix(in srgb, ${color} 30%, white)`,
+    300: `color-mix(in srgb, ${color} 50%, white)`,
+    400: `color-mix(in srgb, ${color} 70%, white)`,
+    500: color,
+    600: `color-mix(in srgb, ${color} 70%, black)`,
+    700: `color-mix(in srgb, ${color} 50%, black)`,
+    800: `color-mix(in srgb, ${color} 30%, black)`,
+    900: `color-mix(in srgb, ${color} 15%, black)`,
+    950: `color-mix(in srgb, ${color} 8%,  black)`,
+  }
 }
 
 function aliasScale(prefix: string, base: string) {
   return Object.fromEntries(
-    [50,100,200,300,400,500,600,700,800,900,950].map(
+    [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
       s => [`${prefix}-${s}`, `var(--colors-${base}-${s})`],
     ),
-  );
+  )
 }
 
 /* ===== ビューポート基準を 320～1600 に変更 ===== */
@@ -134,18 +110,18 @@ function calculateClamp(minPx: number, maxPx: number): string {
 /* ===== TEXT_SCALE ===== */
 const TEXT_SCALE = {
   // Body
-  xxs: { min: 7,  max: 9,  lineHeight: 1.55 }, // 0.5rem = 8px
-  xs:  { min: 11, max: 13, lineHeight: 1.55 }, // 0.75rem = 12px
-  sm:  { min: 13, max: 15, lineHeight: 1.55 }, // 0.875rem = 14px
-  base:{ min: 15, max: 18, lineHeight: 1.6  }, // 1rem = 16px
-  lg:  { min: 17, max: 20, lineHeight: 1.6  }, // 1.125rem = 18px
+  xxs: { min: 7, max: 9, lineHeight: 1.55 }, // 0.5rem = 8px
+  xs: { min: 11, max: 13, lineHeight: 1.55 }, // 0.75rem = 12px
+  sm: { min: 13, max: 15, lineHeight: 1.55 }, // 0.875rem = 14px
+  base: { min: 15, max: 18, lineHeight: 1.6 }, // 1rem = 16px
+  lg: { min: 17, max: 20, lineHeight: 1.6 }, // 1.125rem = 18px
   // Headings
-  h6:  { min: 15, max: 20, lineHeight: 1.45 },
-  h5:  { min: 18, max: 24, lineHeight: 1.4  },
-  h4:  { min: 22, max: 28, lineHeight: 1.35 },
-  h3:  { min: 28, max: 36, lineHeight: 1.3  },
-  h2:  { min: 34, max: 44, lineHeight: 1.25 },
-  h1:  { min: 42, max: 56, lineHeight: 1.15 },
+  h6: { min: 15, max: 20, lineHeight: 1.45 },
+  h5: { min: 18, max: 24, lineHeight: 1.4 },
+  h4: { min: 22, max: 28, lineHeight: 1.35 },
+  h3: { min: 28, max: 36, lineHeight: 1.3 },
+  h2: { min: 34, max: 44, lineHeight: 1.25 },
+  h1: { min: 42, max: 56, lineHeight: 1.15 },
   // Highlight
   highlight: { min: 64, max: 80, lineHeight: 1.1 },
 }
@@ -209,93 +185,120 @@ function setProperty(prefix: string, propertyNames: string[], _initialValue: Rec
   ]
 }
 
-const validateColors = (colorsObj) => {
-  for (const [k, v] of Object.entries(colorsObj ?? {})) {
-    if (v == null) throw new Error(`theme.colors["${k}"] is ${v}`);
-    if (typeof v === 'object' && !Array.isArray(v)) {
-      for (const [kk, vv] of Object.entries(v ?? {})) {
-        if (vv == null) throw new Error(`theme.colors["${k}"]["${kk}"] is ${vv}`);
-      }
-    }
-  }
-  return colorsObj;
-};
 // -----------------------------------------------------------------------------------------
 export default defineConfig({
 //  dark: 'class',
   content: {
     pipeline: {
-      include: [/\.(html|php|vue|jsx?|tsx?|mdx?|md)(\?.*)?$/],
+      include: [/\.(html|php|vue|jsx?|tsx?|mdx?)(\?.*)?$/],
       exclude: [
         /node_modules/,
         /\.git/,
         /dist/,
         /\.vite/,
         /vendor/,
-        /uploads/,   // WP
+        /uploads/, // WP
         /cache/,
         /library\/ascii-permalinks\.php/,
       ],
     },
     filesystem: [
-      '*.php',              // テーマルートのPHPファイル（page.php, archive.php, page-machaki.phpなど）
+      '*.php', // テーマルートのPHPファイル（page.php, archive.php, page-machaki.phpなど）
       'app/**/*.php',
       'templates/**/*.{php,html}',
-      'template-parts/**/*.php',  // template-partsディレクトリ
-      'library/**/*.php',         // libraryディレクトリ
+      'template-parts/**/*.php', // template-partsディレクトリ
+      'library/**/*.php', // libraryディレクトリ
       'src/**/*.{vue,js,ts,jsx,tsx}',
       'resources/**/*.{vue,js,ts,jsx,tsx}',
       'content/**/*.{md,mdx}',
     ],
   },
   safelist: Array.from(new Set([
-				'!mb-20','!mt-20',
+    '!mb-20',
+    '!mt-20',
     ...namesFromShortcuts(headingShortcuts),
-				...namesFromShortcuts(extrasShortcuts),
+    ...namesFromShortcuts(extrasShortcuts),
     ...componentShortcutNames,
 
     // compat は selector/regex が多いので基本は不要。文字名だけ拾うなら↓
     // ...namesFromShortcuts(compatShortcuts),
     ...SAFE_FIXED,
-     'no-theme-anim',
-     'w-[var(--container-w)]',  // パンクズナビとcontainerの幅統一
-     // レイアウト
-     'container-page', 'layout-2col', 'layout-2col-rev',
-     'main-content', 'main-content-full', 'sidebar-area',
-     'hero-section', 'featured-posts', 'page-section',
-     // 'top-hero-title' は preflight.top.ts で定義されているため safelist 不要
-     // テキストサイズ
-     'text-h1','text-h2','text-h3','text-h4','text-h5','text-h6',
-     'text-base','text-lg','text-xl','text-2xl','text-3xl','text-4xl','text-5xl','text-6xl','text-7xl','text-8xl','text-9xl',
-     // よく使う色クラス
-     'text-gray-900','dark:text-white','text-blue-600','dark:text-blue-400',
-     // サイドバーウィジェットで動的に追加されるアイコン
-     'i-carbon-document',  // 最近の投稿、最新情報
-     'i-carbon-folder',    // カテゴリー
-     'i-carbon-calendar',  // アーカイブ
-     'i-carbon-book',      // 僭越図書館（固定ページ）
-     'i-carbon-rss',       // RSSフィード
-     'i-carbon-launch',    // 外部リンク
-     'i-twemoji-classical-building', // page-machaki.php タイトル 🏛️
-     // Bibliography pages (page-id-3136など) で使用されるクラス
-     'grid', 'grid-cols-1', 'grid-cols-3', 'lg:grid-cols-2', 'md:grid-cols-2', 'md:grid-cols-3',
-     'gap-6', 'gap-4', 'gap-8',
-     'lg:hidden', 'md:hidden', 'sm:hidden',
-     'print:hidden',
-     'col-span-1', 'col-span-2',
-     // ランキングバッジの背景色（人気記事ウィジェット）
-     'bg-amber-500', 'bg-amber-700', 'bg-gray-500', 'text-white',
-     // Hero title font
-     'font-lobster',
+    'no-theme-anim',
+    'w-[var(--container-w)]', // パンクズナビとcontainerの幅統一
+    // レイアウト
+    'container-page',
+    'layout-2col',
+    'layout-2col-rev',
+    'main-content',
+    'main-content-full',
+    'sidebar-area',
+    'hero-section',
+    'featured-posts',
+    'page-section',
+    // 'top-hero-title' は preflight.top.ts で定義されているため safelist 不要
+    // テキストサイズ
+    'text-h1',
+    'text-h2',
+    'text-h3',
+    'text-h4',
+    'text-h5',
+    'text-h6',
+    'text-base',
+    'text-lg',
+    'text-xl',
+    'text-2xl',
+    'text-3xl',
+    'text-4xl',
+    'text-5xl',
+    'text-6xl',
+    'text-7xl',
+    'text-8xl',
+    'text-9xl',
+    // よく使う色クラス
+    'text-gray-900',
+    'dark:text-white',
+    'text-blue-600',
+    'dark:text-blue-400',
+    // サイドバーウィジェットで動的に追加されるアイコン
+    'i-carbon-document', // 最近の投稿、最新情報
+    'i-carbon-folder', // カテゴリー
+    'i-carbon-calendar', // アーカイブ
+    'i-carbon-book', // 僭越図書館（固定ページ）
+    'i-carbon-rss', // RSSフィード
+    'i-carbon-launch', // 外部リンク
+    'i-twemoji-classical-building', // page-machaki.php タイトル 🏛️
+    // Bibliography pages (page-id-3136など) で使用されるクラス
+    'grid',
+    'grid-cols-1',
+    'grid-cols-3',
+    'lg:grid-cols-2',
+    'md:grid-cols-2',
+    'md:grid-cols-3',
+    'gap-6',
+    'gap-4',
+    'gap-8',
+    'lg:hidden',
+    'md:hidden',
+    'sm:hidden',
+    'print:hidden',
+    'col-span-1',
+    'col-span-2',
+    // ランキングバッジの背景色（人気記事ウィジェット）
+    'bg-amber-500',
+    'bg-amber-700',
+    'bg-gray-500',
+    'text-white',
+    // Hero title font
+    'font-lobster',
   ])),
   theme: {
     breakpoint: {
-      xsm: '320px',
-      sm:  '375px',
-      md:  '640px',
-      tb:  '768px',
-      lg:  '1024px',
-      xl:  '1440px',
+      'xsm': '320px',
+      'sm': '375px',
+      'md': '640px',
+      'tb': '768px',
+      'lg': '1024px',
+      'xl': '1440px',
       '2xl': '1600px',
     },
     text: buildTextTheme(TEXT_SCALE),
@@ -334,10 +337,10 @@ export default defineConfig({
       'jis-magenta': convert('#999900'),
       // ---- primary 系は Uno の sky に寄せる（お好みで 'blue' や 'indigo' に変更可）
       ...aliasScale('primary', 'sky'),
-      primary:               'var(--colors-sky-500)',
-      'primary-emphasis':    'var(--colors-sky-600)',
-      'primary-emphasis-alt':'var(--colors-sky-700)',
-      'primary-contrast':    'var(--colors-white-DEFAULT)',
+      'primary': 'var(--colors-sky-500)',
+      'primary-emphasis': 'var(--colors-sky-600)',
+      'primary-emphasis-alt': 'var(--colors-sky-700)',
+      'primary-contrast': 'var(--colors-white-DEFAULT)',
 
       // ---- surface 系は Uno の slate に寄せる
       'surface-0': 'var(--colors-white-DEFAULT)', // 0 は独自に白へ
@@ -392,7 +395,7 @@ export default defineConfig({
       'ud-shin-go-regular': '\'UD Shin Go Regular\', \'UD新ゴ R\', sans-serif',
       'ud-shin-go-medium': '\'UD Shin Go Medium\', \'UD新ゴ M\', sans-serif',
       'ud-shin-go-conde90-l': '\'UD Shin Go Conde90 L\', \'UD新ゴ コンデンス90 L\', sans-serif',
-      'ud-shin-go-conde90-m': "'UD Shin Go Conde90 M', 'UD新ゴ コンデンス90 M', sans-serif",
+      'ud-shin-go-conde90-m': '\'UD Shin Go Conde90 M\', \'UD新ゴ コンデンス90 M\', sans-serif',
       'num': ['DIN Medium', 'Helvetica Neue', 'Arial', 'Liberation Sans', 'FreeSans', 'sans-serif'],
     },
     leading: {
@@ -451,7 +454,7 @@ export default defineConfig({
       'inline-block mx-auto px-4 py-1 rounded bg-blue-500 text-white dark:(text-white hover:text-dark) cursor-pointer hover:(bg-success text-dark-600)  disabled:bg-gray-600 disabled:opacity-50',
     ],
 
-   // 3) 既存の見出しスタイル（定数）もここでOK
+    // 3) 既存の見出しスタイル（定数）もここでOK
     [
       'latest-columns-title-style',
       `relative w-full
@@ -461,8 +464,8 @@ export default defineConfig({
        rounded-[var(--latest-radius)]
        border border-solid border-[var(--latest-border)]
        shadow-[var(--latest-inset)]
-		px-[var(--latest-title-px)] py-[var(--latest-title-py)]       hover:bg-[image:var(--laetest-bg-stack-hover)]
-		transition-colors duration-300
+    px-[var(--latest-title-px)] py-[var(--latest-title-py)]       hover:bg-[image:var(--laetest-bg-stack-hover)]
+    transition-colors duration-300
 `,
     ],
     [
@@ -506,11 +509,11 @@ export default defineConfig({
     ['border-com', 'dark:border-#222  border border-#e5e5e5'],
     ['bg-com', 'dark:bg-#333 bg-white'],
     ['shadow-com', 'border-t-1 border-#333 shadow-md border-op-20 dark:border-op-60 dark:shadow-#333'],
-	['pm-num-font', 'font-num font-bold'],
+    ['pm-num-font', 'font-num font-bold'],
 
     // heading01〜heading13-9 は shortcuts/headings.ts で定義
     ['linkIcon', 'relative before:absolute before:top-1/2 before:right-[15px] before:w-[6px] before:h-[6px] before:content-empty before:border-t-3 before:border-t-solid before:border-t-[var(--link-icon-color,#333)] before:border-r-3 before:border-r-solid before:border-r-[var(--link-icon-color,#333)] before:transform before:rotate-45 before:-translate-y-1/2'],
-    ['info-wrap-style', 'mt-[3px] border-b border-b-black/10 shadow-[rgba(255,255,255,0.5)_0_1px_0] border-l border-l-black/10 shadow-[rgba(255,255,255,0.5)_-1px_0_0] border-r border-r-black/10 shadow-[inset_rgba(255,255,255,0.5)_-1px_0_0]' ],
+    ['info-wrap-style', 'mt-[3px] border-b border-b-black/10 shadow-[rgba(255,255,255,0.5)_0_1px_0] border-l border-l-black/10 shadow-[rgba(255,255,255,0.5)_-1px_0_0] border-r border-r-black/10 shadow-[inset_rgba(255,255,255,0.5)_-1px_0_0]'],
     ['link-text-style', 'relative block p-2 border border-black/25 rounded bg-[#98fb98] dark:bg-green-800 dark:border-white/25'],
     ['link-text-button-style', 'relative inline-block h-[calc(0.8rem*3)] px-[calc(0.8rem*3)] text-[0.8rem] font-bold leading-[calc(0.8rem*3)] text-center rounded text-[dodgerblue]/90 bg-gradient-to-t from-[#00bfff] to-[color-mix(in_srgb,#00bfff_95%,white)] border border-black/5 shadow-[rgba(0,0,0,0.05)_-1px_1px_0,rgba(255,255,255,1)_-1px_1px_0_inset] text-shadow-[1px_-1px_rgba(0,0,0,0.1)] hover:text-[dodgerblue] active:top-[1px] dark:text-blue-300/90 dark:border-white/10 dark:bg-gradient-to-t dark:from-blue-500 dark:to-blue-400 dark:hover:text-blue-200'],
     [
@@ -533,20 +536,20 @@ export default defineConfig({
       'bg-white p-6 border border-gray-200 dark:bg-gray-800 dark:border-gray-700 pm-line-top-10-100 pm-line-bottom-10-100 pm-line-left-10-100 pm-line-right-10-100',
     ],
   ],
-	layers: {
-		'preflights': -2,
-		'components': -1,
-		'default': 1,
-		'utilities': 2,
-		'my-layer': 3,
-	},
+  layers: {
+    'preflights': -2,
+    'components': -1,
+    'default': 1,
+    'utilities': 2,
+    'my-layer': 3,
+  },
   presets: [
     presetWind4({
-      preflights:  {
+      preflights: {
         theme: {
           process: createRemToPxProcessor(),
         },
-          reset: true,
+        reset: true,
       },
       dark: 'class',
     }),
@@ -576,7 +579,6 @@ export default defineConfig({
     presetTypography(),
     presetHeroPatterns(),
     presetExtra(),
-    presetLiftKit({ injectVars: false }),
     animatedUno(),
     presetWebFonts({
       themeKey: 'fontFamily',
@@ -591,7 +593,7 @@ export default defineConfig({
         mono: ['Fira Code', 'Fira Mono:400,700'],
         lobster: [
           { name: 'Lobster', weights: ['400'], provider: 'google' },
-          { name: 'cursive', provider: 'none' }
+          { name: 'cursive', provider: 'none' },
         ],
         lato: [
           { name: 'Lato', weights: ['400', '700'], italic: true },
@@ -623,59 +625,57 @@ export default defineConfig({
       }
     },
   ],
-preflights: [
-  // LiftKit MD3 デザイントークン
-  { getCSS: () => liftkitCoreCSS, layer: 'base' },
+  preflights: [
   // 変数・土台
-  tokensPreflight(),
-  preflightBase,
-  preflightStickyFooter,
-  preflightContent,
-  preflightLayout,
-  preflightSections,
-  preflightFeatureGrid,
+    tokensPreflight(),
+    preflightBase,
+    preflightStickyFooter,
+    preflightContent,
+    preflightLayout,
+    preflightSections,
+    preflightFeatureGrid,
 
-  // レイアウト/ヘッダの骨組み
-  preflightHeader,
-  preflightWpAdmin,
-  preflightNavSolid,
-  preflightHeaderDesktopRow,
-  preflightThemeIcons,
+    // レイアウト/ヘッダの骨組み
+    preflightHeader,
+    preflightWpAdmin,
+    preflightNavSolid,
+    preflightHeaderDesktopRow,
+    preflightThemeIcons,
 
-  // モバイル統合（PCナビを消し、#mobile-menuを制御）
-  preflightMobileMenu,
+    // モバイル統合（PCナビを消し、#mobile-menuを制御）
+    preflightMobileMenu,
 
-  // （必要なら）PCナビ軽微修正はここまで。※残すなら Enforce より前に
-  // preflightNavDesktopFix,
+    // （必要なら）PCナビ軽微修正はここまで。※残すなら Enforce より前に
+    // preflightNavDesktopFix,
 
-  // ページ別・小物（このあたりはナビに影響しない想定）
-  preflightTop,
-  preflightArchive,
-  preflightSingle,
-  preflightDocs,
-  preflightBiblio,
-  preflightFooter,
-  preflightForms,
-  preflightSearch,
-  preflightComments,
-  preflightBreadcrumbs,
-  preflightChildPages,
-  preflight404,
-  preflightSidebar,
-  preflightPrint,
-  preflightA11y,
-  preflightSyntax,
-  tabsPreflight,
-  preflightRelated,
-  preflightAuthor,
-  preflightThemeTransition,
-  preflightHeroFeature,
-  preflightHeroPage,
-  preflightFooterVisibilityGuard,
+    // ページ別・小物（このあたりはナビに影響しない想定）
+    preflightTop,
+    preflightArchive,
+    preflightSingle,
+    preflightDocs,
+    preflightBiblio,
+    preflightFooter,
+    preflightForms,
+    preflightSearch,
+    preflightComments,
+    preflightBreadcrumbs,
+    preflightChildPages,
+    preflight404,
+    preflightSidebar,
+    preflightPrint,
+    preflightA11y,
+    preflightSyntax,
+    tabsPreflight,
+    preflightRelated,
+    preflightAuthor,
+    preflightThemeTransition,
+    preflightHeroFeature,
+    preflightHeroPage,
+    preflightFooterVisibilityGuard,
 
   // ★最後：PCの「右寄せ + サブ初期非表示」を最終上書き
   // preflightNavDesktopEnforce,
-].filter(Boolean),
+  ].filter(Boolean),
 
   rules: [
     ...setProperty('m', ['margin']),
@@ -725,7 +725,7 @@ preflights: [
     ...setProperty('translate-x', ['--un-translate-x'], { transform: 'translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) translateZ(var(--un-translate-z)) rotate(var(--un-rotate)) rotateX(var(--un-rotate-x)) rotateY(var(--un-rotate-y)) rotateZ(var(--un-rotate-z)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y)) scaleZ(var(--un-scale-z))' }),
     [/^tracking-(\d+)$/, ([, d]) => ({ 'letter-spacing': `${Number(d) / 1000}em` })],
 
-   // 4) Sassの “引数あり mixin” を動的ルール化
+    // 4) Sassの “引数あり mixin” を動的ルール化
 
     // 例: emboss-box-<x>-<y>-<alpha> → box-shadow に変換
     [/^emboss-box-(\d+)-(\d+)-(\d+)$/, ([, x, y, a]) => {
@@ -737,7 +737,7 @@ preflights: [
 
     // 例: pm-ts-000-10 → text-shadow
     [/^pm-ts-(\d+)-(\d+)-(\d+)$/, ([, r, g, b]) => ({
-      'text-shadow': `${+r}px -${+g}px rgba(0,0,0,${(+b/100).toFixed(2)})`,
+      'text-shadow': `${+r}px -${+g}px rgba(0,0,0,${(+b / 100).toFixed(2)})`,
     })],
 
     // "ズル線" rules
@@ -824,105 +824,114 @@ preflights: [
     // Rule for heading04-3 pseudo-elements
     // Example usage: heading04-3-pseudo-white-555
     [
-      /^heading04-3-pseudo-(.+)-(.+)$/,
+      // eslint-disable-next-line regexp/no-super-linear-backtracking
+      /^heading04-3-pseudo-(.+?)-(.+)$/,
       ([, bg, borderColor], { theme }) => {
-        const bgColor = __resolveColor(theme, bg);
-        const bdrColor = __resolveColor(theme, borderColor);
+        const bgColor = __resolveColor(theme, bg)
+        const bdrColor = __resolveColor(theme, borderColor)
         return {
           // 必要なら left の調整も変数で
           // '--h043-left-after': '33px',
           // '--h043-left-before': '30px',
-          '--h043-bg':  bgColor,
+          '--h043-bg': bgColor,
           '--h043-bdr': bdrColor,
-          };
-        },
+        }
+      },
     ],
     // Rule for heading04-3 pseudo-elements (dark mode)
     // Example usage: dark:heading04-3-pseudo-surface-800-surface-500
     [
-      /^dark:heading04-3-pseudo-(.+)-(.+)$/,
+      // eslint-disable-next-line regexp/no-super-linear-backtracking
+      /^dark:heading04-3-pseudo-(.+?)-(.+)$/,
       ([, bg, borderColor], { theme }) => {
-        const bgColor = __resolveColor(theme, bg);
-        const bdrColor = __resolveColor(theme, borderColor);
+        const bgColor = __resolveColor(theme, bg)
+        const bdrColor = __resolveColor(theme, borderColor)
         return {
-          '--h043-bg':  bgColor,
+          '--h043-bg': bgColor,
           '--h043-bdr': bdrColor,
-          };
-        },
+        }
+      },
     ],
     // Rule for heading13-4 pseudo-element
     // Example usage: heading13-4-pseudo-9999d4
     [
       /^heading13-4-pseudo-(.+)$/,
       ([, bg], { theme }) => {
-        const bgColor = __resolveColor(theme, bg);
+        const bgColor = __resolveColor(theme, bg)
         return {
           // '--h134-left': '0.5em', '--h134-w': '8px', '--h134-h': '30px', '--h134-radius': '2px', // ←必要なら可変に
           '--h134-bg': bgColor,
-          };
-        },
+        }
+      },
     ],
     // Rule for heading13-4 pseudo-element (dark mode)
     // Example usage: dark:heading13-4-pseudo-surface-700
     [
       /^dark:heading13-4-pseudo-(.+)$/,
       ([, bg], { theme }) => {
-        const bgColor = __resolveColor(theme, bg);
+        const bgColor = __resolveColor(theme, bg)
         return {
           '--h134-bg': bgColor,
-        };
+        }
       },
     ],
     // ── 基本4方向 ───────────────────────────────────────────
     [/^pm-balloon-bottom-(\d+)-(.+)-(\d+)$/, ([, size, color, left], { theme }) => {
-      const s = Number(size), l = Number(left);
-      const c = __resolveColor(theme, color);
+      const s = Number(size)
+      const l = Number(left)
+      const c = __resolveColor(theme, color)
       return {
         '--pm-bottom': `-${s * 2}px`,
         '--pm-left': `${l}px`,
         '--pm-border': `${s}px solid transparent`,
         '--pm-border-top': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     [/^pm-balloon-top-(\d+)-(.+)-(\d+)$/, ([, size, color, left], { theme }) => {
-      const s = Number(size), l = Number(left);
-      const c = __resolveColor(theme, color);
+      const s = Number(size)
+      const l = Number(left)
+      const c = __resolveColor(theme, color)
       return {
         '--pm-top': `-${s * 2}px`,
         '--pm-left': `${l}px`,
         '--pm-border': `${s}px solid transparent`,
         '--pm-border-bottom': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     [/^pm-balloon-left-(\d+)-(.+)-(\d+)$/, ([, size, color, top], { theme }) => {
-      const s = Number(size), t = Number(top);
-      const c = __resolveColor(theme, color);
+      const s = Number(size)
+      const t = Number(top)
+      const c = __resolveColor(theme, color)
       return {
         '--pm-top': `${t}px`,
         '--pm-left': `-${s * 2}px`,
         '--pm-border': `${s}px solid transparent`,
         '--pm-border-right': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     [/^pm-balloon-right-(\d+)-(.+)-(\d+)$/, ([, size, color, top], { theme }) => {
-      const s = Number(size), t = Number(top);
-      const c = __resolveColor(theme, color);
+      const s = Number(size)
+      const t = Number(top)
+      const c = __resolveColor(theme, color)
       return {
         '--pm-top': `${t}px`,
         '--pm-right': `-${s * 2}px`,
         '--pm-border': `${s}px solid transparent`,
         '--pm-border-left': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     // ── ボーダー付き（外側＝::before, 内側＝::after） ───────
     [/^pm-balloon-top-border-(\d+)-(.+)-(\d+)-(.+)-(\d+)$/, ([, size, color, left, borderColor, border], { theme }) => {
-      const s = Number(size), b = Number(border), s2 = s + b, l = Number(left);
-      const c = __resolveColor(theme, color);
-      const bc = __resolveColor(theme, borderColor);
+      const s = Number(size)
+      const b = Number(border)
+      const s2 = s + b
+      const l = Number(left)
+      const c = __resolveColor(theme, color)
+      const bc = __resolveColor(theme, borderColor)
       return {
         // 内側（after）
         '--pm-top': `-${s * 2}px`,
@@ -934,13 +943,16 @@ preflights: [
         '--pm2-left': `${l - b}px`,
         '--pm2-border': `${s2}px solid ${bc}`,
         '--pm2-border-bottom': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     [/^pm-balloon-bottom-border-(\d+)-(.+)-(\d+)-(.+)-(\d+)$/, ([, size, color, left, borderColor, border], { theme }) => {
-      const s = Number(size), b = Number(border), s2 = s + b, l = Number(left);
-      const c = __resolveColor(theme, color);
-      const bc = __resolveColor(theme, borderColor);
+      const s = Number(size)
+      const b = Number(border)
+      const s2 = s + b
+      const l = Number(left)
+      const c = __resolveColor(theme, color)
+      const bc = __resolveColor(theme, borderColor)
       return {
         // 内側（after）
         '--pm-bottom': `-${s * 2}px`,
@@ -952,13 +964,16 @@ preflights: [
         '--pm2-left': `${l - b}px`,
         '--pm2-border': `${s2}px solid ${bc}`,
         '--pm2-border-top': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     [/^pm-balloon-left-border-(\d+)-(.+)-(\d+)-(.+)-(\d+)$/, ([, size, color, top, borderColor, border], { theme }) => {
-      const s = Number(size), b = Number(border), s2 = s + b, t = Number(top);
-      const c = __resolveColor(theme, color);
-      const bc = __resolveColor(theme, borderColor);
+      const s = Number(size)
+      const b = Number(border)
+      const s2 = s + b
+      const t = Number(top)
+      const c = __resolveColor(theme, color)
+      const bc = __resolveColor(theme, borderColor)
       return {
         // 内側（after）
         '--pm-top': `${t}px`,
@@ -970,13 +985,16 @@ preflights: [
         '--pm2-left': `-${s2 * 2}px`,
         '--pm2-border': `${s2}px solid ${bc}`,
         '--pm2-border-right': `${s}px solid ${c}`,
-      };
+      }
     }],
 
     [/^pm-balloon-right-border-(\d+)-(.+)-(\d+)-(.+)-(\d+)$/, ([, size, color, top, borderColor, border], { theme }) => {
-      const s = Number(size), b = Number(border), s2 = s + b, t = Number(top);
-      const c = __resolveColor(theme, color);
-      const bc = __resolveColor(theme, borderColor);
+      const s = Number(size)
+      const b = Number(border)
+      const s2 = s + b
+      const t = Number(top)
+      const c = __resolveColor(theme, color)
+      const bc = __resolveColor(theme, borderColor)
       return {
         // 内側（after）
         '--pm-top': `${t}px`,
@@ -988,50 +1006,40 @@ preflights: [
         '--pm2-right': `-${s2 * 2}px`,
         '--pm2-border': `${s2}px solid ${bc}`,
         '--pm2-border-left': `${s}px solid ${c}`,
-      };
+      }
     }],
-  // 見出しブロック内の a（通常）
-  ['latest-title-link', { color: 'rgb(47 79 79 / 0.9)', 'text-decoration': 'none' },
-    { layer: 'my-layer', selector: '.latest-columns-title-style a' } ],
-  // ダーク通常
-  ['latest-title-link-dark', { color: '#fff' },
-    { layer: 'my-layer', selector: '.dark .latest-columns-title-style a' } ],
-  // 状態
-  ['latest-title-link-hover', { color: '#2563eb', 'text-decoration': 'underline' },
-    { layer: 'my-layer', selector: '.latest-columns-title-style a:hover, .latest-columns-title-style a:focus-visible' } ],
-  ['latest-title-link-visited', { color: '#7c3aed' },
-    { layer: 'my-layer', selector: '.latest-columns-title-style a:visited' } ],
-  ['latest-title-link-active', { color: '#dc2626' },
-    { layer: 'my-layer', selector: '.latest-columns-title-style a:active' } ],
+    // 見出しブロック内の a（通常）
+    ['latest-title-link', { 'color': 'rgb(47 79 79 / 0.9)', 'text-decoration': 'none' }, { layer: 'my-layer', selector: '.latest-columns-title-style a' }],
+    // ダーク通常
+    ['latest-title-link-dark', { color: '#fff' }, { layer: 'my-layer', selector: '.dark .latest-columns-title-style a' }],
+    // 状態
+    ['latest-title-link-hover', { 'color': '#2563eb', 'text-decoration': 'underline' }, { layer: 'my-layer', selector: '.latest-columns-title-style a:hover, .latest-columns-title-style a:focus-visible' }],
+    ['latest-title-link-visited', { color: '#7c3aed' }, { layer: 'my-layer', selector: '.latest-columns-title-style a:visited' }],
+    ['latest-title-link-active', { color: '#dc2626' }, { layer: 'my-layer', selector: '.latest-columns-title-style a:active' }],
 
-  // machaki 用（必要なら色違いで複製）
-  ['machaki-title-link', { color: 'rgb(47 79 79 / 0.9)', 'text-decoration': 'none' },
-    { layer: 'my-layer', selector: '.machaki-group-title-style a' } ],
-  ['machaki-title-link-dark', { color: '#fff' },
-    { layer: 'my-layer', selector: '.dark .machaki-group-title-style a' } ],
-  ['machaki-title-link-hover', { color: '#16a34a', 'text-decoration': 'underline' },
-    { layer: 'my-layer', selector: '.machaki-group-title-style a:hover, .machaki-group-title-style a:focus-visible' } ],
-  ['machaki-title-link-visited', { color: '#7c3aed' },
-    { layer: 'my-layer', selector: '.machaki-group-title-style a:visited' } ],
-  ['machaki-title-link-active', { color: '#dc2626' },
-    { layer: 'my-layer', selector: '.machaki-group-title-style a:active' } ],
-  // #machaki-pickup に当てる本来のmixin相当（例）
-  ['machaki-pickup-style', {
+    // machaki 用（必要なら色違いで複製）
+    ['machaki-title-link', { 'color': 'rgb(47 79 79 / 0.9)', 'text-decoration': 'none' }, { layer: 'my-layer', selector: '.machaki-group-title-style a' }],
+    ['machaki-title-link-dark', { color: '#fff' }, { layer: 'my-layer', selector: '.dark .machaki-group-title-style a' }],
+    ['machaki-title-link-hover', { 'color': '#16a34a', 'text-decoration': 'underline' }, { layer: 'my-layer', selector: '.machaki-group-title-style a:hover, .machaki-group-title-style a:focus-visible' }],
+    ['machaki-title-link-visited', { color: '#7c3aed' }, { layer: 'my-layer', selector: '.machaki-group-title-style a:visited' }],
+    ['machaki-title-link-active', { color: '#dc2626' }, { layer: 'my-layer', selector: '.machaki-group-title-style a:active' }],
+    // #machaki-pickup に当てる本来のmixin相当（例）
+    ['machaki-pickup-style', {
     // ここに本来のSCSSから移したプロパティを書く
     // 例: 'scroll-margin-top': '6rem', '--gap':'1rem', など
-  }, { layer: 'my-layer', selector: '#machaki-pickup' }],
+    }, { layer: 'my-layer', selector: '#machaki-pickup' }],
 
-  // #latest-columns も同様
-  ['latest-columns-style', {
+    // #latest-columns も同様
+    ['latest-columns-style', {
     // 必要なプロパティを移植
-  }, { layer: 'my-layer', selector: '#latest-columns' }],
+    }, { layer: 'my-layer', selector: '#latest-columns' }],
   ],
   transformers: [
     transformerDirectives({ applyVariable: ['--at-apply', '--uno-apply', '--uno'] }),
     transformerVariantGroup(),
     transformerCompileClass(),
     transformerAttributifyJsx({
-          exclude: [/node_modules/],
+      exclude: [/node_modules/],
     }),
     transformerAlias(),
   ],

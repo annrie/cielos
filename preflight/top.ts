@@ -1,5 +1,5 @@
 // preflight.top.ts
-import type { Preflight } from 'unocss';
+import type { Preflight } from 'unocss'
 
 const css = String.raw`
 
@@ -102,8 +102,8 @@ const css = String.raw`
   & > a{ color: inherit; font: inherit; }
 }
 :where(#machaki-pickup) .top-meta{ margin-top: var(--machaki-meta-mt); }
-`;
+`
 
 export const preflightTop: Preflight = {
   getCSS: () => css,
-};
+}

@@ -1,31 +1,46 @@
+import type { Preflight } from 'unocss'
 import fs from 'node:fs'
 import path from 'node:path'
-import type { Preflight } from 'unocss'
+import process from 'node:process'
+
+const COMPAT_CSS_RE = /compat\.css$/
 
 // preflight index
-export const tokensPreflight = (tokensPath: string = path.resolve(process.cwd(), 'tokens.css')): Preflight => ({
-  layer: 'preflights',
-  getCSS: () => {
-    try {
-      const files = [
-        tokensPath,
-        path.resolve(process.cwd(), 'tokens.compat.css'),
-        path.resolve(process.cwd(), 'src/assets/css/tokens.compat.css'),
-        /compat\.css$/.test(tokensPath || '') ? tokensPath : undefined,
-        path.resolve(process.cwd(), 'tokens.css'),
-        path.resolve(process.cwd(), 'src/assets/css/tokens.css'),
-        tokensPath && !/compat\.css$/.test(tokensPath) ? tokensPath : undefined,
-      ].filter(Boolean)
-      const css = files
-        .map(p => { try { return fs.readFileSync(p as string, 'utf8') } catch { return '' } })
-        .filter(Boolean)
-        .join('\n')
-      return css || `:root{--c-fg:#111;--c-fg-inv:#fff}`
-    } catch {
-      return `:root{--c-fg:#111;--c-fg-inv:#fff}`
-    }
-  },
-})
+export function tokensPreflight(tokensPath: string = path.resolve(process.cwd(), 'tokens.css')): Preflight {
+  return {
+    layer: 'preflights',
+    getCSS: () => {
+      try {
+        const files = [
+          tokensPath,
+          path.resolve(process.cwd(), 'tokens.compat.css'),
+          path.resolve(process.cwd(), 'src/assets/css/tokens.compat.css'),
+          COMPAT_CSS_RE.test(tokensPath || '') ? tokensPath : undefined,
+          path.resolve(process.cwd(), 'tokens.css'),
+          path.resolve(process.cwd(), 'src/assets/css/tokens.css'),
+          tokensPath && !COMPAT_CSS_RE.test(tokensPath)
+            ? tokensPath
+            : undefined,
+        ].filter(Boolean)
+        const css = files
+          .map((p) => {
+            try {
+              return fs.readFileSync(p as string, 'utf8')
+            }
+            catch {
+              return ''
+            }
+          })
+          .filter(Boolean)
+          .join('\n')
+        return css || `:root{--c-fg:#111;--c-fg-inv:#fff}`
+      }
+      catch {
+        return `:root{--c-fg:#111;--c-fg-inv:#fff}`
+      }
+    },
+  }
+}
 
 // re-exports (moved under ./)
 export { preflight404 } from './404'
@@ -39,6 +54,7 @@ export { preflightChildPages } from './child-pages'
 export { preflightComments } from './comments'
 export { preflightContent } from './content'
 export { preflightDocs } from './docs'
+export { preflightFeatureGrid } from './feature-grid'
 export { preflightFooter } from './footer'
 export { preflightFooterVisibilityGuard } from './footer-visibility-guard'
 export { preflightForms } from './forms'
@@ -52,6 +68,7 @@ export { preflightNavSolid } from './nav.solid'
 export { preflightPrint } from './print'
 export { preflightRelated } from './related'
 export { preflightSearch } from './search'
+export { preflightSections } from './sections'
 export { preflightSidebar } from './sidebar'
 export { preflightSingle } from './single'
 export { preflightSyntax } from './syntax'
@@ -60,5 +77,3 @@ export { preflightThemeIcons } from './theme-icons'
 export { preflightThemeTransition } from './theme-transition'
 export { preflightTop } from './top'
 export { preflightWpAdmin } from './wp-admin'
-export { preflightSections } from './sections'
-export { preflightFeatureGrid } from './feature-grid'

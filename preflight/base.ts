@@ -1,5 +1,5 @@
 // preflight.base.ts
-import type {Preflight} from 'unocss'
+import type { Preflight } from 'unocss'
 
 /**
  * Base preflight: resets, readability, minimal layout, and accessibility.
@@ -60,5 +60,3 @@ export const preflightStickyFooter: Preflight = {
   }
   `,
 }
-
-
