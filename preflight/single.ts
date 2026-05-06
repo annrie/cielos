@@ -1,5 +1,5 @@
 // preflight.single.ts
-import type { Preflight } from 'unocss';
+import type { Preflight } from 'unocss'
 
 const cssSingle = String.raw`
 /* ===== Single: structure & base spacing ===== */
@@ -19,9 +19,9 @@ body.single .entry-title,
   display: block;
   height: auto;
   min-height: 0;
-	max-height: none;
-	padding: 2rem 1rem;
-	text-indent: 1rem;
+  max-height: none;
+  padding: 2rem 1rem;
+  text-indent: 1rem;
   box-sizing: border-box;
   line-height: 1.25;
 }
@@ -347,8 +347,8 @@ html.dark #single article footer {
     grid-template-columns:1fr 1fr;
   }
 }
-`;
+`
 
 export const preflightSingle: Preflight = {
   getCSS: () => cssSingle,
-};
+}

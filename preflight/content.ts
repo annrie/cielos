@@ -1,5 +1,5 @@
 // preflight.content.ts
-import type { Preflight } from 'unocss';
+import type { Preflight } from 'unocss'
 
 const css = String.raw`
 /* ===== Content: structure & base spacing (page-agnostic) ===== */
@@ -540,6 +540,6 @@ article#post-2805 .entry-content li > a.censor-button:hover {
   :where(.entry-content, .page-content, .main-content) .alignleft,
   :where(.entry-content, .page-content, .main-content) .alignright{ float:none; margin: 0 0 var(--figure-gap); }
 }
-`;
+`
 
-export const preflightContent: Preflight = { getCSS: () => css };
+export const preflightContent: Preflight = { getCSS: () => css }

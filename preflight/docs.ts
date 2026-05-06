@@ -1,5 +1,5 @@
 // preflight.docs.ts の末尾へ（例）
-import type { Preflight } from 'unocss';
+import type { Preflight } from 'unocss'
 
 const cssDocs = String.raw`
 /* ===== Docs: layout ===== */
@@ -190,8 +190,8 @@ const cssDocs = String.raw`
   position: sticky; top: calc(var(--header-h, 0px) + 12px);
   align-self: start;
 }
-`;
+`
 
 export const preflightDocs: Preflight = {
   getCSS: () => cssDocs,
-};
+}

@@ -323,5 +323,5 @@ div.child_pages .child_page,
   background-color: #1e3a8a;
   color: #93c5fd;
 }
-`
+`,
 }

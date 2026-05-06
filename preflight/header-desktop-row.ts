@@ -1,5 +1,5 @@
 // preflight.header-desktop-row.ts
-import type { Preflight } from 'unocss';
+import type { Preflight } from 'unocss'
 
 export const preflightHeaderDesktopRow: Preflight = {
   layer: 'preflights',
@@ -128,5 +128,5 @@ export const preflightHeaderDesktopRow: Preflight = {
     margin-right:4px !important;
   }
 }
-`
+`,
 }

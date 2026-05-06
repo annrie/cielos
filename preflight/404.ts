@@ -1,4 +1,5 @@
 import type { Preflight } from 'unocss'
+
 export const preflight404: Preflight = {
   layer: 'preflights',
   getCSS: () => String.raw`

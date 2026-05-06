@@ -6,7 +6,7 @@ const compatShortcuts = [
 
   // ========== TOP: タイトル行 ==========
   // 旧・曖昧なクラス名 → 新スタイルに別名付与
-  ['latest-title',  'latest-columns-title-style'],
+  ['latest-title', 'latest-columns-title-style'],
   ['machaki-title', 'machaki-group-title-style'],
 
   // セレクタブリッジ（テンプレの DOM そのままでも当たる）
@@ -22,10 +22,10 @@ const compatShortcuts = [
   ],
 
   // ========== ARCHIVE: カード / グリッド / ページネーション ==========
-// preflight.archive.ts と同等の挙動をユーティリティで直書き
- ['archive-grid-compat', 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'],
- ['post-list',           'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'],
- ['cards',               'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'],
+  // preflight.archive.ts と同等の挙動をユーティリティで直書き
+  ['archive-grid-compat', 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'],
+  ['post-list', 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'],
+  ['cards', 'grid gap-4 sm:grid-cols-2 lg:grid-cols-3'],
   [
     'bridge-archive-grid',
     'archive-grid',
@@ -126,7 +126,7 @@ const compatShortcuts = [
 
   ['search-field', 'search-input'],
   ['search-submit', 'search-button'],
-  ['comment-form-compat', 'comment-form'],  // 旧 .comment-form-wrap 等に合わせても可
+  ['comment-form-compat', 'comment-form'], // 旧 .comment-form-wrap 等に合わせても可
 
   // WP の page-title / search-result / no-results → 新クラスに合流
   ['page-title', 'search-title'],
@@ -214,7 +214,7 @@ const compatShortcuts = [
   ],
   [
     'bridge-widget-calendar',
-    'widget',         // 外枠の見た目も与える
+    'widget', // 外枠の見た目も与える
     { selector: '.widget_calendar' },
   ],
 
@@ -232,8 +232,8 @@ const compatShortcuts = [
 
   // 旧クラス吸収
   ['related-posts', 'related'],
-  ['related-list',  'related-grid'],
-  ['related-item',  'related-card'],
+  ['related-list', 'related-grid'],
+  ['related-item', 'related-card'],
 
   ['author', 'author-box'],
   ['author-info', 'author-bio'],

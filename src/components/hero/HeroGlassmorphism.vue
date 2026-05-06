@@ -53,7 +53,7 @@ onUnmounted(() => {
 
 const features = [
   { icon: 'i-carbon-code', title: 'Vue 3対応', desc: 'Composition APIとTypeScriptで型安全' },
-  { icon: 'i-carbon-paint-brush', title: 'UnoCSS + LiftKit', desc: '設計済みトークンで一貫したUIを高速構築' },
+  { icon: 'i-carbon-paint-brush', title: 'UnoCSS Design Tokens', desc: '設計済みトークンで一貫したUIを高速構築' },
   { icon: 'i-carbon-lightning', title: '超高速', desc: 'Viteビルドで瞬時のHMR' },
 ]
 </script>

@@ -1,9 +1,9 @@
 import path from 'node:path'
 import vue from '@vitejs/plugin-vue'
+import externalGlobals from 'rollup-plugin-external-globals'
 import UnoCSS from 'unocss/vite'
 import { defineConfig } from 'vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
-import externalGlobals from 'rollup-plugin-external-globals'
 
 // WordPress パッケージの外部依存マッピング
 const wpExternals: Record<string, string> = {

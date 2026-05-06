@@ -155,5 +155,5 @@ export const preflightHeroPage: Preflight = {
     padding: 2rem 5rem;
   }
 }
-`
+`,
 }

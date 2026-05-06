@@ -3,13 +3,6 @@ import App from './App.vue'
 import BackToTop from './components/BackToTop.vue'
 import CommentPagination from './components/CommentPagination.vue'
 import Gallery from './components/Gallery.vue'
-import Pagination from './components/Pagination.vue'
-import PostList from './components/PostList.vue'
-import SidebarBooks from './components/SidebarBooks.vue'
-import SidebarFull from './components/SidebarFull.vue'
-import SidebarTop from './components/SidebarTop.vue'
-import SocialShareButton from './components/SocialShareButton.vue'
-import SvgImage from './components/SvgImage.vue'
 // Hero Showcase Components
 import HeroAuroraWave from './components/hero/HeroAuroraWave.vue'
 import HeroCinematic from './components/hero/HeroCinematic.vue'
@@ -23,6 +16,13 @@ import HeroParallaxLayers from './components/hero/HeroParallaxLayers.vue'
 import HeroScrollReveal from './components/hero/HeroScrollReveal.vue'
 import HeroSplitDiagonal from './components/hero/HeroSplitDiagonal.vue'
 import HeroTypography from './components/hero/HeroTypography.vue'
+import Pagination from './components/Pagination.vue'
+import PostList from './components/PostList.vue'
+import SidebarBooks from './components/SidebarBooks.vue'
+import SidebarFull from './components/SidebarFull.vue'
+import SidebarTop from './components/SidebarTop.vue'
+import SocialShareButton from './components/SocialShareButton.vue'
+import SvgImage from './components/SvgImage.vue'
 
 import 'animate.css'
 import '~/uno-entry'
@@ -32,7 +32,7 @@ import './assets/js/lang-tabs.js'
 import './assets/js/sidebar-icons.js'
 // 開発時のみ UnoCSS DevTools を読み込む
 if (import.meta.env.DEV) {
-  // @ts-ignore
+  // @ts-expect-error virtual module is provided by UnoCSS only in dev
   import('virtual:unocss-devtools')
 }
 // if (import.meta.env.DEV) {
@@ -42,7 +42,6 @@ if (import.meta.env.DEV) {
 
 // === [UNOMoon SVG Common Utils] BEGIN ======================================
 export const isProd = import.meta.env.PROD
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function log(..._a: any[]) {
   // Debug logging disabled in production build
 }
@@ -297,8 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // removed legacy theme block
-;
-
 
 if ('serviceWorker' in navigator && import.meta.env.DEV) {
   navigator.serviceWorker.getRegistrations().then((regs) => {
@@ -333,7 +330,6 @@ document.querySelectorAll<HTMLElement>('.hero-showcase-mount').forEach((el) => {
     }).mount(el)
   }
 })
-
 
 // マウント
 app.mount('#app')

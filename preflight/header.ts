@@ -321,5 +321,5 @@ html.dark #theme-toggle-desktop svg[data-icon="moon"] { display:block !important
   }
 }
 
-`
+`,
 }

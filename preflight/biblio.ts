@@ -1,5 +1,5 @@
 // preflight.biblio.ts
-import type { Preflight } from 'unocss';
+import type { Preflight } from 'unocss'
 
 const css = String.raw`
 /* ===== Biblio: structure & spacing ===== */
@@ -847,7 +847,7 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.2;
-	min-height: 2.2em;
+  min-height: 2.2em;
   display: block;
 }
 
@@ -984,11 +984,11 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
   text-decoration: underline;
 }
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content h3.short a{
-	color: var(--machaki-label-sus-bg);
-	text-decoration: none;
+  color: var(--machaki-label-sus-bg);
+  text-decoration: none;
 }
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content h3.short a:hover{
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Dark mode: brighter colors for WCAG 2.2 (AA) compliance */
@@ -1048,7 +1048,7 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
 
 /* ===== Bibliography page (#post-3136) table styles ===== */
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table{
-	width: 100%;
+  width: 100%;
   margin-bottom: 2rem;
   border-spacing: 0;
   border-collapse: separate;
@@ -1058,7 +1058,7 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
 }
 
 .dark :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table{
-	border: 1px solid color-mix(in srgb, var(--c-accent-lightcyan) 40%, transparent) !important;
+  border: 1px solid color-mix(in srgb, var(--c-accent-lightcyan) 40%, transparent) !important;
 }
 
 /* Ruby tag spacing fix */
@@ -1085,14 +1085,14 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table thead th{
   padding: .5rem;
   border-bottom: 1px solid var(--c-border);
-	background: color-mix(in srgb, var(--hd-accent) 10%, transparent);
+  background: color-mix(in srgb, var(--hd-accent) 10%, transparent);
   color: var(--c-fg);
   font-size: .875rem;
   font-weight: 700;
-	text-align: center;
+  text-align: center;
 }
 .dark :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table thead th{
-	border-bottom: 1px solid color-mix(in srgb, var(--c-accent-lightcyan) 40%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--c-accent-lightcyan) 40%, transparent) !important;
 }
 
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table thead th:nth-child(1),
@@ -1143,8 +1143,8 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
   background: #f0f0f0;
   color: var(--c-fg);
   border-bottom: 1px solid var(--c-border);
-	font-size: .875rem;
-	vertical-align: middle;
+  font-size: .875rem;
+  vertical-align: middle;
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -1152,7 +1152,7 @@ body.single-machaki .entry-content h2{ padding-left: 1rem; }
 
 .dark :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table tbody td{
   background: #2a2a2a;
-	border-bottom: 1px solid color-mix(in srgb, var(--c-accent-lightcyan) 40%, transparent) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--c-accent-lightcyan) 40%, transparent) !important;
 }
 
 .dark :where(#post-3136, #post-4279, #post-3395, #post-3467) .entry-content table thead th{
@@ -1366,12 +1366,12 @@ html.dark body.tax-genre article footer{
 }
 
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .pagination li.pagination-previous > a::before{
-	content: '‹ ';
+  content: '‹ ';
   margin-right: 0.25rem;
 }
 
 :where(#post-3136, #post-4279, #post-3395, #post-3467) .pagination li.pagination-next > a::after{
-	content: ' ›';
+  content: ' ›';
   margin-left: 0.25rem;
 }
 
@@ -1453,5 +1453,5 @@ html.dark body.tax-genre article footer{
   background: #2199e8;
   border-color: #2199e8;
 }
-`;
-export const preflightBiblio: Preflight = { getCSS: () => css };
+`
+export const preflightBiblio: Preflight = { getCSS: () => css }
