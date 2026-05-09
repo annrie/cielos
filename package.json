@@ -84,6 +84,7 @@
     "@vitejs/plugin-legacy": "^8.0.1",
     "@vitejs/plugin-vue": "^6.0.5",
     "animated-unocss": "^0.0.6",
+    "esbuild": "^0.27.7",
     "rollup-plugin-external-globals": "^0.13.0",
     "sass-embedded": "^1.99.0",
     "standard-version": "^9.5.0",
