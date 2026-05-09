@@ -13,9 +13,6 @@ export function tokensPreflight(tokensPath: string = path.resolve(process.cwd(),
           tokensPath,
           path.resolve(process.cwd(), 'tokens.css'),
           path.resolve(process.cwd(), 'src/assets/css/tokens.css'),
-          tokensPath
-            ? tokensPath
-            : undefined,
         ].filter(Boolean)
         const css = files
           .map((p) => {
