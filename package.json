@@ -15,17 +15,17 @@
     "package": "bash scripts/archive.sh",
     "lint": "eslint --no-error-on-unmatched-pattern \"src/**/*.{js,mjs,ts,vue}\" \"preflight/**/*.{js,mjs,ts,vue}\" \"shortcuts/**/*.{js,mjs,ts,vue}\" \"scripts/**/*.{js,mjs,ts,vue}\" \"*.{js,mjs,ts}\"",
     "lint:fix": "eslint --fix --no-error-on-unmatched-pattern \"src/**/*.{js,mjs,ts,vue}\" \"preflight/**/*.{js,mjs,ts,vue}\" \"shortcuts/**/*.{js,mjs,ts,vue}\" \"scripts/**/*.{js,mjs,ts,vue}\" \"*.{js,mjs,ts}\"",
-    "release:patch": "standard-version --release-as patch",
-    "release:minor": "standard-version --release-as minor",
-    "release:major": "standard-version --release-as major",
+    "release:patch": "changelogen --release --patch",
+    "release:minor": "changelogen --release --minor",
+    "release:major": "changelogen --release --major",
     "oco": "opencommit",
     "lloco": "OCO_AI_PROVIDER='ollama' opencommit"
   },
   "dependencies": {
     "@iconify-json/fa6-solid": "^1.2.4",
     "animate.css": "^4.1.1",
-    "animejs": "^4.3.6",
-    "axios": "^1.15.2"
+    "animejs": "^4.5.0",
+    "axios": "^1.18.1"
   },
   "pnpm": {
     "overrides": {
@@ -53,53 +53,103 @@
     }
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^8.1.1",
-    "@iconify-json/carbon": "^1.2.20",
+    "@antfu/eslint-config": "^8.3.0",
+    "@iconify-json/carbon": "^1.2.24",
     "@iconify-json/eos-icons": "^1.2.4",
     "@iconify-json/ic": "^1.2.4",
     "@iconify-json/line-md": "^1.2.16",
     "@iconify-json/logos": "^1.2.11",
-    "@iconify-json/material-symbols": "^1.2.65",
+    "@iconify-json/material-symbols": "^1.2.85",
     "@iconify-json/mdi": "^1.2.3",
-    "@iconify-json/prime": "^1.2.4",
+    "@iconify-json/prime": "^1.2.5",
     "@iconify-json/streamline": "^1.2.5",
     "@iconify-json/twemoji": "^1.2.5",
-    "@iconify/json": "^2.2.460",
-    "@iconify/vue": "^5.0.0",
+    "@iconify/json": "^2.2.500",
+    "@iconify/vue": "^5.0.1",
     "@julr/unocss-preset-heropatterns": "^2.0.0",
     "@rushstack/eslint-patch": "^1.16.1",
-    "@unocss/eslint-plugin": "66.6.8",
-    "@unocss/preset-attributify": "66.6.8",
-    "@unocss/preset-icons": "66.6.8",
-    "@unocss/preset-tagify": "66.6.8",
-    "@unocss/preset-typography": "66.6.8",
-    "@unocss/preset-web-fonts": "66.6.8",
-    "@unocss/preset-wind4": "66.6.8",
-    "@unocss/reset": "66.6.8",
-    "@unocss/transformer-attributify-jsx": "66.6.8",
-    "@unocss/transformer-compile-class": "66.6.8",
-    "@unocss/transformer-directives": "66.6.8",
-    "@unocss/transformer-variant-group": "66.6.8",
-    "@unocss/vite": "66.6.8",
+    "@unocss/eslint-plugin": "66.7.5",
+    "@unocss/preset-attributify": "66.7.5",
+    "@unocss/preset-icons": "66.7.5",
+    "@unocss/preset-tagify": "66.7.5",
+    "@unocss/preset-typography": "66.7.5",
+    "@unocss/preset-web-fonts": "66.7.5",
+    "@unocss/preset-wind4": "66.7.5",
+    "@unocss/reset": "66.7.5",
+    "@unocss/transformer-attributify-jsx": "66.7.5",
+    "@unocss/transformer-compile-class": "66.7.5",
+    "@unocss/transformer-directives": "66.7.5",
+    "@unocss/transformer-variant-group": "66.7.5",
+    "@unocss/vite": "66.7.5",
     "@vitejs/plugin-basic-ssl": "^2.3.0",
-    "@vitejs/plugin-legacy": "^8.0.1",
-    "@vitejs/plugin-vue": "^6.0.5",
+    "@vitejs/plugin-legacy": "^8.2.1",
+    "@vitejs/plugin-vue": "^6.0.8",
     "animated-unocss": "^0.0.6",
-    "esbuild": "^0.27.7",
+    "changelogen": "^0.6.2",
+    "esbuild": "^0.28.1",
     "rollup-plugin-external-globals": "^0.13.0",
-    "sass-embedded": "^1.99.0",
-    "standard-version": "^9.5.0",
-    "typescript": "^6.0.2",
-    "unocss": "66.6.8",
+    "sass-embedded": "^1.100.0",
+    "typescript": "^6.0.3",
+    "unocss": "66.7.5",
     "unocss-preset-extra": "^1.0.0",
     "unocss-transformer-alias": "^0.1.0",
-    "vite": "^8.0.8",
+    "vite": "^8.1.5",
     "vite-bundle-visualizer": "^1.2.1",
-    "vite-plugin-inspect": "^11.3.3",
-    "vite-plugin-vue-devtools": "^8.1.1",
+    "vite-plugin-inspect": "^11.4.1",
+    "vite-plugin-vue-devtools": "^8.1.5",
     "vite-plugin-vue-layouts": "^0.11.0",
-    "vue": "^3.5.32",
-    "vue-eslint-parser": "^10.4.0",
-    "vue-tsc": "^3.2.6"
+    "vue": "^3.5.40",
+    "vue-eslint-parser": "^10.4.1",
+    "vue-tsc": "^3.3.7"
+  },
+  "changelog": {
+    "types": {
+      "feat": {
+        "title": "🚀 新機能",
+        "semver": "minor"
+      },
+      "fix": {
+        "title": "🐛 バグ修正",
+        "semver": "patch"
+      },
+      "perf": {
+        "title": "⚡ パフォーマンスの向上",
+        "semver": "patch"
+      },
+      "refactor": {
+        "title": "♻️ リファクタリング",
+        "semver": "patch"
+      },
+      "docs": {
+        "title": "📖 ドキュメント"
+      },
+      "style": {
+        "title": "🎨 コードスタイル"
+      },
+      "test": {
+        "title": "✅ テストの追加・修正"
+      },
+      "ci": {
+        "title": "🤖 CI関連"
+      },
+      "build": {
+        "title": "📦 ビルド",
+        "semver": "patch"
+      },
+      "chore": {
+        "title": "🧹 ビルドプロセスまたは補助ツールの変更"
+      },
+      "config": {
+        "title": "🔧 設定ファイル"
+      },
+      "package": {
+        "title": "📦 パッケージ"
+      }
+    },
+    "templates": {
+      "commitMessage": "chore(release): 🏹v{{newVersion}}",
+      "tagMessage": "v{{newVersion}}",
+      "tagBody": "v{{newVersion}}"
+    }
   }
 }

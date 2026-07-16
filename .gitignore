@@ -12,4 +12,4 @@ tmp
 *-tmp
 色々使い方meno.txt
 .playwright-mcp
-.superpowers/
+.superpowers/.claude/settings.local.json
