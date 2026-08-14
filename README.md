@@ -1,5 +1,20 @@
 # Cielos
 
+<p align="center">
+  <!-- License -->
+  <a href="LICENSE">
+    <img src="https://img.shields.io/github/license/annrie/cielos.svg" alt="License">
+  </a>
+  <!-- Stars -->
+  <a href="https://github.com/annrie/cielos/stargazers">
+    <img src="https://img.shields.io/github/stars/annrie/cielos.svg" alt="Stars">
+  </a>
+  <!-- Last commit -->
+  <a href="https://github.com/annrie/cielos/commits">
+    <img src="https://img.shields.io/github/last-commit/annrie/cielos.svg" alt="Last commit">
+  </a>
+</p>
+
 Modern WordPress theme built with Vite, Vue 3, UnoCSS, and TypeScript.
 
 モダンなフロントエンド技術を活用した WordPress テーマです。Vite、UnoCSS、Vue 3、TypeScript を組み合わせ、高速な開発体験と優れたパフォーマンスを実現します。
