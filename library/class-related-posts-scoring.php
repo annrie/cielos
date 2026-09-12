@@ -202,9 +202,17 @@ function cielos_display_related_posts(?int $post_id = null, int $count = 6, stri
                          class="w-full h-full object-cover"
                          loading="lazy" decoding="async">
                 </div>
-                <?php else : ?>
-                <div class="aspect-video bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    <span class="text-gray-400 dark:text-gray-500 text-4xl">📝</span>
+                <?php else :
+                    // アイキャッチが無い記事は、絵文字のプレースホルダーではなく
+                    // 記事ページと同じ見立て（技術名を Lobster で見せる）を小さく使う
+                    $eyebrow = function_exists('cielos_cover_eyebrow') ? cielos_cover_eyebrow($rid) : '';
+                ?>
+                <div class="post-cover post-cover--card aspect-video">
+                    <div class="post-cover__inner">
+                        <?php if ($eyebrow) : ?>
+                            <span class="post-cover__eyebrow" aria-hidden="true"><?php echo esc_html($eyebrow); ?></span>
+                        <?php endif; ?>
+                    </div>
                 </div>
                 <?php endif; ?>
                 <div class="p-3">

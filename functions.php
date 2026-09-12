@@ -616,3 +616,44 @@ add_action('init', function() {
         return '';
     });
 }, 20); // プラグインの init より後に実行
+
+/* -------------------------------------------------------------------------- */
+/* アイキャッチ代わりの見出し用ヘルパー                                          */
+/* -------------------------------------------------------------------------- */
+/**
+ * 記事の「技術名」を返す。.post-cover / .post-cover--sm の eyebrow に使う。
+ *
+ * 優先順位:
+ *   1. カスタムフィールド _cielos_cover_eyebrow（明示指定）
+ *   2. タグのうち英字で始まるもの（「CSS設計」より「UnoCSS」を出したい）
+ *   3. タイトルに含まれる英数字の語
+ *
+ * @param int|null $post_id 対象の投稿ID。省略時は現在の投稿。
+ * @return string 見つからなければ空文字。
+ */
+function cielos_cover_eyebrow( ?int $post_id = null ): string {
+    if ( null === $post_id ) {
+        $post_id = get_the_ID();
+    }
+
+    $eyebrow = (string) get_post_meta( $post_id, '_cielos_cover_eyebrow', true );
+    if ( '' !== $eyebrow ) {
+        return $eyebrow;
+    }
+
+    $tags = get_the_tags( $post_id );
+    if ( $tags ) {
+        foreach ( $tags as $t ) {
+            if ( preg_match( '/\A[A-Za-z]/', $t->name ) ) {
+                return $t->name;
+            }
+        }
+        return $tags[0]->name;
+    }
+
+    if ( preg_match( '/[A-Za-z][A-Za-z0-9.+#-]{2,}/', get_the_title( $post_id ), $m ) ) {
+        return $m[0];
+    }
+
+    return '';
+}
