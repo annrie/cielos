@@ -70,6 +70,11 @@ label > .Label{ margin-left: 5px; }
 @media (min-width: 768px){
   :is(.mw_wp_form,.uno_wp_form) .md\:col-span-4{ grid-column: span 4 / span 4; }
   :is(.mw_wp_form,.uno_wp_form) .md\:col-span-8{ grid-column: span 8 / span 8; }
+  /* 横並びになった時点でラベルを右へ寄せる。左寄せのままだとラベルと入力欄の
+     間が空き、どのラベルがどの欄のものか目で追いにくくなる。
+     上の lg ブロックにも同じ指定があるが、cielos は md から横並びになるので
+     ここで先に効かせる。768px 未満は下のブロックが左寄せに戻す */
+  :is(.mw_wp_form,.uno_wp_form) .text-right{ text-align: right; }
 }
 
 /* ⚠️ フォーム本文（DB内）で使うクラスは UnoCSS のスキャン対象外なので、
