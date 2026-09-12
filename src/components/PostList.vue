@@ -8,12 +8,15 @@ const props = withDefaults(defineProps<{
   layout?: 'grid' | 'list'
   termId?: string
   termType?: string
+  /** 絞り込むカテゴリID（カンマ区切り）。空なら全記事を出す */
+  categories?: string
 }>(), {
   page: 1,
   showTitle: true,
   layout: 'grid',
   termId: '',
   termType: '',
+  categories: '',
 })
 
 interface Post {
@@ -52,10 +55,13 @@ async function fetchPosts(page: number = 1) {
       }
       // 他のカスタムタクソノミーは別途対応が必要
     }
-    else {
-      // デフォルト: フロントページ用（コラム、備忘録）
-      params.categories = '3,5'
+    else if (props.categories) {
+      // テンプレート側から data-categories で明示されたときだけ絞り込む。
+      // 以前は '3,5' をハードコードしていたが、これは別サイトのカテゴリIDで、
+      // cielos には該当が無いため投稿一覧が常に空になっていた。
+      params.categories = props.categories
     }
+    // 指定が無ければ絞り込まない（投稿一覧は全記事を出す）
 
     const response = await axios.get<Post[]>('/wp-json/wp/v2/posts', { params })
 
