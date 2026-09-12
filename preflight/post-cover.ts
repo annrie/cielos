@@ -101,5 +101,39 @@ export const preflightPostCover: Preflight = {
 .post-cover--sm{ padding: 1.25rem 1.25rem 1.125rem; margin-bottom: 0; }
 .post-cover--sm .post-cover__eyebrow{ font-size: 1.5rem; }
 .post-cover--sm .post-cover__title{ font-size: 1rem; }
+
+/* 関連記事カードのサムネイル位置に置く版。
+   アイキャッチが無い記事で、絵文字のプレースホルダーの代わりに使う。
+   カード自体が角丸・影を持つので、こちらは枠と余白を持たない */
+.post-cover--card{
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+}
+.post-cover--card .post-cover__inner{ width: 100%; }
+.post-cover--card .post-cover__eyebrow{
+  margin: 0;
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+  line-height: 1.15;
+  /* 長い技術名でもカードからはみ出さない */
+  overflow-wrap: anywhere;
+}
+/* 円は小さいカードだと主張しすぎるので控えめに */
+.post-cover--card::before{ width: 120px; height: 120px; top: -50px; right: -34px; }
+.post-cover--card::after{ width: 64px; height: 64px; top: 18px; right: 62px; }
+
+/* 技術名が取れなかったときは、空の面だけにせず淡い模様で埋める */
+.post-cover--card .post-cover__inner:empty::before{
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin: 0 auto;
+  background: color-mix(in srgb, var(--c-primary) 40%, transparent);
+}
 `,
 }

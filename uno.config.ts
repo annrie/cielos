@@ -230,6 +230,10 @@ export default defineConfig({
     'layout-2col',
     'layout-2col-rev',
     // 記事本文（DB内）で使う見出しスタイル。スキャン対象外なので明示する
+    'post-cover',
+    'post-cover--card',
+    'post-cover__inner',
+    'post-cover__eyebrow',
     'callout',
     'callout--warn',
     'callout--trap',
