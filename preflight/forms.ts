@@ -46,6 +46,8 @@ label > .Label{ margin-left: 5px; }
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 :is(.mw_wp_form,.uno_wp_form) .gap-x-2{ column-gap: 0.5rem; }
+:is(.mw_wp_form,.uno_wp_form) .gap-x-4{ column-gap: 1rem; }
+:is(.mw_wp_form,.uno_wp_form) .gap-y-3{ row-gap: 0.75rem; }
 :is(.mw_wp_form,.uno_wp_form) .items-center{ align-items: center; }
 
 /* カラムスパン */
@@ -62,6 +64,19 @@ label > .Label{ margin-left: 5px; }
 @media (min-width: 768px) and (max-width: 1023.98px){
   :is(.mw_wp_form,.uno_wp_form) .md\:col-span-6{ grid-column: span 6 / span 6; }
 }
+
+/* タブレット以上: ラベル(4) + 入力(8)。cielos のフォームはこの比率で、
+   lg から切り替える上の定義とは別系統。クラス名が違うので併存できる */
+@media (min-width: 768px){
+  :is(.mw_wp_form,.uno_wp_form) .md\:col-span-4{ grid-column: span 4 / span 4; }
+  :is(.mw_wp_form,.uno_wp_form) .md\:col-span-8{ grid-column: span 8 / span 8; }
+}
+
+/* ⚠️ フォーム本文（DB内）で使うクラスは UnoCSS のスキャン対象外なので、
+   ここに書いたものしか効かない。現在 cielos の送信ボタン周りが使っている
+   flex / flex-col / gap-6 / mt-8 / px-4 / w-full / text-center / text-left は、
+   テーマのテンプレート側で同じクラスが使われている巻き添えで生成されている。
+   テンプレートから消えるとフォーム側も崩れるので、崩れたらここへ追記する */
 
 /* モバイル時はラベルを左寄せ・縦並び */
 @media (max-width: 767.98px){
