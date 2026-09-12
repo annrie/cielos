@@ -99,6 +99,34 @@ function register_formatted_date_rest_field() {
             'schema' => null,
         )
     );
+
+    // 更新日も同じ書式で返す。登録が無いと Vue 側が toLocaleDateString へ
+    // フォールバックし、「2026.09.12 (土)」と「2026年9月12日」が並んで出る
+    register_rest_field(
+        'post',
+        'formatted_modified',
+        array(
+            'get_callback' => function($object, $field_name, $request) {
+                return get_the_modified_date('Y.m.d (D)', $object['id']);
+            },
+            'update_callback' => null,
+            'schema' => null,
+        )
+    );
+
+    // 公開日と更新日が同じ日かどうか。時刻まで比べると公開直後でも
+    // 秒がずれて「更新日」が出てしまうので、日付単位で判定する
+    register_rest_field(
+        'post',
+        'is_modified',
+        array(
+            'get_callback' => function($object, $field_name, $request) {
+                return get_the_date('Y-m-d', $object['id']) !== get_the_modified_date('Y-m-d', $object['id']);
+            },
+            'update_callback' => null,
+            'schema' => null,
+        )
+    );
 }
 add_action('rest_api_init', 'register_formatted_date_rest_field');
 
