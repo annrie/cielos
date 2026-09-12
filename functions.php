@@ -15,6 +15,7 @@ require_once 'library/cleanup.php';
 require_once 'library/widget-areas.php';
 require_once 'library/display-widgets.php';
 require_once 'library/theme-support.php';
+require_once 'library/seo-meta.php';
 
 // カスタムウィジェット
 require_once 'library/widgets/new-entries.php';
