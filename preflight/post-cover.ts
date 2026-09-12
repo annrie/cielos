@@ -102,6 +102,41 @@ export const preflightPostCover: Preflight = {
 .post-cover--sm .post-cover__eyebrow{ font-size: 1.5rem; }
 .post-cover--sm .post-cover__title{ font-size: 1rem; }
 
+
+/* 記事一覧の左側サムネイル枠に置く版。
+   258x306px 程度の縦長。ロゴを主役にして技術名を下に添える */
+.post-cover--list{
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 1.25rem;
+  border: 0;
+  border-radius: 0;
+  text-align: center;
+  text-decoration: none;
+}
+.post-cover--list .post-cover__inner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+}
+.post-cover--list .post-cover__logo{
+  display: block;
+  width: 3.25rem;
+  height: 3.25rem;
+  /* ロゴはカラーのSVGなので色指定はしない */
+}
+.post-cover--list .post-cover__eyebrow{
+  margin: 0;
+  font-size: clamp(1.25rem, 3.5vw, 1.625rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+/* 縦長なので円は縦方向に散らす */
+.post-cover--list::before{ width: 150px; height: 150px; top: -60px; right: -46px; }
+.post-cover--list::after{ width: 74px; height: 74px; bottom: 24px; left: -18px; top: auto; right: auto; }
+
 /* 関連記事カードのサムネイル位置に置く版。
    アイキャッチが無い記事で、絵文字のプレースホルダーの代わりに使う。
    カード自体が角丸・影を持つので、こちらは枠と余白を持たない */

@@ -657,3 +657,52 @@ function cielos_cover_eyebrow( ?int $post_id = null ): string {
 
     return '';
 }
+
+/**
+ * 技術名に対応する Iconify のロゴクラスを返す。
+ *
+ * 一覧カードや関連記事でアイキャッチの代わりに出す。
+ * 収録が無い技術は空文字を返し、呼び出し側は文字だけで見せる。
+ *
+ * @param string $name 技術名（例: UnoCSS, Vue 3）
+ * @return string 例: 'i-logos-unocss'。該当が無ければ空文字。
+ */
+function cielos_tech_logo_class( string $name ): string {
+    $key = strtolower( preg_replace( '/[\s.]+/', '', $name ) );
+
+    $map = array(
+        'unocss'      => 'i-logos-unocss',
+        'vue'         => 'i-logos-vue',
+        'vue3'        => 'i-logos-vue',
+        'vite'        => 'i-logos-vitejs',
+        'vitejs'      => 'i-logos-vitejs',
+        'wordpress'   => 'i-logos-wordpress-icon',
+        'typescript'  => 'i-logos-typescript-icon',
+        'javascript'  => 'i-logos-javascript',
+        'php'         => 'i-logos-php',
+        'react'       => 'i-logos-react',
+        'nodejs'      => 'i-logos-nodejs',
+        'node'        => 'i-logos-nodejs',
+        'tailwindcss' => 'i-logos-tailwindcss',
+        'tailwind'    => 'i-logos-tailwindcss',
+    );
+
+    return $map[ $key ] ?? '';
+}
+
+/**
+ * REST API の投稿に、アイキャッチ代わりの表示用フィールドを足す。
+ * 一覧は Vue（PostList）が REST から描くので、PHP 側のヘルパーが使えない。
+ */
+add_action( 'rest_api_init', function () {
+    register_rest_field( 'post', 'cielos_cover', array(
+        'get_callback' => function ( $object ) {
+            $eyebrow = function_exists( 'cielos_cover_eyebrow' ) ? cielos_cover_eyebrow( $object['id'] ) : '';
+            return array(
+                'eyebrow' => $eyebrow,
+                'logo'    => $eyebrow ? cielos_tech_logo_class( $eyebrow ) : '',
+            );
+        },
+        'schema'       => null,
+    ) );
+} );
