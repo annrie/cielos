@@ -29,6 +29,8 @@ interface Post {
   featured_media_url?: string
   formatted_date?: string
   formatted_modified?: string
+  /** 公開日と更新日が違う日かどうか（REST 側で日付単位で判定） */
+  is_modified?: boolean
   categories?: Array<{ name: string, link: string }>
   tags?: Array<{ name: string, link: string }>
 }
@@ -95,6 +97,7 @@ async function fetchPosts(page: number = 1) {
         cielos_cover: post.cielos_cover,
         formatted_date: (post as any).formatted_date,
         formatted_modified: (post as any).formatted_modified,
+        is_modified: (post as any).is_modified,
         categories,
         tags,
       }
@@ -214,7 +217,7 @@ watch(() => props.page, (newPage) => {
                 <i class="fas fa-calendar-plus" aria-hidden="true" />
                 <time :datetime="post.date.split('T')[0]">{{ post.formatted_date || formatDate(post.date) }}</time>
               </div>
-              <div v-if="post.modified && post.modified !== post.date" class="flex items-center gap-2">
+              <div v-if="post.is_modified" class="flex items-center gap-2">
                 <i class="fas fa-calendar-check" aria-hidden="true" />
                 <time :datetime="post.modified.split('T')[0]">{{ post.formatted_modified || formatDate(post.modified) }}</time>
               </div>
