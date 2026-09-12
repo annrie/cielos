@@ -56,12 +56,14 @@ export const preflightHeaderDesktopRow: Preflight = {
     top:100% !important;
     left:0 !important;
     background:var(--header-bg,#1f2937) !important;
-    min-width:200px !important;
-    max-width:300px !important;
-    width:auto !important;
-    box-shadow:0 4px 6px rgba(0,0,0,0.1) !important;
+    /* 記事タイトルが並ぶと 200px では全項目が2行に折り返して窮屈になる。
+       日本語20〜25文字が1行に収まる幅にし、画面幅も超えないようにする */
+    min-width:min(22rem, 90vw) !important;
+    max-width:min(28rem, 92vw) !important;
+    width:max-content !important;
+    box-shadow:0 8px 20px rgba(0,0,0,0.14) !important;
     border-radius:8px !important;
-    padding:0.5rem 0 !important;
+    padding:0.5rem !important;
     z-index:50 !important;
     transform:translateY(-10px) !important;
     transition:none !important;
@@ -76,6 +78,25 @@ export const preflightHeaderDesktopRow: Preflight = {
     width:100% !important;
     float:none !important;
     flex:none !important;
+  }
+
+  /* サブメニューの項目：記事タイトルが入るので行間と余白をとる。
+     トップレベル（17px）から一段落として階層を伝える */
+  nav#menu ul ul li > a,
+  nav#menu li ul li > a{
+    display:block !important;
+    padding:0.5rem 0.75rem !important;
+    font-size:0.9375rem !important;   /* 15px */
+    line-height:1.7 !important;
+    border-radius:6px !important;
+    white-space:normal !important;
+    word-break:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  /* 項目どうしを離す。1行に収まる前提だが、折り返しても潰れないように */
+  nav#menu ul ul li + li{
+    margin-top:0.125rem !important;
   }
 
   /* 親LI：relative */
