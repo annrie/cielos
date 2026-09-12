@@ -88,10 +88,11 @@ const fallingIcons = [
   { class: 'i-logos-vitejs', left: '75%', delay: 5, duration: 11.5 },
 ]
 
+// 各カードは、その話題を扱った解説記事へのリンクにしている
 const features = [
-  { icon: 'i-logos-vue', title: 'Vue 3対応', desc: 'Composition APIとTypeScriptで型安全' },
-  { icon: 'i-logos-unocss', title: 'UnoCSS', desc: 'アトミックCSSで高速スタイリング' },
-  { icon: 'i-logos-vitejs', title: '超高速', desc: 'Viteビルドで瞬時のHMR' },
+  { icon: 'i-logos-vue', title: 'Vue 3対応', desc: 'Composition APIとTypeScriptで型安全', href: '/wordpress-block-editor-vue/' },
+  { icon: 'i-logos-unocss', title: 'UnoCSS', desc: 'アトミックCSSで高速スタイリング', href: '/wordpress-theme-unocss/' },
+  { icon: 'i-logos-vitejs', title: '超高速', desc: 'Viteビルドで瞬時のHMR', href: '/wordpress-theme-vite/' },
 ]
 </script>
 
@@ -221,9 +222,10 @@ const features = [
         class="hero-definitive__cards"
         :class="isVisible ? 'is-visible' : ''"
       >
-        <div
+        <a
           v-for="(feature, i) in features"
           :key="i"
+          :href="feature.href"
           class="hero-definitive__card"
           :style="{ transitionDelay: `${(i + 2) * 150}ms` }"
         >
@@ -234,7 +236,8 @@ const features = [
             <h3 class="hero-definitive__card-title">{{ feature.title }}</h3>
             <p class="hero-definitive__card-desc">{{ feature.desc }}</p>
           </div>
-        </div>
+          <span class="hero-definitive__card-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
     </div>
   </div>
@@ -524,7 +527,33 @@ const features = [
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.2);
   transition: background 0.3s ease, transform 0.3s ease;
-  cursor: default;
+  /* 記事へのリンクになったので、リンクとして振る舞わせる */
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 右端の矢印。ホバーで少し進む */
+.hero-definitive__card-arrow {
+  margin-left: auto;
+  align-self: center;
+  flex: none;
+  opacity: 0.55;
+  font-size: 1.125rem;
+  line-height: 1;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.hero-definitive__card:hover .hero-definitive__card-arrow,
+.hero-definitive__card:focus-visible .hero-definitive__card-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* キーボード操作でも分かるように */
+.hero-definitive__card:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.85);
+  outline-offset: 3px;
 }
 
 .hero-definitive__card:hover {

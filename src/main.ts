@@ -225,6 +225,8 @@ if (postListElement) {
   const layout = (postListElement.dataset.layout as 'grid' | 'list') || 'grid' // デフォルト grid
   const termId = postListElement.dataset.termId || ''
   const termType = postListElement.dataset.termType || ''
+  // data-categories が無ければ絞り込まない（投稿一覧は全記事を出す）
+  const categories = postListElement.dataset.categories || ''
 
   createApp(PostList, {
     page,
@@ -232,6 +234,7 @@ if (postListElement) {
     layout,
     termId,
     termType,
+    categories,
   }).mount(postListElement)
 }
 
