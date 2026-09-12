@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.8
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.7...v1.0.8)
+
+### 🐛 バグ修正
+
+- **forms:** 🐛 uno-wp-form にスタイルが当たらない問題を修正 ([c8681d3](https://github.com/annrie/cielos/commit/c8681d3))
+- **forms:** 🐛 cielos のフォームで md の 4:8 レイアウトが効かない問題を修正 ([c7d0875](https://github.com/annrie/cielos/commit/c7d0875))
+- **layout:** 🐛 Full Width テンプレートの本文が左に寄る問題を修正 ([0799ed9](https://github.com/annrie/cielos/commit/0799ed9))
+
+### 📖 ドキュメント
+
+- 📛 READMEにステータスバッジを追加 ([bc4984a](https://github.com/annrie/cielos/commit/bc4984a))
+- 📛 READMEにステータスバッジを追加 ([7a173d1](https://github.com/annrie/cielos/commit/7a173d1))
+
+### 📦 ビルド
+
+- **deps:** ⬆️ Snyk指摘のform-data 4.0.6ほかminor/patch一括更新 ([1e2e9aa](https://github.com/annrie/cielos/commit/1e2e9aa))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.7に同期 ([f4e2d60](https://github.com/annrie/cielos/commit/f4e2d60))
+- **config:** 🔧 .entire/ を削除 ([a9c4294](https://github.com/annrie/cielos/commit/a9c4294))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.7
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.1...v1.0.7)
