@@ -92,6 +92,7 @@ async function fetchPosts(page: number = 1) {
         modified: (post as any).modified,
         excerpt: { rendered: truncatedExcerpt },
         featured_media_url: post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+        cielos_cover: post.cielos_cover,
         formatted_date: (post as any).formatted_date,
         formatted_modified: (post as any).formatted_modified,
         categories,
@@ -179,6 +180,23 @@ watch(() => props.page, (newPage) => {
                 class="w-full h-48 lg:h-full object-cover"
                 loading="lazy" decoding="async"
               >
+            </a>
+            <!-- アイキャッチが無い記事は技術ロゴと技術名で埋める。
+                 空のままだと 258x306px の空白が残るため -->
+            <a
+              v-else-if="post.cielos_cover?.eyebrow"
+              :href="post.link"
+              class="post-cover post-cover--list block h-48 lg:h-full"
+            >
+              <span class="post-cover__inner">
+                <span
+                  v-if="post.cielos_cover.logo"
+                  :class="post.cielos_cover.logo"
+                  class="post-cover__logo"
+                  aria-hidden="true"
+                />
+                <span class="post-cover__eyebrow">{{ post.cielos_cover.eyebrow }}</span>
+              </span>
             </a>
           </div>
 
