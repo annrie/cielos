@@ -64,7 +64,7 @@ function cielos_customize_register( $wp_customize ) {
 
     // Primary color
     $wp_customize->add_setting( 'cielos_primary_color', array(
-        'default'           => '#3b82f6',
+        'default'           => '#0ea5e9',
         'sanitize_callback' => 'sanitize_hex_color',
     ) );
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'cielos_primary_color', array(
@@ -74,7 +74,7 @@ function cielos_customize_register( $wp_customize ) {
 
     // Accent color
     $wp_customize->add_setting( 'cielos_accent_color', array(
-        'default'           => '#10b981',
+        'default'           => '#f59e0b',
         'sanitize_callback' => 'sanitize_hex_color',
     ) );
     $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'cielos_accent_color', array(
@@ -218,8 +218,8 @@ function cielos_sanitize_hero_type( $value ) {
  * Output custom CSS from customizer settings
  */
 function cielos_customizer_css() {
-    $primary = get_theme_mod( 'cielos_primary_color', '#3b82f6' );
-    $accent  = get_theme_mod( 'cielos_accent_color', '#10b981' );
+    $primary = get_theme_mod( 'cielos_primary_color', '#0ea5e9' );
+    $accent  = get_theme_mod( 'cielos_accent_color', '#f59e0b' );
     ?>
     <style id="cielos-customizer-css">
         :root {
