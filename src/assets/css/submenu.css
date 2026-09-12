@@ -131,3 +131,37 @@ html.dark .sub-menu {
   .mobile-menu li.menu-item-depth-4 > a { padding-left: 5rem !important; } /* 80px */
 }
 /* --- /Added by ChatGPT --- */
+
+/* ==========================================================================
+   サブメニューの文字サイズ
+   トップレベルと同じ 17px だと階層が伝わらず、記事タイトルが並ぶと
+   ドロップダウンが大きく見えすぎる。一段落として、行間と余白で読ませる。
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .sub-menu {
+    min-width: 240px;
+    max-width: 320px;
+    padding: 0.5rem;
+  }
+
+  .sub-menu li > a {
+    display: block;
+    font-size: 0.875rem;   /* 14px: トップレベル 17px から一段落とす */
+    line-height: 1.5;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem;
+    /* 記事タイトルが長いので折り返しを許す */
+    white-space: normal;
+    word-break: break-word;
+    transition: background-color 0.15s ease;
+  }
+
+  .sub-menu li > a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* 入れ子のサブメニューはさらに小さく */
+  .sub-menu .sub-menu li > a {
+    font-size: 0.8125rem;  /* 13px */
+  }
+}

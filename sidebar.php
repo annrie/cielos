@@ -22,70 +22,78 @@
     <?php endif; ?>
   </div><!-- #header-widget-area end -->
 
-  <?php if (is_tag()) : ?>
+  <?php
+  // カテゴリー：記事の文脈（単記事・一覧・カテゴリ・タグ）で出す。
+  // 以前は is_tag() のときだけ出していたので、記事ページでは検索フォームしか
+  // 表示されていなかった。
+  $show_taxonomy = is_singular('post') || is_home() || is_archive();
+  if ($show_taxonomy) :
+    $categories = get_categories(array('orderby' => 'name', 'order' => 'ASC', 'hide_empty' => true));
+    if ($categories) :
+  ?>
     <div class="widget widget_categories mt-6">
       <h3 class="widget-title">
         <i class="i-carbon-folder" aria-hidden="true"></i>
         カテゴリー
       </h3>
       <ul>
-        <?php
-        $categories = get_categories(array(
-          'orderby' => 'name',
-          'order'   => 'ASC',
-          'hide_empty' => true,
-        ));
-        foreach ($categories as $category) :
-        ?>
-          <li class="cat-item">
+        <?php foreach ($categories as $category) : ?>
+          <li class="cat-item<?php echo in_category($category->term_id) ? ' current-cat' : ''; ?>">
             <a href="<?php echo esc_url(get_category_link($category->term_id)); ?>">
               <?php echo esc_html($category->name); ?>
+              <span class="cat-count"><?php echo (int) $category->count; ?></span>
             </a>
           </li>
         <?php endforeach; ?>
       </ul>
     </div>
-  <?php endif; ?>
-
   <?php
-  // 僭越図書館の子ページの場合、僭越図書館ウィジェットを表示
-  $is_biblio_child = is_page() && (get_the_ID() == 2410 || wp_get_post_parent_id(get_the_ID()) == 2410);
-  if ($is_biblio_child) :
-    // ジャンル別一覧リスト
-    ob_start();
-    wp_list_categories(
-        array(
-            'taxonomy'         => 'genre',
-            'title_li'         => '',
-            'hide_empty'       => true,
-            'current_category' => get_queried_object_id(),
-            'show_option_none' => '',
-            'depth'            => 1,
-        )
-    );
-    $genre_list = ob_get_clean();
-    $genre_list_with_suffix = preg_replace('/<\/a>/', '作品一覧</a>', $genre_list);
+    endif;
+
+    // タグ：記事が増えるまでは数が少ないので、まとめて一覧にする
+    $tags = get_tags(array('orderby' => 'count', 'order' => 'DESC', 'number' => 20));
+    if ($tags) :
   ?>
-    <!-- 僭越図書館 -->
-    <div class="widget widget_pages mt-6">
+    <div class="widget widget_tag_cloud mt-6">
       <h3 class="widget-title">
-        <i class="i-carbon-book" aria-hidden="true"></i>
-        僭越図書館
+        <i class="i-carbon-tag" aria-hidden="true"></i>
+        タグ
       </h3>
-      <ul>
-        <?php wp_list_pages(array('child_of' => '2410', 'title_li' => '', 'depth' => 1)); ?>
+      <ul class="tag-list">
+        <?php foreach ($tags as $tag) : ?>
+          <li><a href="<?php echo esc_url(get_tag_link($tag->term_id)); ?>"><?php echo esc_html($tag->name); ?></a></li>
+        <?php endforeach; ?>
       </ul>
     </div>
+  <?php
+    endif;
 
-    <!-- 僭越図書館ジャンル別一覧ページ -->
-    <div class="widget widget_pages mt-6">
+    // 最近の記事：単記事では自分を除いて回遊先を出す
+    $recent = get_posts(array(
+      'numberposts' => 5,
+      'post_status' => 'publish',
+      'exclude'     => is_singular('post') ? array(get_the_ID()) : array(),
+    ));
+    if ($recent) :
+  ?>
+    <div class="widget widget_recent_entries mt-6">
       <h3 class="widget-title">
-        <i class="i-carbon-folder" aria-hidden="true"></i>
-        僭越図書館ジャンル別一覧ページ
+        <i class="i-carbon-document" aria-hidden="true"></i>
+        <?php echo is_singular('post') ? '他の記事' : '最近の記事'; ?>
       </h3>
-      <ul><?php echo $genre_list_with_suffix; ?></ul>
+      <ul>
+        <?php foreach ($recent as $r) : ?>
+          <li>
+            <a href="<?php echo esc_url(get_permalink($r->ID)); ?>"><?php echo esc_html(get_the_title($r->ID)); ?></a>
+            <time class="recent-date" datetime="<?php echo esc_attr(get_the_date('c', $r->ID)); ?>"><?php echo esc_html(get_the_date('Y.m.d', $r->ID)); ?></time>
+          </li>
+        <?php endforeach; ?>
+      </ul>
     </div>
-  <?php endif; ?>
+  <?php
+    endif;
+  endif;
+  ?>
 
   <?php if (is_active_sidebar('sidebar')) : ?>
     <div class="space-y-6">

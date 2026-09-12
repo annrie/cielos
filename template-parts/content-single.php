@@ -8,12 +8,64 @@
 
 ?>
 <article id="post-<?php the_ID(); ?>" aria-labelledby="entry-title" <?php post_class('prose dark:prose-invert max-w-none'); ?>>
-  <header class="entry-header my-8">
-    <?php the_title('<h1 class="entry-title heading05">', '</h1>'); ?>
-    <div class="entry-meta text-[var(--c-muted)] mt-2">
-      <?php cielos_entry_meta(); ?>
-    </div>
-  </header>
+  <?php
+  // アイキャッチ画像が無い記事は、画像の代わりに見出し領域（.post-cover）を出す。
+  // 技術名はタグかタイトルから拾い、サイト名と同じ Lobster で大きく見せる。
+  $has_thumb     = has_post_thumbnail();
+  $cover_eyebrow = '';
+  if ( ! $has_thumb ) {
+      // 1. カスタムフィールドで明示されていればそれを使う
+      $cover_eyebrow = (string) get_post_meta( get_the_ID(), '_cielos_cover_eyebrow', true );
+
+      // 2. 無ければタグから。get_the_tags() は名前順なので、英数字で始まる
+      //    技術名らしいものを優先する（「CSS設計」より「UnoCSS」を出したい）
+      if ( '' === $cover_eyebrow ) {
+          $post_tags = get_the_tags();
+          if ( $post_tags ) {
+              foreach ( $post_tags as $t ) {
+                  if ( preg_match( '/\A[A-Za-z]/', $t->name ) ) { $cover_eyebrow = $t->name; break; }
+              }
+              if ( '' === $cover_eyebrow ) { $cover_eyebrow = $post_tags[0]->name; }
+          }
+      }
+
+      // 3. それも無ければタイトルから英数字の語を拾う
+      if ( '' === $cover_eyebrow && preg_match( '/[A-Za-z][A-Za-z0-9.+#-]{2,}/', get_the_title(), $m ) ) {
+          $cover_eyebrow = $m[0];
+      }
+  }
+  ?>
+
+  <?php if ( ! $has_thumb ) : ?>
+    <header class="entry-header post-cover my-8">
+      <div class="post-cover__inner">
+        <?php if ( $cover_eyebrow ) : ?>
+          <span class="post-cover__eyebrow" aria-hidden="true"><?php echo esc_html( $cover_eyebrow ); ?></span>
+        <?php endif; ?>
+        <h1 id="entry-title" class="post-cover__title"><?php echo esc_html( get_the_title() ); ?></h1>
+        <div class="post-cover__meta">
+          <?php
+          $cats = get_the_category();
+          if ( $cats ) :
+              foreach ( array_slice( $cats, 0, 2 ) as $c ) :
+          ?>
+            <a class="post-cover__cat" href="<?php echo esc_url( get_category_link( $c->term_id ) ); ?>"><?php echo esc_html( $c->name ); ?></a>
+          <?php
+              endforeach;
+          endif;
+          ?>
+          <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?></time>
+        </div>
+      </div>
+    </header>
+  <?php else : ?>
+    <header class="entry-header my-8">
+      <?php the_title( '<h1 id="entry-title" class="entry-title heading05">', '</h1>' ); ?>
+      <div class="entry-meta text-[var(--c-muted)] mt-2">
+        <?php cielos_entry_meta(); ?>
+      </div>
+    </header>
+  <?php endif; ?>
 
   <?php
   $entry_content_classes = 'entry-content content-wrapper';

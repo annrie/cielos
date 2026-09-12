@@ -18,7 +18,7 @@ import {
 } from 'unocss'
 import { presetExtra } from 'unocss-preset-extra'
 import transformerAlias from 'unocss-transformer-alias'
-import { preflight404, preflightA11y, preflightArchive, preflightAuthor, preflightBase, preflightBiblio, preflightBreadcrumbs, preflightChildPages, preflightComments, preflightContent, preflightDocs, preflightFeatureGrid, preflightFooter, preflightFooterVisibilityGuard, preflightForms, preflightHeader, preflightHeaderDesktopRow, preflightHeroFeature, preflightHeroPage, preflightLayout, preflightMobileMenu, preflightNavSolid, preflightPrint, preflightRelated, preflightSearch, preflightSections, preflightSidebar, preflightSingle, preflightStickyFooter, preflightSyntax, preflightThemeIcons, preflightThemeTransition, preflightTop, preflightWpAdmin, tabsPreflight, tokensPreflight } from './preflight'
+import { preflight404, preflightA11y, preflightArchive, preflightAuthor, preflightBase, preflightBiblio, preflightBreadcrumbs, preflightCallout, preflightChildPages, preflightComments, preflightContent, preflightDocs, preflightFeatureGrid, preflightFooter, preflightFooterVisibilityGuard, preflightForms, preflightHeader, preflightHeaderDesktopRow, preflightHeroFeature, preflightHeroPage, preflightLayout, preflightMobileMenu, preflightNavSolid, preflightPostCover, preflightPrint, preflightRelated, preflightSearch, preflightSections, preflightSidebar, preflightSingle, preflightStickyFooter, preflightSyntax, preflightThemeIcons, preflightThemeTransition, preflightTop, preflightWpAdmin, tabsPreflight, tokensPreflight } from './preflight'
 
 import compatShortcuts from './shortcuts/compat'
 import { componentShortcuts, namesFromComponentShortcuts } from './shortcuts/components'
@@ -229,6 +229,13 @@ export default defineConfig({
     'container-page',
     'layout-2col',
     'layout-2col-rev',
+    // 記事本文（DB内）で使う見出しスタイル。スキャン対象外なので明示する
+    'callout',
+    'callout--warn',
+    'callout--trap',
+    'callout__title',
+    'heading11',
+    'heading13-9',
     'main-content',
     'main-content-full',
     'sidebar-area',
@@ -656,6 +663,8 @@ export default defineConfig({
     preflightBiblio,
     preflightFooter,
     preflightForms,
+    preflightCallout,
+    preflightPostCover,
     preflightSearch,
     preflightComments,
     preflightBreadcrumbs,
