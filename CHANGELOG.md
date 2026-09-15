@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.18
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.17...v1.0.18)
+
+### 🐛 バグ修正
+
+- **front:** 🐛 ヒーローがヘッダー分だけ下にずれて画面からはみ出す問題を修正 ([4274d53](https://github.com/annrie/cielos/commit/4274d53))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.17に同期 ([9642e09](https://github.com/annrie/cielos/commit/9642e09))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.17
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.16...v1.0.17)
