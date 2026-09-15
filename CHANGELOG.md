@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.17
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.16...v1.0.17)
+
+### 🐛 バグ修正
+
+- **content:** 💄 引用ブロックの引用符アイコンを Font Awesome から SVG マスクに変更 ([6023352](https://github.com/annrie/cielos/commit/6023352))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.16に同期 ([2fac9f8](https://github.com/annrie/cielos/commit/2fac9f8))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.16
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.8...v1.0.16)

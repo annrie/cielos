@@ -62,25 +62,28 @@ const css = String.raw`
   display: none !important;
 }
 :where(.entry-content, .page-content, .main-content) blockquote::before{
-  content: '\f10d'; /* fa-quote-left */
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', FontAwesome;
-  font-weight: 900;
+  content: ''; /* 引用符アイコン (Carbon quotes, SVG マスク。Font Awesome は同梱していない) */
   position: absolute;
   top: .5rem;
   left: .75rem;
-  font-size: 1.25rem;
-  color: var(--c-accent, #3b82f6);
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--c-accent, #3b82f6);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
   opacity: 0.6;
 }
 :where(.entry-content, .page-content, .main-content) blockquote::after{
-  content: '\f10e'; /* fa-quote-right */
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', FontAwesome;
-  font-weight: 900;
+  content: ''; /* 引用符アイコン (Carbon quotes, SVG マスク。Font Awesome は同梱していない) */
   position: absolute;
   bottom: .5rem;
   right: .75rem;
-  font-size: 1.25rem;
-  color: var(--c-accent, #3b82f6);
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--c-accent, #3b82f6);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: rotate(180deg);
   opacity: 0.6;
 }
 :where(.entry-content, .page-content, .main-content) blockquote p{ margin: 0; }
@@ -436,25 +439,28 @@ article#post-2805 .entry-content li > a.censor-button:hover {
   quotes: none !important;
 }
 :where(.entry-content, .page-content, .main-content) blockquote::before{
-  content: '\f10d'; /* fa-quote-left */
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', FontAwesome;
-  font-weight: 900;
+  content: ''; /* 引用符アイコン (Carbon quotes, SVG マスク。Font Awesome は同梱していない) */
   position: absolute;
   top: .5rem;
   left: .75rem;
-  font-size: 1.25rem;
-  color: var(--c-accent, #3b82f6);
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--c-accent, #3b82f6);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
   opacity: 0.6;
 }
 :where(.entry-content, .page-content, .main-content) blockquote::after{
-  content: '\f10e'; /* fa-quote-right */
-  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', FontAwesome;
-  font-weight: 900;
+  content: ''; /* 引用符アイコン (Carbon quotes, SVG マスク。Font Awesome は同梱していない) */
   position: absolute;
   bottom: .5rem;
   right: .75rem;
-  font-size: 1.25rem;
-  color: var(--c-accent, #3b82f6);
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--c-accent, #3b82f6);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6 8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2m14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: rotate(180deg);
   opacity: 0.6;
 }
 
