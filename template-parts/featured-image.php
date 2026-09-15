@@ -20,7 +20,8 @@ if ($image_url && (!is_single() || is_singular('machaki'))):
       </h1>
     <?php else: ?>
       <!-- その他のページ: ページタイトル -->
-      <h1 class="hero-page-title">
+      <?php // 固定ページは content-page.php が h1 を出さないので、ここが article の aria-labelledby 先になる ?>
+      <h1 <?php echo is_page() ? 'id="entry-title" ' : ''; ?>class="hero-page-title">
         <span class="hero-page-title-inner"><?php echo esc_html(get_the_title()); ?></span>
       </h1>
     <?php endif; ?>

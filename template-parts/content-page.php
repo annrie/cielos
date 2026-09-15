@@ -7,9 +7,16 @@
  */
 
 ?>
+<?php
+// アイキャッチがあるページは template-parts/featured-image.php のヒーローが h1 (#entry-title) を出す。
+// ないページはここで h1 を出さないと見出しがゼロになる。
+$cielos_has_hero = (bool) get_the_post_thumbnail_url(null, 'full');
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('prose dark:prose-invert max-w-none'); ?> aria-labelledby="entry-title">
   <header class="entry-header mb-8">
-    <h1 id="entry-title" class="entry-title heading05 lt-sm:text-h1 md:text-h3 tb:text-h1" style="display: none;"><?php the_title(); ?></h1>
+    <?php if (!$cielos_has_hero) : ?>
+    <h1 id="entry-title" class="entry-title heading05 lt-sm:text-h1 md:text-h3 tb:text-h1"><?php the_title(); ?></h1>
+    <?php endif; ?>
     <div class="entry-meta text-[var(--c-muted)] mt-2">
         <?php cielos_entry_meta(); ?>
     </div>
