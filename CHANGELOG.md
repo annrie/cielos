@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.16
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.8...v1.0.16)
+
+### 🚀 新機能
+
+- **design:** 💄 記事まわりの装飾を追加し、テーマカラーを空色＋琥珀に統一 ([c359d68](https://github.com/annrie/cielos/commit/c359d68))
+- **design:** 💄 関連記事カードの絵文字プレースホルダーを post-cover に置き換え ([fcc3660](https://github.com/annrie/cielos/commit/fcc3660))
+- **design:** 💄 一覧カードの空きサムネイル枠を技術ロゴ＋技術名で埋める ([970da68](https://github.com/annrie/cielos/commit/970da68))
+- **seo:** 🔍 meta description / canonical / OGP / Twitter Card を出力 ([1e7ff53](https://github.com/annrie/cielos/commit/1e7ff53))
+
+### 🐛 バグ修正
+
+- **forms:** 💄 横並び時にラベルを右寄せにする ([f362061](https://github.com/annrie/cielos/commit/f362061))
+- **header:** 💄 サブメニューが窮屈な問題を修正 ([1d1a791](https://github.com/annrie/cielos/commit/1d1a791))
+- **front:** 🐛 記事一覧が空の問題を修正し、ヒーローのカードを記事へリンク ([a0efa13](https://github.com/annrie/cielos/commit/a0efa13))
+- **list:** 🐛 一覧で日付が2つ出る問題を修正 ([386993d](https://github.com/annrie/cielos/commit/386993d))
+- **page:** 🐛 アイキャッチのない固定ページで h1 が表示されない問題を修正 ([be16b3e](https://github.com/annrie/cielos/commit/be16b3e))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- **release:** 🔖 style.css の Version を 1.0.8 に同期 ([0d9f860](https://github.com/annrie/cielos/commit/0d9f860))
+- **release:** 🔖 v1.0.9 ([dfd1e45](https://github.com/annrie/cielos/commit/dfd1e45))
+- **release:** 🔖 v1.0.10 ([75c15df](https://github.com/annrie/cielos/commit/75c15df))
+- **release:** 🔖 v1.0.11 ([bc91f63](https://github.com/annrie/cielos/commit/bc91f63))
+- **release:** 🔖 v1.0.12 ([cd0de65](https://github.com/annrie/cielos/commit/cd0de65))
+- **release:** 🔖 v1.0.13 ([0e31e6e](https://github.com/annrie/cielos/commit/0e31e6e))
+- **release:** 🔖 v1.0.14 ([b6654e9](https://github.com/annrie/cielos/commit/b6654e9))
+- **release:** 🔖 v1.0.15 ([819c98e](https://github.com/annrie/cielos/commit/819c98e))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.8
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.7...v1.0.8)
