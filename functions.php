@@ -52,6 +52,17 @@ function cielos_setup() {
 }
 add_action( 'after_setup_theme', 'cielos_setup' );
 
+/**
+ * Add the active header pattern as a body class (header-pattern-{default|transparent|...}).
+ * CSS uses it to decide whether the hero sits under an overlay header or below an in-flow one.
+ */
+function cielos_header_pattern_body_class( $classes ) {
+    $pattern   = sanitize_html_class( get_theme_mod( 'cielos_header_pattern', 'default' ) );
+    $classes[] = 'header-pattern-' . ( $pattern ? $pattern : 'default' );
+    return $classes;
+}
+add_filter( 'body_class', 'cielos_header_pattern_body_class' );
+
 /* -------------------------------------------------------------------------- */
 /* Dev server detection (localhost:5173, WP_ENVIRONMENT_TYPE=development) */
 /* -------------------------------------------------------------------------- */
