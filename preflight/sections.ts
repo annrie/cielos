@@ -86,15 +86,26 @@ body.header-pattern-transparent .section-hero {
   z-index: 0;
 }
 
-/* アドミンバーがある場合のさらなるオフセット */
-body.admin-bar .section-hero {
-  padding-top: calc(var(--header-h, 60px) + 46px) !important;
+/* アドミンバーがある場合のさらなるオフセット(transparent ヘッダーのみ。sticky ヘッダーは admin bar の下に並ぶので不要) */
+body.admin-bar.header-pattern-transparent .section-hero {
+  padding-top: calc(var(--header-h-actual, var(--header-h, 60px)) + 46px) !important;
 }
 
 @media (min-width: 783px) {
-  body.admin-bar .section-hero {
-    padding-top: calc(var(--header-h, 60px) + 32px) !important;
+  /* transparent ヘッダーは admin bar の分だけ下にずれるので、その分もヒーローの上パディングに足す */
+  body.admin-bar.header-pattern-transparent .section-hero {
+    padding-top: calc(var(--header-h-actual, var(--header-h, 60px)) + 32px) !important;
   }
+}
+
+/* transparent ヘッダーは absolute でフローに乗らないため、ヒーロー(.hero-feature / .section-hero)の
+   ないページでは .site-wrapper にヘッダー高ぶんの上パディングを入れて、見出しやパンくずが隠れないようにする。
+   (ヘッダー直後の兄弟は <script> のことがあるので隣接セレクタは使わない) */
+body.header-pattern-transparent:not(.page-template-page-hero-showcase) .site-wrapper {
+  padding-top: var(--header-h-actual, var(--header-h, 64px));
+}
+body.header-pattern-transparent .site-wrapper:has(> .hero-feature, > .section-hero) {
+  padding-top: 0;
 }
 
 /* ページ全体をヒーローのみにするための調整 */
