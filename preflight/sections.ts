@@ -38,16 +38,23 @@ export const preflightSections: Preflight = {
 .section-hero {
   position: relative;
   z-index: 1;
-  min-height: 100dvh;
+  /* default/centered/split ヘッダーは sticky で通常フロー内にあるので、その分を引いた高さで
+     画面ぴったりに収める。--header-h-actual は header-height.js が実測値をセットする */
+  min-height: calc(100dvh - var(--header-h-actual, var(--header-h, 64px)));
   display: flex;
   flex-direction: column;
-  /* ヘッダーの重なりを考慮してパディングを調整 */
-  padding-top: var(--header-h, 60px) !important;
+  padding-top: 0 !important;
   padding-bottom: 0 !important;
   background-color: var(--section-hero-bg-color, var(--c-primary));
   color: var(--section-hero-fg, #fff);
   text-align: var(--section-hero-align, left);
   overflow: hidden;
+}
+
+/* transparent ヘッダーはヒーローに重なる(absolute)ので、全画面高 + ヘッダー分の上パディング */
+body.header-pattern-transparent .section-hero {
+  min-height: 100dvh;
+  padding-top: var(--header-h-actual, var(--header-h, 64px)) !important;
 }
 
 /* Hero background image */

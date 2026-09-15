@@ -30,6 +30,7 @@ import './assets/css/index.css'
 // Vanilla JS utilities (side-effect imports)
 import './assets/js/lang-tabs.js'
 import './assets/js/sidebar-icons.js'
+import './assets/js/header-height.js'
 // 開発時のみ UnoCSS DevTools を読み込む
 if (import.meta.env.DEV) {
   // @ts-expect-error virtual module is provided by UnoCSS only in dev
