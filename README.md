@@ -13,7 +13,19 @@
   <a href="https://github.com/annrie/cielos/commits">
     <img src="https://img.shields.io/github/last-commit/annrie/cielos.svg" alt="Last commit">
   </a>
+  <!-- Latest release -->
+  <a href="https://github.com/annrie/cielos/releases/latest">
+    <img src="https://img.shields.io/github/v/release/annrie/cielos.svg" alt="Latest release">
+  </a>
+  <!-- Downloads -->
+  <a href="https://github.com/annrie/cielos/releases">
+    <img src="https://img.shields.io/github/downloads/annrie/cielos/total.svg" alt="Downloads">
+  </a>
 </p>
+
+ビルド済みのテーマ zip は [Releases](https://github.com/annrie/cielos/releases/latest) からダウンロードできます。WordPress の「外観 → テーマ → 新規追加 → テーマのアップロード」からそのまま入れられます。
+
+A production-built theme zip is available from [Releases](https://github.com/annrie/cielos/releases/latest). Upload it via Appearance → Themes → Add New → Upload Theme.
 
 Modern WordPress theme built with Vite, Vue 3, UnoCSS, and TypeScript.
 
