@@ -246,22 +246,24 @@ html.dark #single article footer {
 }
 :where(body.single, .single, #single) .post-content{ min-width:0; }
 
-/* Post Navigation (the_post_navigation) */
-:where(body.single, .single, #single) .post-navigation {
+/* Post Navigation (the_post_navigation)
+   固定ページ(page-full-width.php)も the_post_navigation() を出すので body.page にも当てる。
+   body.single だけだと固定ページでは素の <div> のまま並ぶ */
+:where(body.single, .single, #single, body.page) .post-navigation {
   margin: 2rem 0;
 }
-:where(body.single, .single, #single) .post-navigation .nav-links {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-links {
   display: grid;
   gap: 1rem;
   grid-template-columns: 1fr;
 }
 @media (min-width:768px){
-  :where(body.single, .single, #single) .post-navigation .nav-links {
+  :where(body.single, .single, #single, body.page) .post-navigation .nav-links {
     grid-template-columns: 1fr 1fr;
   }
 }
-:where(body.single, .single, #single) .post-navigation .nav-previous,
-:where(body.single, .single, #single) .post-navigation .nav-next {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-previous,
+:where(body.single, .single, #single, body.page) .post-navigation .nav-next {
   padding: 1rem;
   border-radius: var(--radius-md);
   background: var(--c-panel);
@@ -271,17 +273,17 @@ html.dark #single article footer {
   display: flex;
   align-items: center;
 }
-:where(body.single, .single, #single) .post-navigation .nav-previous:hover,
-:where(body.single, .single, #single) .post-navigation .nav-next:hover {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-previous:hover,
+:where(body.single, .single, #single, body.page) .post-navigation .nav-next:hover {
   box-shadow: var(--shadow-2);
   background: color-mix(in srgb, var(--c-panel) 96%, transparent);
   border-color: var(--c-border);
 }
-:where(body.single, .single, #single) .post-navigation .nav-previous {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-previous {
   text-align: left;
   justify-content: flex-start;
 }
-:where(body.single, .single, #single) .post-navigation .nav-previous::before {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-previous::before {
   content: "";
   display: inline-block;
   width: 0;
@@ -292,11 +294,11 @@ html.dark #single article footer {
   margin-right: 0.75rem;
   flex-shrink: 0;
 }
-:where(body.single, .single, #single) .post-navigation .nav-next {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-next {
   text-align: right;
   justify-content: flex-end;
 }
-:where(body.single, .single, #single) .post-navigation .nav-next::after {
+:where(body.single, .single, #single, body.page) .post-navigation .nav-next::after {
   content: "";
   display: inline-block;
   width: 0;
@@ -307,35 +309,35 @@ html.dark #single article footer {
   margin-left: 0.75rem;
   flex-shrink: 0;
 }
-:where(body.single, .single, #single) .post-navigation a {
+:where(body.single, .single, #single, body.page) .post-navigation a {
   text-decoration: none;
   color: var(--c-fg);
   display: block;
 }
 /* ボタン全体をクリック可能に（stretched-link） */
-:where(body.single, .single, #single) .post-navigation .nav-previous,
-:where(body.single, .single, #single) .post-navigation .nav-next{ position: relative; }
-:where(body.single, .single, #single) .post-navigation a::after{
+:where(body.single, .single, #single, body.page) .post-navigation .nav-previous,
+:where(body.single, .single, #single, body.page) .post-navigation .nav-next{ position: relative; }
+:where(body.single, .single, #single, body.page) .post-navigation a::after{
   content: '';
   position: absolute;
   inset: 0;
   /* 透明な当たり判定。テキストは anchor 自体に表示される */
 }
 /* hover 時に文字が消えないよう、明示的に色を固定 */
-:where(body.single, .single, #single) .post-navigation a:hover{
+:where(body.single, .single, #single, body.page) .post-navigation a:hover{
   color: var(--c-fg);
 }
 
 /* ダークモード時の hover 効果（背景をわずかに明るく、縁にアクセントをブレンド） */
-.dark :where(body.single, .single, #single) .post-navigation .nav-previous:hover,
-.dark :where(body.single, .single, #single) .post-navigation .nav-next:hover{
+.dark :where(body.single, .single, #single, body.page) .post-navigation .nav-previous:hover,
+.dark :where(body.single, .single, #single, body.page) .post-navigation .nav-next:hover{
   background: color-mix(in srgb, var(--c-panel) 88%, transparent);
   border-color: color-mix(in srgb, var(--c-accent) 35%, transparent);
 }
-.dark :where(body.single, .single, #single) .post-navigation a:hover{
+.dark :where(body.single, .single, #single, body.page) .post-navigation a:hover{
   color: var(--c-fg);
 }
-:where(body.single, .single, #single) .post-navigation .post-title {
+:where(body.single, .single, #single, body.page) .post-navigation .post-title {
   font-weight: bold;
   margin-top: 0.5rem;
   color: var(--c-accent);
