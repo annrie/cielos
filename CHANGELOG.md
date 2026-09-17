@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.20
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.19...v1.0.20)
+
+### 🐛 バグ修正
+
+- **page:** 💄 アイキャッチのない固定ページの見出しを投稿と同じ .post-cover にする ([d70896b](https://github.com/annrie/cielos/commit/d70896b))
+- **header:** 💄 transparent ヘッダーがヒーローのないページでライトモードだと読めない問題を修正 ([01d6ced](https://github.com/annrie/cielos/commit/01d6ced))
+- **page:** 💄 固定ページの前後ナビ(the_post_navigation)に投稿と同じスタイルを当てる ([59b3131](https://github.com/annrie/cielos/commit/59b3131))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.19に同期 ([33df719](https://github.com/annrie/cielos/commit/33df719))
+- **config:** 🔧 Entire CLI の hooks 設定を削除 ([3c5db1b](https://github.com/annrie/cielos/commit/3c5db1b))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.19
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.18...v1.0.19)
