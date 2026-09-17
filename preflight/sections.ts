@@ -108,6 +108,30 @@ body.header-pattern-transparent .site-wrapper:has(> .hero-feature, > .section-he
   padding-top: 0;
 }
 
+/* transparent ヘッダーのスクロール前の文字色。
+   テンプレートは text-white を直書きしているが、白で読めるのはヒーロー画像に重なる時だけ。
+   ヒーローのないページでは背景がページ色(--c-bg)になるので、ライトモードだと白文字が消える。
+   header.ts はリンク・hover・現在項目・テーマトグルをすべて --header-fg / --header-hover-* /
+   --header-active-* の変数で塗っているので、要素の color ではなく変数ごと差し替える
+   (color だけ変えても nav#menu a の !important に負ける)。
+   スクロール後(.is-scrolled)は --header-bg(sky-600)が敷かれるので、トークンどおりの白に戻る */
+body.header-pattern-transparent #header.header-transparent:not(.is-scrolled) {
+  --header-fg: var(--c-fg);
+  --header-hover-fg: var(--c-fg);
+  --header-active-fg: var(--c-fg);
+  --header-hover-bg: color-mix(in srgb, var(--c-fg) 8%, transparent);
+  --header-active-bg: color-mix(in srgb, var(--c-primary) 18%, transparent);
+  color: var(--c-fg) !important;
+}
+body.header-pattern-transparent .site-wrapper:has(> .hero-feature, > .section-hero) #header.header-transparent:not(.is-scrolled) {
+  --header-fg: #fff;
+  --header-hover-fg: #fff;
+  --header-active-fg: #fff;
+  --header-hover-bg: rgba(255, 255, 255, 0.18);
+  --header-active-bg: rgba(255, 255, 255, 0.28);
+  color: #fff !important;
+}
+
 /* ページ全体をヒーローのみにするための調整 */
 .home #header.header-transparent,
 .page-template-front #header.header-transparent {
