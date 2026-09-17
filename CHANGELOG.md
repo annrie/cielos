@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.21
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.20...v1.0.21)
+
+### 🐛 バグ修正
+
+- **forms:** 🐛 Unomoon Form のフォームにテーマのグリッド CSS が当たらない問題を修正 ([2add9f3](https://github.com/annrie/cielos/commit/2add9f3))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.20に同期 ([94ce5d4](https://github.com/annrie/cielos/commit/94ce5d4))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.20
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.19...v1.0.20)
