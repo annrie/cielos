@@ -13,14 +13,36 @@
 $cielos_has_hero = (bool) get_the_post_thumbnail_url(null, 'full');
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('prose dark:prose-invert max-w-none'); ?> aria-labelledby="entry-title">
-  <header class="entry-header mb-8">
-    <?php if (!$cielos_has_hero) : ?>
-    <h1 id="entry-title" class="entry-title heading05 lt-sm:text-h1 md:text-h3 tb:text-h1"><?php the_title(); ?></h1>
-    <?php endif; ?>
-    <div class="entry-meta text-[var(--c-muted)] mt-2">
+  <?php if (!$cielos_has_hero) : ?>
+    <?php
+    // アイキャッチのない固定ページは、投稿(content-single.php)と同じ .post-cover で見出しを出す。
+    // 以前は heading05 の帯を直置きしていたが、上下の余白がなくヘッダー直下で窮屈だった。
+    // eyebrow はカスタムフィールド _cielos_cover_eyebrow だけを見る。投稿のようにタイトルから
+    // 英単語を拾うと「Unomoon」+「Unomoon Form」のように同じ語が重なるため、固定ページでは使わない。
+    $cielos_cover_eyebrow = (string) get_post_meta( get_the_ID(), '_cielos_cover_eyebrow', true );
+    $cielos_is_updated    = get_the_date( 'Y-m-d' ) !== get_the_modified_date( 'Y-m-d' );
+    ?>
+    <header class="entry-header post-cover my-8">
+      <div class="post-cover__inner">
+        <?php if ( '' !== $cielos_cover_eyebrow ) : ?>
+          <span class="post-cover__eyebrow" aria-hidden="true"><?php echo esc_html( $cielos_cover_eyebrow ); ?></span>
+        <?php endif; ?>
+        <h1 id="entry-title" class="post-cover__title"><?php echo esc_html( get_the_title() ); ?></h1>
+        <div class="post-cover__meta">
+          <time datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo esc_html( sprintf( __( '公開 %s', 'cielos' ), get_the_date( 'Y.m.d' ) ) ); ?></time>
+          <?php if ( $cielos_is_updated ) : ?>
+            <time datetime="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>"><?php echo esc_html( sprintf( __( '更新 %s', 'cielos' ), get_the_modified_date( 'Y.m.d' ) ) ); ?></time>
+          <?php endif; ?>
+        </div>
+      </div>
+    </header>
+  <?php else : ?>
+    <header class="entry-header mb-8">
+      <div class="entry-meta text-[var(--c-muted)] mt-2">
         <?php cielos_entry_meta(); ?>
-    </div>
-  </header>
+      </div>
+    </header>
+  <?php endif; ?>
   <div class="entry-content content-wrapper">
     <?php the_content(); ?>
     <?php edit_post_link(__('(Edit)', 'cielos'), '<span class="edit-link mt-4 inline-block">', '</span>'); ?>
