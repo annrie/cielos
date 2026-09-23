@@ -123,6 +123,16 @@ body.header-pattern-transparent #header.header-transparent:not(.is-scrolled) {
   --header-active-bg: color-mix(in srgb, var(--c-primary) 18%, transparent);
   color: var(--c-fg) !important;
 }
+/* ただしサブメニューの背景は header-desktop-row.ts が --header-bg(sky-600)で塗るので、
+   上の差し替えを受け継ぐと青地に濃い文字になり読めない。サブメニューの中だけ青地用の白に戻す。
+   ダークモードは --c-fg が明るく紺地でも読めるので触らない */
+html:not(.dark) body.header-pattern-transparent #header.header-transparent:not(.is-scrolled) nav#menu ul ul {
+  --header-fg: #fff;
+  --header-hover-fg: #fff;
+  --header-active-fg: #fff;
+  --header-hover-bg: rgba(255, 255, 255, 0.18);
+  --header-active-bg: rgba(255, 255, 255, 0.28);
+}
 body.header-pattern-transparent .site-wrapper:has(> .hero-feature, > .section-hero) #header.header-transparent:not(.is-scrolled) {
   --header-fg: #fff;
   --header-hover-fg: #fff;
