@@ -92,6 +92,8 @@ find "${TEMP_DIR}" -name "*.map" -delete 2>/dev/null || true
 # ZIP作成
 log_info "ZIP アーカイブを作成中..."
 cd "${TEMP_DIR}"
+# zip -r は既存アーカイブに追記するので、同日2回目だと前回ビルドの古いアセットが残る
+rm -f "${ARCHIVE_DIR}/${ARCHIVE_NAME}"
 zip -rq "${ARCHIVE_DIR}/${ARCHIVE_NAME}" "${THEME_NAME}"
 
 # 一時ディレクトリをクリーンアップ
