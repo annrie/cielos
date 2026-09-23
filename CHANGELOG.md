@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.22
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.21...v1.0.22)
+
+### 🐛 バグ修正
+
+- **header:** 💄 ライトモードでヒーローのないページのサブメニュー文字が読めない問題を修正 ([a4fedb9](https://github.com/annrie/cielos/commit/a4fedb9))
+- **archive:** 🐛 本番アーカイブに theme.json を含める ([4c01a95](https://github.com/annrie/cielos/commit/4c01a95))
+
+### 📖 ドキュメント
+
+- **readme:** 📝 Releases のバッジとビルド済み zip の案内を追加 ([4070272](https://github.com/annrie/cielos/commit/4070272))
+- **tasks:** 📝 lessons.md を追加し、2026-09-17 の指摘 3 件を記録 ([a66dd26](https://github.com/annrie/cielos/commit/a66dd26))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.21に同期 ([8a2f6fe](https://github.com/annrie/cielos/commit/8a2f6fe))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.21
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.20...v1.0.21)
