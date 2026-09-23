@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.23
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.22...v1.0.23)
+
+### 🐛 バグ修正
+
+- **hero-showcase:** 💄 ライトモードでヘッダー文字が青地に濃いグレーになる問題を修正 ([2d99f52](https://github.com/annrie/cielos/commit/2d99f52))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.22に同期 ([8939a8a](https://github.com/annrie/cielos/commit/8939a8a))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.22
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.21...v1.0.22)
