@@ -33,6 +33,19 @@ body[class*="page-template-page-hero-showcase"] #header.header-transparent {
   backdrop-filter: blur(12px) !important;
 }
 
+/* 上で青地(--header-bg)を敷いているが、このページはヒーロー判定(.site-wrapper 直下の
+   .hero-feature/.section-hero)に当たらないため、sections.ts の「ヒーローなし」ルールで
+   文字色の変数が --c-fg(濃いグレー)に差し替わり、青地に濃い文字になる。
+   背景を上書きしたここで文字色も青地用の白に戻す。ダークモードは紺地に明るい文字で読めるので触らない */
+html:not(.dark) body[class*="page-template-page-hero-showcase"] #header.header-transparent:not(.is-scrolled) {
+  --header-fg: #fff;
+  --header-hover-fg: #fff;
+  --header-active-fg: #fff;
+  --header-hover-bg: rgba(255, 255, 255, 0.18);
+  --header-active-bg: rgba(255, 255, 255, 0.28);
+  color: #fff !important;
+}
+
 /* Utility 生成状況に依存せず、ショーケースナビを確実に sticky にする */
 body[class*="page-template-page-hero-showcase"] nav.hero-showcase-nav {
   position: -webkit-sticky;
