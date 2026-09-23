@@ -33,6 +33,10 @@ cp "${THEME_DIR}"/*.php "${TEMP_DIR}/${THEME_NAME}/" 2>/dev/null || true
 # style.css（テーマ情報）
 cp "${THEME_DIR}/style.css" "${TEMP_DIR}/${THEME_NAME}/" 2>/dev/null || true
 
+# theme.json（グローバルスタイル・レイアウト設定。無いと本番だけ見た目がローカルとずれる）
+# 必須ファイルなので || true で握りつぶさず、無ければ set -e で止める
+cp "${THEME_DIR}/theme.json" "${TEMP_DIR}/${THEME_NAME}/"
+
 # screenshot.png（あれば）
 cp "${THEME_DIR}/screenshot.png" "${TEMP_DIR}/${THEME_NAME}/" 2>/dev/null || true
 
