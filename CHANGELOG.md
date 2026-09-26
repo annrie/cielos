@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.24
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.23...v1.0.24)
+
+### 🐛 バグ修正
+
+- **archive:** 🐛 同日に再アーカイブすると古いアセットが zip に残る問題を修正 ([c1e872f](https://github.com/annrie/cielos/commit/c1e872f))
+
+### 📦 ビルド
+
+- **deps:** ⬆️ unocss 66.10.5・vite 8.3.1・vue 3.5.43 ほかminor/patch一括更新 ([e238498](https://github.com/annrie/cielos/commit/e238498))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.23に同期 ([820d4d3](https://github.com/annrie/cielos/commit/820d4d3))
+- 🔧 Codex アプリの設定(.codex)とエージェント用スキル(.agents)を追跡対象に追加 ([74ff30a](https://github.com/annrie/cielos/commit/74ff30a))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.23
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.22...v1.0.23)
