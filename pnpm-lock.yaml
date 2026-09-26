@@ -4,6 +4,29 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@babel/plugin-transform-modules-systemjs@<7.29.4': ^7.29.4
+  '@wordpress/vips': 1.0.1-next.v.202602200903.0
+  ajv@<6.14.0: ^6.14.0
+  brace-expansion@<1.1.13: ^1.1.13
+  brace-expansion@>=5.0.0 <5.0.5: ^5.0.5
+  defu@<=6.1.4: ^6.1.7
+  diff@>=4.0.0 <4.0.4: ^4.0.4
+  flatted@<3.4.2: ^3.4.2
+  follow-redirects@<1.16.0: ^1.16.0
+  handlebars@<=4.7.8: ^4.7.9
+  immutable@>=5.0.0 <5.1.5: ^5.1.5
+  js-yaml@>=4.0.0 <4.1.1: ^4.1.1
+  lodash@>=4.0.0 <=4.17.23: ^4.18.1
+  minimatch@<3.1.4: ^3.1.4
+  picomatch@<2.3.2: ^2.3.2
+  picomatch@>=4.0.0 <4.0.4: ^4.0.4
+  postcss@<8.5.10: ^8.5.10
+  preact@>=10.28.0 <10.28.2: ^10.28.2
+  rollup@>=4.0.0 <4.59.0: ^4.60.2
+  yaml@>=1.0.0 <1.10.3: ^1.10.3
+  yaml@>=2.0.0 <2.8.3: ^2.8.3
+
 importers:
 
   .:
@@ -1448,7 +1471,7 @@ packages:
     resolution: {integrity: sha512-MfPp06CjRLfXQ3wY0R8vJDYBy/MvVcc9OulEfR0B8Iv9ko+GCNaRZ+EpJYFl27LhKsZK0o420sYCRHCjfCgeUg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+      rollup: ^4.60.2
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -1804,7 +1827,7 @@ packages:
     resolution: {integrity: sha512-Ii1srTmJ1kF3yHdt1vdIiYID4cAeaxooSQJ1LIWLxy0Xr2/QVXKlcxp9KdXti8nfrmPcx3oWYDa92sEHVxIpgQ==}
     peerDependencies:
       rolldown: ^1.0.0
-      rollup: ^4.0.0
+      rollup: ^4.60.2
     peerDependenciesMeta:
       rolldown:
         optional: true
@@ -2578,7 +2601,7 @@ packages:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
-      picomatch: ^3 || ^4
+      picomatch: ^4.0.4
     peerDependenciesMeta:
       picomatch:
         optional: true
@@ -3380,7 +3403,7 @@ packages:
   rollup-plugin-external-globals@0.13.0:
     resolution: {integrity: sha512-wBS3hmoF0OtEnA0lWsmTC6Nhnkk2zjZbfhaX2gLo8VnfNGFdGhiYKwMpIPQPrYbAw+mAYUYmoHYktAl1eZHgVw==}
     peerDependencies:
-      rollup: ^2.25.0 || ^3.3.0 || ^4.1.4
+      rollup: ^4.60.2
 
   rollup-plugin-visualizer@5.14.0:
     resolution: {integrity: sha512-VlDXneTDaKsHIw8yzJAFWtrzguoJ/LnQ+lMpoVfYJ3jJF4Ihe5oYLAqLklIK/35lgUY+1yEzCkHyZ1j4A5w5fA==}
@@ -3388,7 +3411,7 @@ packages:
     hasBin: true
     peerDependencies:
       rolldown: 1.x
-      rollup: 2.x || 3.x || 4.x
+      rollup: ^4.60.2
     peerDependenciesMeta:
       rolldown:
         optional: true
@@ -3840,7 +3863,7 @@ packages:
       sugarss: ^5.0.0
       terser: ^5.16.0
       tsx: ^4.8.1
-      yaml: ^2.4.2
+      yaml: ^2.8.3
     peerDependenciesMeta:
       '@types/node':
         optional: true

@@ -6,3 +6,30 @@ onlyBuiltDependencies:
   - '@parcel/watcher'
   - core-js
   - esbuild
+
+# pnpm 11 は package.json の pnpm.overrides を読まないので、ここに移した(2026-09-26)。
+# 値は ^修正版 にしている(docustation と同じ方式)。exact 版だと、pnpm のセレクタは依存元の宣言範囲
+# (^4.0.0 など)と重なるだけで効くため、修正版より新しい版まで押し下げてしまう(rollup 4.62→4.60 等を実測)。
+# @babel/plugin-transform-modules-systemjs は package.json で 7.29.4 に exact 固定していたのを、修正版未満だけに効く形にした。
+overrides:
+  '@babel/plugin-transform-modules-systemjs@<7.29.4': ^7.29.4
+  '@wordpress/vips': 1.0.1-next.v.202602200903.0
+  ajv@<6.14.0: ^6.14.0
+  brace-expansion@<1.1.13: ^1.1.13
+  brace-expansion@>=5.0.0 <5.0.5: ^5.0.5
+  defu@<=6.1.4: ^6.1.7
+  diff@>=4.0.0 <4.0.4: ^4.0.4
+  flatted@<3.4.2: ^3.4.2
+  follow-redirects@<1.16.0: ^1.16.0
+  handlebars@<=4.7.8: ^4.7.9
+  immutable@>=5.0.0 <5.1.5: ^5.1.5
+  js-yaml@>=4.0.0 <4.1.1: ^4.1.1
+  lodash@>=4.0.0 <=4.17.23: ^4.18.1
+  minimatch@<3.1.4: ^3.1.4
+  picomatch@<2.3.2: ^2.3.2
+  picomatch@>=4.0.0 <4.0.4: ^4.0.4
+  postcss@<8.5.10: ^8.5.10
+  preact@>=10.28.0 <10.28.2: ^10.28.2
+  rollup@>=4.0.0 <4.59.0: ^4.60.2
+  yaml@>=1.0.0 <1.10.3: ^1.10.3
+  yaml@>=2.0.0 <2.8.3: ^2.8.3
