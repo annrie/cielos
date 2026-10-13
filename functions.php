@@ -520,8 +520,8 @@ add_action('wp_enqueue_scripts', function () {
 function cielos_preload_vite(array $entries, bool $only_prod = true): void {
   if ($only_prod && (!defined('WP_ENVIRONMENT_TYPE') || WP_ENVIRONMENT_TYPE !== 'production')) {
     // Dev時は HMR が解決するので、preload は基本不要（必要なら false に）
-    // Devにヒントを出したい場合は preconnect を投げておく
-    echo '<link rel="preconnect" href="http://127.0.0.1:5173">' . "\n";
+    // 開発サーバへの preconnect は wp_head の専用フック（WP_ENVIRONMENT_TYPE=development のときだけ出す）に任せる。
+    // ここで出すと、WP_ENVIRONMENT_TYPE が未定義の本番サーバーにも 127.0.0.1:5173 が出てしまう。
     return;
   }
 
