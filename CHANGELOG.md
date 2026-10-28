@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.25
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.24...v1.0.25)
+
+### 🐛 バグ修正
+
+- **head:** 🐛 本番の HTML に出ていた開発サーバーへの preconnect を削除 ([53195b9](https://github.com/annrie/cielos/commit/53195b9))
+- **scripts:** 🐛 type 属性の除去を開始タグだけにし、インラインスクリプトを壊さない ([c1a9019](https://github.com/annrie/cielos/commit/c1a9019))
+
+### 📦 ビルド
+
+- **deps:** 🔧 pnpm overrides の値を ^修正版 に変更(docustation と同じ方式) ([50729bc](https://github.com/annrie/cielos/commit/50729bc))
+- **deps:** ⬆️ vite 8.3.5・follow-redirects 1.16.1 ほかで Snyk の High を解消 ([b9d5c80](https://github.com/annrie/cielos/commit/b9d5c80))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.24に同期 ([87119f1](https://github.com/annrie/cielos/commit/87119f1))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.24
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.23...v1.0.24)
