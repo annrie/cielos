@@ -2,6 +2,10 @@ allowBuilds:
   '@parcel/watcher': true
   core-js: true
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@iconify/json@2.2.550'
+  - '@vue/language-core@3.3.14'
+  - vue-tsc@3.3.14
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - core-js
