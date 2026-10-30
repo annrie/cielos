@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.26
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.25...v1.0.26)
+
+### 📦 ビルド
+
+- **deps:** 🔒 katex を 0.18.2 以上に上げ、Dependabot #94 を解消する ([#94](https://github.com/annrie/cielos/issues/94))
+- **deps:** ⬆️ unocss 66.12.0・vue 3.5.44 ほか minor/patch 一括更新 ([df0461e](https://github.com/annrie/cielos/commit/df0461e))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.25に同期 ([4e88b8b](https://github.com/annrie/cielos/commit/4e88b8b))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.25
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.24...v1.0.25)
