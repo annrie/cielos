@@ -88,8 +88,8 @@ onMounted(async () => {
       return { text: await r.text(), ct: (r.headers.get('content-type') || '').toLowerCase() }
     }
     const hasSvg = (s: string) => /<svg[\s>]/i.test(s)
-    // \u5148\u982D\u306E BOM\u30FB\u7A7A\u767D\u30FB\u5236\u5FA1\u6587\u5B57\uFF08U+0000\u301CU+001F\uFF09\u3092\u843D\u3068\u3057\u3066\u304B\u3089 <svg \u3092\u63A2\u3059
-    // eslint-disable-next-line no-control-regex -- \u5236\u5FA1\u6587\u5B57\u3092\u53D6\u308A\u9664\u304F\u305F\u3081\u306E\u610F\u56F3\u3057\u305F\u7BC4\u56F2\u6307\u5B9A
+    // 先頭の BOM・空白・制御文字（U+0000〜U+001F）を落としてから <svg を探す
+    // eslint-disable-next-line no-control-regex -- 制御文字を取り除くための意図した範囲指定
     const stripHead = (s: string) => s.replace(/^\uFEFF/, '').replace(/^[\s\u0000-\u001F]+/, '')
 
     let svgStr = ''
