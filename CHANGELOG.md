@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.27
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.26...v1.0.27)
+
+### 📦 ビルド
+
+- **deps:** ⬆️ follow-redirects 1.16.2 で Snyk の High 1件を解消 ([5d1f0f4](https://github.com/annrie/cielos/commit/5d1f0f4))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.26に同期 ([0d85687](https://github.com/annrie/cielos/commit/0d85687))
+
+### 🎨 コードスタイル
+
+- **lint:** 🎨 ESLint の指摘 483 件を直し、pnpm lint を通す ([68378de](https://github.com/annrie/cielos/commit/68378de))
+- **lint:** 🎨 レビュー指摘の修正（SvgImage のコメントの文字化け） ([7cbd646](https://github.com/annrie/cielos/commit/7cbd646))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.26
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.25...v1.0.26)
