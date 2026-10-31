@@ -4,16 +4,18 @@
  * ヘッダー直下に画面ぴったりで収めたい要素(.section-hero など)はこちらを参照する。
  */
 (function () {
-  var header = document.getElementById('header')
-  if (!header) return
-  var root = document.documentElement
-  var apply = function () {
-    root.style.setProperty('--header-h-actual', header.offsetHeight + 'px')
+  const header = document.getElementById('header')
+  if (!header)
+    return
+  const root = document.documentElement
+  const apply = function () {
+    root.style.setProperty('--header-h-actual', `${header.offsetHeight}px`)
   }
   apply()
   if ('ResizeObserver' in window) {
     new ResizeObserver(apply).observe(header)
-  } else {
+  }
+  else {
     window.addEventListener('resize', apply)
   }
   window.addEventListener('load', apply)

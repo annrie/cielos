@@ -30,36 +30,36 @@ const props = defineProps<{
     <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-[var(--c-border)] text-[var(--c-fg)]">
       {{ category.category_name }}
     </h2>
-    <!--div class="info-wrap info-wrap-style"-->
-      <div
-        v-for="post in category.posts" :key="post.permalink"
-        class="info-wrap info-wrap-style p-3 mb-4 border border-[var(--c-border)] rounded-md"
-      >
-        <!-- Date -->
-        <time class="entry-date text-sm text-[var(--c-muted)] block mb-1" :datetime="post.date">{{ post.formatted_date }}</time>
-        <!-- Title -->
-        <h3 class="text-lg font-semibold leading-tight w-full mb-2">
-          <a :href="post.permalink" class="text-[var(--c-fg)]" v-html="post.title" />
-        </h3>
-        <!-- Excerpt and Thumbnail Container -->
-        <div class="flex items-start gap-4">
-          <!-- Thumbnail -->
-          <div class="flex-shrink-0 w-24 h-24 overflow-hidden rounded-md bg-[var(--c-bg)]">
-            <a :href="post.permalink">
-              <img
-                v-if="post.thumbnail_url" :src="post.thumbnail_url" :alt="post.thumbnail_alt"
-                :title="post.thumbnail_title" class="w-full h-full object-cover"
-              >
-              <div v-else class="w-full h-full flex items-center justify-center">
-                <i class="i-carbon-image text-[var(--c-muted)] text-2xl" />
-              </div>
-            </a>
-          </div>
-          <!-- Excerpt -->
-          <div class="text-sm text-[var(--c-fg)] flex-grow" v-html="post.excerpt" />
+    <!-- div class="info-wrap info-wrap-style" -->
+    <div
+      v-for="post in category.posts" :key="post.permalink"
+      class="info-wrap info-wrap-style p-3 mb-4 border border-[var(--c-border)] rounded-md"
+    >
+      <!-- Date -->
+      <time class="entry-date text-sm text-[var(--c-muted)] block mb-1" :datetime="post.date">{{ post.formatted_date }}</time>
+      <!-- Title -->
+      <h3 class="text-lg font-semibold leading-tight w-full mb-2">
+        <a :href="post.permalink" class="text-[var(--c-fg)]" v-html="post.title" />
+      </h3>
+      <!-- Excerpt and Thumbnail Container -->
+      <div class="flex items-start gap-4">
+        <!-- Thumbnail -->
+        <div class="flex-shrink-0 w-24 h-24 overflow-hidden rounded-md bg-[var(--c-bg)]">
+          <a :href="post.permalink">
+            <img
+              v-if="post.thumbnail_url" :src="post.thumbnail_url" :alt="post.thumbnail_alt"
+              :title="post.thumbnail_title" class="w-full h-full object-cover"
+            >
+            <div v-else class="w-full h-full flex items-center justify-center">
+              <i class="i-carbon-image text-[var(--c-muted)] text-2xl" />
+            </div>
+          </a>
         </div>
+        <!-- Excerpt -->
+        <div class="text-sm text-[var(--c-fg)] flex-grow" v-html="post.excerpt" />
       </div>
-    <!--/div-->
+    </div>
+    <!-- /div -->
     <div class="text-right mt-4">
       <span class="link-text link-text-style">
         <a :href="category.category_link" class="link-text-button-style">

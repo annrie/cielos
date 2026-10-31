@@ -20,7 +20,7 @@
    * タブ名を取得する
    * @param {HTMLElement} item - tab-item 要素
    * @param {number} index - タブのインデックス
-   * @returns {{ name: string, labelEl: HTMLElement|null }}
+   * @returns {{ name: string, labelEl: HTMLElement|null }} タブ名と、タブ名に使ったラベル要素（無ければ null）
    */
   function getTabName(item, index) {
     // 1. data-tab 属性があればそれを使用
@@ -41,24 +41,27 @@
     }
 
     // 3. フォールバック
-    return { name: 'Tab ' + (index + 1), labelEl: null }
+    return { name: `Tab ${index + 1}`, labelEl: null }
   }
 
   function initLangTabs() {
     const containers = document.querySelectorAll('.lang-tabs')
-    if (!containers.length) return
+    if (!containers.length)
+      return
 
-    containers.forEach(function (container) {
+    containers.forEach((container) => {
       // 既に初期化済みならスキップ
-      if (container.querySelector('.lang-tabs-nav')) return
+      if (container.querySelector('.lang-tabs-nav'))
+        return
 
       // Gutenberg のグループブロックは追加のラッパーを生成するため、
       // .tab-item を任意の深さで検索（ただしネストされたタブは除外）
-      const items = Array.from(container.querySelectorAll('.tab-item')).filter(function(item) {
+      const items = Array.from(container.querySelectorAll('.tab-item')).filter((item) => {
         // 親に別の .lang-tabs がないことを確認（ネスト対応）
         return item.closest('.lang-tabs') === container
       })
-      if (!items.length) return
+      if (!items.length)
+        return
 
       // タブナビゲーションを生成
       const nav = document.createElement('div')
@@ -66,11 +69,11 @@
       nav.setAttribute('role', 'tablist')
 
       const tabs = []
-      items.forEach(function (item, index) {
+      items.forEach((item, index) => {
         // タブ名を取得
         const { name: tabName } = getTabName(item, index)
-        const tabId = 'tab-' + tabName.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + index
-        const panelId = 'panel-' + tabName.toLowerCase().replace(/[^a-z0-9]/g, '-') + '-' + index
+        const tabId = `tab-${tabName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${index}`
+        const panelId = `panel-${tabName.toLowerCase().replace(/[^a-z0-9]/g, '-')}-${index}`
 
         // タブボタンを作成
         const btn = document.createElement('button')
@@ -89,17 +92,18 @@
         // 初期状態
         if (index === 0) {
           item.classList.add('is-active')
-        } else {
+        }
+        else {
           item.classList.remove('is-active')
         }
 
         // クリックイベント
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', () => {
           activateTab(container, index)
         })
 
         // キーボード操作
-        btn.addEventListener('keydown', function (e) {
+        btn.addEventListener('keydown', (e) => {
           handleKeydown(e, tabs, index)
         })
 
@@ -117,16 +121,17 @@
     const buttons = nav.querySelectorAll('button')
     const items = container.querySelectorAll('.tab-item')
 
-    buttons.forEach(function (btn, i) {
+    buttons.forEach((btn, i) => {
       const isActive = i === activeIndex
       btn.setAttribute('aria-selected', isActive ? 'true' : 'false')
       btn.setAttribute('tabindex', isActive ? '0' : '-1')
     })
 
-    items.forEach(function (item, i) {
+    items.forEach((item, i) => {
       if (i === activeIndex) {
         item.classList.add('is-active')
-      } else {
+      }
+      else {
         item.classList.remove('is-active')
       }
     })
@@ -165,7 +170,8 @@
   // DOM 準備完了後に初期化
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initLangTabs)
-  } else {
+  }
+  else {
     initLangTabs()
   }
 })()

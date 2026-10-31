@@ -60,12 +60,31 @@ const constellationNodes = [
 
 // Lines connecting nodes (indices into constellationNodes)
 const nodeConnections = [
-  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5],
-  [0, 6], [6, 7], [7, 8], [8, 9], [9, 10],
-  [2, 8], [3, 9], [5, 10],
-  [6, 11], [11, 12], [12, 13], [13, 14], [14, 15], [15, 16],
-  [7, 13], [8, 14], [10, 16],
-  [1, 7], [4, 10], [9, 15],
+  [0, 1],
+  [1, 2],
+  [2, 3],
+  [3, 4],
+  [4, 5],
+  [0, 6],
+  [6, 7],
+  [7, 8],
+  [8, 9],
+  [9, 10],
+  [2, 8],
+  [3, 9],
+  [5, 10],
+  [6, 11],
+  [11, 12],
+  [12, 13],
+  [13, 14],
+  [14, 15],
+  [15, 16],
+  [7, 13],
+  [8, 14],
+  [10, 16],
+  [1, 7],
+  [4, 10],
+  [9, 15],
 ]
 
 const constellationLines = nodeConnections.map(([a, b], i) => ({
@@ -139,7 +158,7 @@ const features = [
       >
         <line
           v-for="(line, i) in constellationLines"
-          :key="'l'+i"
+          :key="`l${i}`"
           :x1="line.x1" :y1="line.y1"
           :x2="line.x2" :y2="line.y2"
           class="hero-definitive__cline"
@@ -148,7 +167,7 @@ const features = [
       </svg>
       <span
         v-for="(node, i) in constellationNodes"
-        :key="'n'+i"
+        :key="`n${i}`"
         class="hero-definitive__cnode-icon"
         :class="node.icon"
         :style="{

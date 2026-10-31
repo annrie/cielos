@@ -124,7 +124,9 @@ onUnmounted(() => {
             >
               設計済み
             </div>
-            <div class="text-sm text-gray-500 dark:text-slate-100 whitespace-nowrap">デザイントークン</div>
+            <div class="text-sm text-gray-500 dark:text-slate-100 whitespace-nowrap">
+              デザイントークン
+            </div>
           </div>
           <div class="flex-1 min-w-0">
             <div
@@ -133,7 +135,9 @@ onUnmounted(() => {
             >
               高速
             </div>
-            <div class="text-sm text-gray-500 dark:text-slate-100 whitespace-nowrap">Vite + UnoCSS</div>
+            <div class="text-sm text-gray-500 dark:text-slate-100 whitespace-nowrap">
+              Vite + UnoCSS
+            </div>
           </div>
           <div class="flex-1 min-w-0">
             <div
@@ -142,7 +146,9 @@ onUnmounted(() => {
             >
               安全
             </div>
-            <div class="text-sm text-gray-500 dark:text-slate-100 whitespace-nowrap">型付き実装</div>
+            <div class="text-sm text-gray-500 dark:text-slate-100 whitespace-nowrap">
+              型付き実装
+            </div>
           </div>
         </div>
       </div>
@@ -151,7 +157,6 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-
 .hero-diagonal-clip {
   clip-path: polygon(0 0, 64% 0, 50% 100%, 0 100%);
 }
