@@ -104,7 +104,7 @@ pnpm oco
 
 **ビルド設定**（`vite.config.ts`）:
 - 出力先: `dist/` ディレクトリ
-- エントリーポイント: `src/main.ts`, `src/blocks/my-block-editor.ts`, `src/assets/js/theme-watcher.cielos.js`
+- エントリーポイント: `src/main.ts`, `src/blocks/my-block-editor.ts`
 - ベースパス: `/wp-content/themes/cielos/dist/`（プロダクション）
 - ターゲット: `es2018`（モダンブラウザ）
 

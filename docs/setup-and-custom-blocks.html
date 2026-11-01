@@ -255,7 +255,9 @@ function cielos_is_vite_dev(): bool {
 <pre><code class="language-html">&lt;!-- header.php 内の初期化スクリプト --&gt;
 &lt;script&gt;
 (() =&gt; {
-  const theme = localStorage.getItem('cielos:theme') || 'system';
+  // 保存が禁止されたブラウザでは localStorage が例外を投げるので、そのときは OS の設定に従う
+  let theme = 'system';
+  try { theme = localStorage.getItem('cielos:theme') || 'system'; } catch (e) {}
   const isDark = theme === 'system'
     ? window.matchMedia('(prefers-color-scheme: dark)').matches
     : theme === 'dark';
@@ -274,11 +276,10 @@ function cielos_is_vite_dev(): bool {
 
 <h3>アーキテクチャ</h3>
 
-<p>見出しブロックのスタイルシステムは以下の 3 ファイルで構成されています。</p>
+<p>見出しブロックのスタイルシステムは以下の 2 ファイルで構成されています。</p>
 
 <pre><code>src/blocks/heading-styles.css       ← CSS スタイル定義
-src/blocks/my-block-editor.ts       ← STYLE_OPTIONS 配列（エディタ選択肢）
-src/blocks/HeadingStyleSelector.vue ← Vue セレクターコンポーネント</code></pre>
+src/blocks/my-block-editor.ts       ← STYLE_OPTIONS 配列（エディタ選択肢）</code></pre>
 
 <h3>ステップ 1: CSS クラスの定義</h3>
 
@@ -322,17 +323,7 @@ const STYLE_OPTIONS = [
 
 <p>これだけで、ブロックエディタの「見出し設定」パネルから新しいスタイルを選択できるようになります。</p>
 
-<h3>ステップ 3: Vue セレクターの更新（任意）</h3>
-
-<p><code>HeadingStyleSelector.vue</code> を使用している場合は、こちらにも追加します。</p>
-
-<pre><code class="language-typescript">// src/blocks/HeadingStyleSelector.vue
-const styles = [
-  // ... 既存のスタイル ...
-  { value: 'heading14', label: 'スタイル 14' },
-]</code></pre>
-
-<h3>ステップ 4: 確認</h3>
+<h3>ステップ 3: 確認</h3>
 
 <pre><code class="language-bash">pnpm dev</code></pre>
 
