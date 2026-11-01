@@ -17,7 +17,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="color-scheme" content="light dark">
 
-  <script>
+  <?php // Autoptimize defers scripts embedded in the page by default, so this would run after parsing. noptimize keeps it synchronous. ?>
+  <!--noptimize--><script>
 // FOUC (Flash of Unstyled Content) prevention: immediately apply 'dark' class to <html>
 (() => {
   const KEY = 'cielos:theme';
@@ -30,7 +31,7 @@
   document.documentElement.classList.toggle('dark', isDark);
   document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
 })();
-</script>
+</script><!--/noptimize-->
 
   <style id="cielos-adminbar-critical">
 /* 初期描画で admin-bar に潜り込まないよう、外部CSS前に top を確定 */
