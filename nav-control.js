@@ -20,14 +20,19 @@
     }
 
     // 保存が禁止されたブラウザでは localStorage が例外を投げる。
-    // そのときはページを開いている間だけ memo に覚えておき、切り替えを続けられるようにする
+    // そのときはページを開いている間だけ memo に覚えておき、切り替えを続けられるようにする。
+    // 読めるのに書けないこと（容量超過など）もあるので、一度切り替えたら memo を優先する。
+    // このファイルはビルドを通さずに配信するので、catch には引数を書く（省略できるのは ES2019 から）
     let memo = null
     const current = () => {
+      if (memo)
+        return memo
       try {
-        return localStorage.getItem(KEY) || memo || 'system'
+        return localStorage.getItem(KEY) || 'system'
       }
-      catch {
-        return memo || 'system'
+      // eslint-disable-next-line unused-imports/no-unused-vars -- 上のとおり ES2018 で動かすため引数を残す
+      catch (e) {
+        return 'system'
       }
     }
     const save = (mode) => {
@@ -35,7 +40,8 @@
       try {
         localStorage.setItem(KEY, mode)
       }
-      catch {}
+      // eslint-disable-next-line unused-imports/no-unused-vars -- 上のとおり ES2018 で動かすため引数を残す
+      catch (e) {}
     }
 
     // アイコン同期（3状態: light/dark/system）

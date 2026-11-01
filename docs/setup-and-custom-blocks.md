@@ -249,7 +249,9 @@ Cielos は `theme.json` v3 を使用し、WordPress のフルサイトエディ�
 <!-- header.php 内の初期化スクリプト -->
 <script>
 (() => {
-  const theme = localStorage.getItem('cielos:theme') || 'system';
+  // 保存が禁止されたブラウザでは localStorage が例外を投げるので、そのときは OS の設定に従う
+  let theme = 'system';
+  try { theme = localStorage.getItem('cielos:theme') || 'system'; } catch (e) {}
   const isDark = theme === 'system'
     ? window.matchMedia('(prefers-color-scheme: dark)').matches
     : theme === 'dark';
@@ -266,12 +268,11 @@ Cielos では 27 種類の見出しスタイルバリエーションが用意さ
 
 ### アーキテクチャ
 
-見出しブロックのスタイルシステムは以下の 3 ファイルで構成されています。
+見出しブロックのスタイルシステムは以下の 2 ファイルで構成されています。
 
 ```
 src/blocks/heading-styles.css       ← CSS スタイル定義
 src/blocks/my-block-editor.ts       ← STYLE_OPTIONS 配列（エディタ選択肢）
-src/blocks/HeadingStyleSelector.vue ← Vue セレクターコンポーネント
 ```
 
 ### ステップ 1: CSS クラスの定義
@@ -318,19 +319,7 @@ const STYLE_OPTIONS = [
 
 これだけで、ブロックエディタの「見出し設定」パネルから新しいスタイルを選択できるようになります。
 
-### ステップ 3: Vue セレクターの更新（任意）
-
-`HeadingStyleSelector.vue` を使用している場合は、こちらにも追加します。
-
-```ts
-// src/blocks/HeadingStyleSelector.vue
-const styles = [
-  // ... 既存のスタイル ...
-  { value: 'heading14', label: 'スタイル 14' },
-]
-```
-
-### ステップ 4: 確認
+### ステップ 3: 確認
 
 ```bash
 pnpm dev
