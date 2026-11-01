@@ -32,7 +32,7 @@ overrides:
   katex@<0.18.2: ^0.18.2
   lodash@>=4.0.0 <=4.17.23: ^4.18.1
   minimatch@<3.1.4: ^3.1.4
-  # minimatch 10 系: GHSA（globparts の増幅による DoS、Dependabot #95、2026-11-01）は 11.0.1 からしか直っていない。
+  # minimatch 10 系: GHSA-g3hv-75wg-m249（globparts の増幅による DoS、Dependabot #95、2026-11-01）は 11.0.1 からしか直っていない。
   # ESLint（eslint ^10.2.5・@eslint/config-array ^10.2.4・typescript-estree ^10.2.2）がまだ 10 系を要求するので、
   # 11 系への override はしない（上流待ち）。11 系は 2026-10-27 に出た作り直し版で、新しい依存（@isaacs/nonrecursive-glob-match）も増える。
   # 開発用（lint）で本番には入らず、渡すパターンは自分の設定ファイルのものだけ。ESLint が 11 系に上げたらこのコメントを消す
