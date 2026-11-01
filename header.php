@@ -21,7 +21,9 @@
 // FOUC (Flash of Unstyled Content) prevention: immediately apply 'dark' class to <html>
 (() => {
   const KEY = 'cielos:theme';
-  const theme = localStorage.getItem(KEY) || 'system';
+  // localStorage throws when storage is blocked; fall back to the OS setting
+  let theme = 'system';
+  try { theme = localStorage.getItem(KEY) || 'system'; } catch (e) {}
   const isDark = theme === 'system'
     ? window.matchMedia('(prefers-color-scheme: dark)').matches
     : theme === 'dark';

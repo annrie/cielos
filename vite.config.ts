@@ -64,7 +64,6 @@ export default defineConfig(({ mode }) => {
         input: {
           main: 'src/main.ts',
           block: 'src/blocks/my-block-editor.ts',
-          watcher: 'src/assets/js/theme-watcher.cielos.js',
         },
         // WordPress パッケージを外部依存として扱う
         external: Object.keys(wpExternals),

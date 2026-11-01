@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 // ⭐ 追加: mode（'inline' or 'background'）
 const props = defineProps<{
@@ -50,29 +50,6 @@ function normalizeSvgPayload(txt: string, contentType = ''): string {
   }
   return ''
 }
-
-const mediaCache = new Map<number, Promise<string>>() // id -> source_url
-// eslint-disable-next-line unused-imports/no-unused-vars -- 今は未使用の補助。使い方は下のコメント
-function lookupMedia(id: number) {
-  if (!mediaCache.has(id)) {
-    mediaCache.set(id, fetch(`/wp-json/wp/v2/media/${id}`, { credentials: 'same-origin' })
-      .then(r => r.json()).then(j => j?.source_url || ''))
-  }
-  return mediaCache.get(id)!
-}
-// 使う側: const fileUrl = await lookupMedia(id)
-
-// svg文字列から viewBox を拾って aspect-ratio を付与
-// eslint-disable-next-line unused-imports/no-unused-vars -- 今は未使用の補助。使い方は下のコメント
-const arStyle = computed(() => {
-  const m = svg.value.match(/viewBox\s*=\s*"(\d+)\s+(\d+)\s+(\d+)\s+(\d+)"/i)
-  if (!m)
-    return {}
-  const w = Number(m[3])
-  const h = Number(m[4])
-  return (w && h) ? { aspectRatio: `${w}/${h}` } : {}
-})
-// 背景モードの <div> に :style="[bgStyle, arStyle]" のように足す
 
 onMounted(async () => {
   try {

@@ -19,7 +19,24 @@
       return v === 'dark'
     }
 
-    const current = () => localStorage.getItem(KEY) || 'system'
+    // 保存が禁止されたブラウザでは localStorage が例外を投げる。
+    // そのときはページを開いている間だけ memo に覚えておき、切り替えを続けられるようにする
+    let memo = null
+    const current = () => {
+      try {
+        return localStorage.getItem(KEY) || memo || 'system'
+      }
+      catch {
+        return memo || 'system'
+      }
+    }
+    const save = (mode) => {
+      memo = mode
+      try {
+        localStorage.setItem(KEY, mode)
+      }
+      catch {}
+    }
 
     // アイコン同期（3状態: light/dark/system）
     // data-theme-toggle 属性を持つ全ボタンを対象
@@ -91,7 +108,7 @@
           e.preventDefault()
 
           const newTheme = nextTheme(current())
-          localStorage.setItem(KEY, newTheme)
+          save(newTheme)
 
           const newDark = isDarkResolved(newTheme)
           root.classList.toggle('dark', newDark)
