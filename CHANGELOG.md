@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.29
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.28...v1.0.29)
+
+### 🐛 バグ修正
+
+- 🐛 ちらつき防止スクリプトを Autoptimize の defer から外す ([e173794](https://github.com/annrie/cielos/commit/e173794))
+
+### 📖 ドキュメント
+
+- 📝 minimatch の上流待ちのコメントに GHSA の ID を足す ([fab3752](https://github.com/annrie/cielos/commit/fab3752))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.28に同期 ([007c739](https://github.com/annrie/cielos/commit/007c739))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.28
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.27...v1.0.28)
