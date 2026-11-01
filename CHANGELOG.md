@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.28
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.27...v1.0.28)
+
+### 🐛 バグ修正
+
+- 🐛 localStorage が使えないブラウザへの対応と、使われていないファイルの整理 ([06e4dce](https://github.com/annrie/cielos/commit/06e4dce))
+- 🐛 レビュー指摘の修正（テーマ切り替えの保存失敗時の動きと、古い構文環境への配慮） ([38b4f5a](https://github.com/annrie/cielos/commit/38b4f5a))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.27に同期 ([34a4fff](https://github.com/annrie/cielos/commit/34a4fff))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.27
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.26...v1.0.27)
