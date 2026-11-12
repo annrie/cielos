@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## v1.0.30
+
+[compare changes](https://github.com/annrie/cielos/compare/v1.0.29...v1.0.30)
+
+### 🐛 バグ修正
+
+- **i18n:** 🐛 メニューの登録を after_setup_theme に移し、翻訳の読み込みが早すぎる notice を消す ([a5d6f75](https://github.com/annrie/cielos/commit/a5d6f75))
+
+### 🧹 ビルドプロセスまたは補助ツールの変更
+
+- 🔖 style.cssのテーマバージョンを1.0.29に同期 ([2df3a69](https://github.com/annrie/cielos/commit/2df3a69))
+
+### ❤️ Contributors
+
+- Annrie ([@annrie](https://github.com/annrie))
+
 ## v1.0.29
 
 [compare changes](https://github.com/annrie/cielos/compare/v1.0.28...v1.0.29)
