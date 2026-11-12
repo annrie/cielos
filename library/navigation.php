@@ -11,14 +11,27 @@
  * @link     https://unomoon.cielos.com
  */
 
-register_nav_menus(
-    array(
-        'primary-menu' => __('Primary Menu', 'cielos'),
-        'top-bar-r'   => esc_html__('Right Top Bar', 'cielos'),
-        'mobile-nav'  => esc_html__('Mobile', 'cielos'),
-        'privacy-nav' => esc_html__('Privacy', 'cielos'),
-    )
-);
+/**
+ * メニューの場所を登録する
+ *
+ * ファイルを読み込んだ時点で __() を呼ぶと、WordPress 6.7 以降は
+ * 「翻訳の読み込みが早すぎる」notice が出るため、after_setup_theme で登録する。
+ * 翻訳を読み込む cielos_theme_support（theme-support.php）は先に同じ優先度で
+ * 登録されているので、こちらより先に実行される。
+ */
+if ( ! function_exists('cielos_register_nav_menus') ) {
+    function cielos_register_nav_menus() {
+        register_nav_menus(
+            array(
+                'primary-menu' => __('Primary Menu', 'cielos'),
+                'top-bar-r'   => esc_html__('Right Top Bar', 'cielos'),
+                'mobile-nav'  => esc_html__('Mobile', 'cielos'),
+                'privacy-nav' => esc_html__('Privacy', 'cielos'),
+            )
+        );
+    }
+}
+add_action('after_setup_theme', 'cielos_register_nav_menus');
 
 
 /**
